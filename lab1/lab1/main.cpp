@@ -4,14 +4,14 @@
 #include <fstream>
 #include <sys/stat.h>
 
-bool check_size_file(std::string nameFile)
+bool CheckSizeFile(std::string nameFile)
 {
 	struct stat file;
 	stat(nameFile.c_str(), &file);
 	return (file.st_size > 0 && file.st_size < 2147483648);
 }
 
-void input_text_in_file(std::string nameFile, std::vector<std::string> &text) 
+void InputTextInFile(std::string nameFile, std::vector<std::string> &text) 
 {
 	std::ifstream inpFile(nameFile);
 	
@@ -21,7 +21,7 @@ void input_text_in_file(std::string nameFile, std::vector<std::string> &text)
 		system("pause");
 		exit(1);
 	}
-	else if (!check_size_file(nameFile)) 
+	else if (!CheckSizeFile(nameFile))
 	{
 		std::cout << "Error! File very big size or 0";
 		system("pause");
@@ -35,7 +35,7 @@ void input_text_in_file(std::string nameFile, std::vector<std::string> &text)
 	}
 }
 
-void output_text_in_file(std::string nameFile, std::vector<std::string> text)
+void OutputTextInFile(std::string nameFile, std::vector<std::string> text)
 {
 	std::ofstream outFile(nameFile);
 	for (auto i : text) {
@@ -43,14 +43,14 @@ void output_text_in_file(std::string nameFile, std::vector<std::string> text)
 	}
 }
 
-void find_and_replace_string(std::vector<std::string> &lst_str, std::string replaceAblestr, std::string replaceMentstr) 
+void FindAndReplaceString(std::vector<std::string> &lst_str, std::string replaceableStr, std::string replacementStr) 
 {
 	std::string::size_type pos;
 	for (int i = 0; i < int(lst_str.size()); i++)
 	{	
 		bool slice = false;
 		std::string localSTR = lst_str[i];
-		pos = localSTR.find(replaceAblestr);
+		pos = localSTR.find(replaceableStr);
 		if (pos < localSTR.length())
 		{
 			lst_str[i].clear();
@@ -58,27 +58,35 @@ void find_and_replace_string(std::vector<std::string> &lst_str, std::string repl
 		}
 		while (pos < localSTR.length())
 		{
-			localSTR.replace(pos, replaceAblestr.length(), replaceMentstr);
-			lst_str[i] += localSTR.substr(0, pos + replaceMentstr.length());
-			localSTR.replace(0, pos + replaceMentstr.length(), "");
-			pos = localSTR.find(replaceAblestr);
+			localSTR.replace(pos, replaceableStr.length(), replacementStr);
+			lst_str[i] += localSTR.substr(0, pos + replacementStr.length());
+			localSTR.replace(0, pos + replacementStr.length(), "");
+			pos = localSTR.find(replacementStr);
 		}
 		if (slice && localSTR.size() > 0) 
 		{
-			lst_str[i] += localSTR.substr(0, pos + replaceMentstr.length());
+			lst_str[i] += localSTR.substr(0, pos + replacementStr.length());
 		}
 	}
 }
 
+void PrintExample()
+{
+	std::cout << "EXAMPLE: lab1.exe \"input.txt\" \"output.txt\" \"replaceable word\" \"replacement word\" \n";
+}
+
+
 int main(int argc, char * argv[]) 
 {	
-	if (argc > 5) 
+	if (argc > 5)
 	{
 		std::cout << "you have many arguments\n";
+		PrintExample();
 	}
 	else if (argc < 5)
 	{
 		std::cout << "you have too few arguments\n";
+		PrintExample();
 	}
 	else
 	{
@@ -88,13 +96,13 @@ int main(int argc, char * argv[])
 		std::string replaceableStr = argv[3];
 		std::string replacementStr = argv[4];
 		
-		input_text_in_file(nameInputFile, lst_strings);
+		InputTextInFile(nameInputFile, lst_strings);
 
 		if (replaceableStr.length() > 0)
 		{
-			find_and_replace_string(lst_strings, replaceableStr, replacementStr);
+			FindAndReplaceString(lst_strings, replaceableStr, replacementStr);
 		}
-		output_text_in_file(nameOutputFile, lst_strings);
+		OutputTextInFile(nameOutputFile, lst_strings);
 	}
 
 	system("pause");
