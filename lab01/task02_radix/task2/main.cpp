@@ -2,42 +2,32 @@
 #include <string>
 #include <cmath>
 
-void CheckNumToSourceNotation(int num, int notation, bool & wasError) 
-{
-	if (num > notation - 1)
-	{
-		wasError = true;
-	}
-}
-
-int SourceNotationToDec(std::string byte, const int & sourceNotation, bool & wasError) 
+int SourceNotationToDec(std::string numConvers, const int & sourceNotation, bool & wasError)
 {
 	bool minus = false;
-	if ((int)byte[0] == 45)
+
+	if (numConvers.front() == '-')
 	{
 		minus = true;
-		byte = byte.substr(1);
+		numConvers.erase(numConvers.begin());
 	}
-	int count = byte.length() - 1;
+	int count = numConvers.length() - 1;
 	int result = 0;
-	while (byte.length() > 0)
+	while (numConvers.length() > 0)
 	{
-		if ((int)byte[0] < 91 && (int)byte[0] > 64)
+		if (numConvers.front() >= 'A' && numConvers.front() <= 'Z')
 		{
-			CheckNumToSourceNotation((int)byte[0] - 55, sourceNotation, wasError);
-			result += ((int)byte[0] - 55) * pow(sourceNotation, count);
+			result += (numConvers.front() - 'A' + 10) * pow(sourceNotation, count);
 		}
-		else if ((int)byte[0] > 47 && (int)byte[0] < 58)
+		else if (numConvers.front() >= '0' && numConvers.front() <= '9')
 		{
-			CheckNumToSourceNotation((int)byte[0] - 48, sourceNotation, wasError);
-			result += ((int)byte[0] - 48) * pow(sourceNotation, count);
+			result += (numConvers.front() - '0') * pow(sourceNotation, count);
 		}
 		else
 		{
-			if ((int)byte[0] > 96 && (int)byte[0] < 123)
+			if (numConvers.front() >= 'a' && numConvers.front() <= 'z')
 			{
-				CheckNumToSourceNotation((int)byte[0] - 87, sourceNotation, wasError);
-				result += ((int)byte[0] - 87) * pow(sourceNotation, count);
+				result += (numConvers.front() - 'a' + 10) * pow(sourceNotation, count);
 			}
 			else
 			{
@@ -48,8 +38,8 @@ int SourceNotationToDec(std::string byte, const int & sourceNotation, bool & was
 		{
 			return 0;
 		}
-		byte = byte.substr(1);
-		count --;
+		numConvers.erase(numConvers.begin());
+		count--;
 	}
 	if (minus)
 	{
@@ -61,7 +51,7 @@ int SourceNotationToDec(std::string byte, const int & sourceNotation, bool & was
 std::string DecToDestinationNotation(int decNumber, const int & destinationNot)
 {
 	bool minus = false;
-	std::string binary = "";
+	std::string result = "";
 	if (decNumber < 0)
 	{
 		minus = true;
@@ -69,35 +59,40 @@ std::string DecToDestinationNotation(int decNumber, const int & destinationNot)
 	}
 	else if (decNumber == 0)
 	{
-		binary = "0";
+		result = "0";
 	}
-
+	
 	while (decNumber > 0)
 	{
 		int num = 0;
-		num = decNumber - destinationNot * (decNumber / destinationNot);
+		num = decNumber % destinationNot;
 		decNumber = decNumber / destinationNot;
 		if (num - 10 >= 0)
 		{
-			int sasd = num - 10;
-			binary = (char)(65 + sasd) + binary;
+			result = (char)('A' + (num - 10)) + result;
 		}
 		else
 		{
-			binary = std::to_string(num) + binary;
+			result = std::to_string(num) + result;
 		}
 	}
-	if (minus && binary != "0")
+	if (minus && result != "0")
 	{
-		binary = "-" + binary;
+		result = "-" + result;
 	}
-	return binary;
+	return result;
 }
 
-void PrintExample() 
+
+void PrintHelp() 
 {
 	std::cout << "radix.exe <source notation> <destination notation> <value> \n";
 	std::cout << "EXAMPLE: radix.exe \"16\" \"10\" \"1F\"\n";
+}
+
+bool checkNotation(int notation)
+{
+	return (notation >= 2 && notation <= 36);
 }
 
 int main(int argc, char * argv[])
@@ -105,27 +100,28 @@ int main(int argc, char * argv[])
 	if (argc > 4)
 	{
 		std::cout << "you have many arguments\n";
-		PrintExample();
+		PrintHelp();
+		return 1;
 	}
 	else if (argc < 4)
 	{
 		std::cout << "you have too few arguments\n";
-		PrintExample();
+		PrintHelp();
+		return 1;
 	}
 	else
 	{
-		std::string value = argv[1];
-		int source = atoi(value.c_str());
+		std::string sourceStr = argv[1];
+		std::string destStr = argv[2];
+		std::string valueStr = argv[3];
 
-		value = argv[2];
-		int destination = atoi(value.c_str());
+		int source = atoi(sourceStr.c_str());
+		int destination = atoi(destStr.c_str());
 
-		value = argv[3];
 		bool wasError = false;
-		int decNumber = SourceNotationToDec(value, source, wasError);
-
-		if ((source >= 2 && source <= 36) && (destination >= 2 && destination <= 36))
+		if (checkNotation(source) && checkNotation(destination))
 		{
+			int decNumber = SourceNotationToDec(valueStr, source, wasError);
 			if (!wasError)
 			{
 				std::string result = DecToDestinationNotation(decNumber, destination);
@@ -135,13 +131,14 @@ int main(int argc, char * argv[])
 			{
 				std::cout << "incorrect value. value = 0-9 and A-Z and should be in the source notation\n";
 				std::cout<<"Example: task2.exe \"36\" \"10\" \"27WZ\"\n";
+				return 1;
 			}
 		}
 		else
 		{
 			std::cout << "incorrect input bit. Bit should be from 2 to 36 \n";
+			return 1;
 		}
 	}
-	system("pause");
 	return 0;
 }

@@ -46,13 +46,11 @@ void Application(char * argv[])
 	if (!inpFile.is_open()) 
 	{
 		std::cout<< "Error open file\n";
-		system("pause");
 		exit(1);
 	}
 	else if (!CheckSizeFile(inputFileName))
 	{
 		std::cout << "Error! File very big size or 0";
-		system("pause");
 		exit(1);
 	}
 
@@ -70,7 +68,7 @@ void Application(char * argv[])
 	}
 }
 
-void PrintExample()
+void PrintHelp()
 {
 	std::cout << "EXAMPLE: lab1.exe \"input.txt\" \"output.txt\" \"replaceable word\" \"replacement word\" \n";
 }
@@ -81,16 +79,17 @@ int main(int argc, char * argv[])
 	if (argc > 5)
 	{
 		std::cout << "you have many arguments\n";
-		PrintExample();
+		PrintHelp();
 	}
 	else if (argc < 5)
 	{
 		std::cout << "you have too few arguments\n";
-		PrintExample();
+		PrintHelp();
 	}
 	else
 	{	
 		Application(argv);
+		return 0;
 	}
-	return 0;
+	return 1;
 }

@@ -153,7 +153,7 @@ void Application(float (&matrix)[3][3])
 	}
 	else
 	{
-		std::cout << "Inverse matrix is not possible. Determinant = 0";
+		std::cout << "Inverse matrix is not possible. Determinant = 0\n";
 	}
 }
 
@@ -168,6 +168,7 @@ int main(int argc, char * argv[])
 	else
 	{
 		std::cout << "Example: task3.exe \"file.txt\"";
+		return 1;
 	}
 	return 0;
 }
