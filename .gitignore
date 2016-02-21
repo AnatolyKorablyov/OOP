@@ -61,12 +61,17 @@ artifacts/
 *.tmp
 *.tmp_proj
 *.log
+*.obj
+*.idb
+*.tlog
+*.pdb
 *.vspscc
 *.vssscc
 .builds
 *.pidb
 *.svclog
 *.scc
+*.lastbuildstate
 
 # Chutzpah Test files
 _Chutzpah*

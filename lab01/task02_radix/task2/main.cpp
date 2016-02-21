@@ -17,17 +17,17 @@ int SourceNotationToDec(std::string numConvers, const int & sourceNotation, bool
 	{
 		if (numConvers.front() >= 'A' && numConvers.front() <= 'Z')
 		{
-			result += (numConvers.front() - 'A' + 10) * pow(sourceNotation, count);
+			result += (numConvers.front() - 'A' + 10) * int(pow(sourceNotation, count));
 		}
 		else if (numConvers.front() >= '0' && numConvers.front() <= '9')
 		{
-			result += (numConvers.front() - '0') * pow(sourceNotation, count);
+			result += (numConvers.front() - '0') * int(pow(sourceNotation, count));
 		}
 		else
 		{
 			if (numConvers.front() >= 'a' && numConvers.front() <= 'z')
 			{
-				result += (numConvers.front() - 'a' + 10) * pow(sourceNotation, count);
+				result += (numConvers.front() - 'a' + 10) * int(pow(sourceNotation, count));
 			}
 			else
 			{
