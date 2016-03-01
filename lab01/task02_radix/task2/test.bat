@@ -3,24 +3,28 @@ SET program="%1"
 if %program% == "" goto err
 
 echo 1
-task2.exe "16" "10" "FF"
+%program% "16" "10" "FF"
 if ERRORLEVEL 1 goto testFailed
 
 echo 2
-task2.exe "36" "10" "ZZ"
+%program% "36" "10" "ZZ"
 if ERRORLEVEL 1 goto testFailed
 
 echo 3
-task2.exe "2" "10" "DDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+%program% "16" "10" "DDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
 if ERRORLEVEL 1 goto testFailed
 
 echo 4
-task2.exe "37" "10" "FF"
-if ERRORLEVEL 1 goto testFailed
+%program% "37" "10" "FF"
+if NOT ERRORLEVEL 1 goto testFailed
 
 echo 5
-task2.exe "1" "10" "00"
-if ERRORLEVEL 1 goto testFailed
+%program% "1" "10" "0"
+if NOT ERRORLEVEL 1 goto testFailed
+
+echo 6
+%program% "2" "10" " "
+if NOT ERRORLEVEL 1 goto testFailed
 
 echo OK
 exit /B

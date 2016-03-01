@@ -13,14 +13,13 @@ bool CheckValue(std::string string, int & num)
 
 }
 
-void ReadFile(const std::string & nameFile, float (&matrix)[3][3]) 
+bool ReadFile(const std::string & nameFile, float (&matrix)[3][3]) 
 {
 	std::ifstream inpFile(nameFile);
 	if (!inpFile.is_open())
 	{
 		std::cout << "Error open file\n";
-		system("pause");
-		exit(1);
+		return false;
 	}
 	int countX = 0;
 	while (!inpFile.eof())
@@ -30,22 +29,26 @@ void ReadFile(const std::string & nameFile, float (&matrix)[3][3])
 		std::getline(inpFile, string);
 		int num = 0;
 		int m_start = 0;
-
-		for (int i = 0; i < 3; i++)
+		if (countX < 3)
 		{
-			if (CheckValue(string, num))
+			for (int i = 0; i < 3; i++)
 			{
-				matrix[countX][i] = float(atof(string.substr(m_start, num).c_str()));
-				num++;
-				m_start = num;
-			}
-			else
-			{
-				std::cout << "incorrect matrix";
+				if (CheckValue(string, num))
+				{
+					matrix[countX][i] = float(atof(string.substr(m_start, num).c_str()));
+					num++;
+					m_start = num;
+				}
+				else
+				{
+					std::cout << "incorrect matrix\n";
+					return false;
+				}
 			}
 		}
 		countX++;
 	}
+	return true;
 }
 
 
@@ -132,7 +135,7 @@ void MultiplyNumberAndMatrix(float number, float (&matrix)[3][3])
 	}
 }
 
-void Application(float (&matrix)[3][3])
+int Application(float (&matrix)[3][3])
 {
 
 	float determinate = CalcDeterminateThirdOrder(matrix);
@@ -154,21 +157,25 @@ void Application(float (&matrix)[3][3])
 	else
 	{
 		std::cout << "Inverse matrix is not possible. Determinant = 0\n";
+		return 1;
 	}
+	return 0;
 }
 
 int main(int argc, char * argv[])
 {
-	if (argc == 2)
-	{
-		float matrix[3][3];
-		ReadFile(argv[1], matrix);
-		Application(matrix);
+	float matrix[3][3];
+	if (argc == 2) {
+		if (ReadFile(argv[1], matrix))
+		{
+			return Application(matrix);
+		}
+		else
+		{
+			return 1;
+		}
 	}
 	else
-	{
-		std::cout << "Example: task3.exe \"file.txt\"";
-		return 1;
-	}
-	return 0;
+		std::cout << "Example: task3.exe \"input.txt\"\n";
+	return 1;
 }

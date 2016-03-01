@@ -95,50 +95,51 @@ bool checkNotation(int notation)
 	return (notation >= 2 && notation <= 36);
 }
 
+
+int Application(std::string sourceStr, std::string destStr, std::string valueStr)
+{
+	int source = atoi(sourceStr.c_str());
+	int destination = atoi(destStr.c_str());
+
+	bool wasError = false;
+	if (checkNotation(source) && checkNotation(destination))
+	{
+		int decNumber = SourceNotationToDec(valueStr, source, wasError);
+		if (!wasError)
+		{
+			std::string result = DecToDestinationNotation(decNumber, destination);
+			std::cout << result << "\n";
+		}
+		else
+		{
+			std::cout << "incorrect value. value = 0-9 and A-Z and should be in the source notation\n";
+			std::cout << "Example: task2.exe \"36\" \"10\" \"27WZ\"\n";
+			return 1;
+		}
+	}
+	else
+	{
+		std::cout << "incorrect input bit. Bit should be from 2 to 36 \n";
+		return 1;
+	}
+	return 0;
+}
+
 int main(int argc, char * argv[])
 {
 	if (argc > 4)
 	{
 		std::cout << "you have many arguments\n";
 		PrintHelp();
-		return 1;
 	}
 	else if (argc < 4)
 	{
 		std::cout << "you have too few arguments\n";
 		PrintHelp();
-		return 1;
 	}
 	else
 	{
-		std::string sourceStr = argv[1];
-		std::string destStr = argv[2];
-		std::string valueStr = argv[3];
-
-		int source = atoi(sourceStr.c_str());
-		int destination = atoi(destStr.c_str());
-
-		bool wasError = false;
-		if (checkNotation(source) && checkNotation(destination))
-		{
-			int decNumber = SourceNotationToDec(valueStr, source, wasError);
-			if (!wasError)
-			{
-				std::string result = DecToDestinationNotation(decNumber, destination);
-				std::cout << result << "\n";
-			}
-			else
-			{
-				std::cout << "incorrect value. value = 0-9 and A-Z and should be in the source notation\n";
-				std::cout<<"Example: task2.exe \"36\" \"10\" \"27WZ\"\n";
-				return 1;
-			}
-		}
-		else
-		{
-			std::cout << "incorrect input bit. Bit should be from 2 to 36 \n";
-			return 1;
-		}
+		return Application(argv[1], argv[2], argv[3]);
 	}
-	return 0;
+	return 1;
 }

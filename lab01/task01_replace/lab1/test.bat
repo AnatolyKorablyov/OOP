@@ -1,22 +1,50 @@
-@echo off
+rem @echo off
+SET program="%1"
+if %program% == "" goto err
 
 mkdir OUT
 echo "1"
-lab1.exe "test\input.txt" "OUT\out1.txt" "ma" "mama"
+%program% "test\input.txt" "OUT\out1.txt" "ma" "mama"
+if ERRORLEVEL 1 goto testFailed
+
 echo "2"
-lab1.exe "test\input.txt" "OUT\out2.txt" "1231234" "TABULATION"
+%program% "test\input.txt" "OUT\out2.txt" "1231234" "TABULATION"
+if ERRORLEVEL 1 goto testFailed
+
 echo "3"
-lab1.exe "test\input.txt" "OUT\out3.txt" "123" "ASDASASDABSJDGABSJDGBASBDJBASDHBKAHSBDHBASDBAKHSDBHASBHDKASBHDBHJASBHDASBHDABJHSDBHAASDABSJDGABSJDGBASBDJBASDHBKAHSBDHBASDBAKHSDBHASBHDKASBHDBHJASBHDASBHDABJHSDBHAASDABSJDGABSJDGBASBDJBASDHBKAHSBDHBASDBAKHSDBHASBHDKASBHDBHJASBHDASBHDABJHSDBHAASDABSJDGABSJDGBASBDJBASDHBKAHSBDHBASDBAKHSDBHASBHDKASBHDBHJASBHDASBHDABJHSDBHADASDAHGDAGVSDGHSADASGHDGHASDGHASSDASASGHDGHASDGHASSDASDASDASDASDHASHGDAGVS"
+%program% "test\input.txt" "OUT\out3.txt" "123" "ASDASASDABSJDGABSJDGBASBDJBASDHBKAHSBDHBASDBAKHSDBHASBHDKASBHDBHJASBHDASBHDABJHSDBHAASDABSJDGABSJDGBASBDJBASDHBKAHSBDHBASDBAKHSDBHASBHDKASBHDBHJASBHDASBHDABJHSDBHAASDABSJDGABSJDGBASBDJBASDHBKAHSBDHBASDBAKHSDBHASBHDKASBHDBHJASBHDASBHDABJHSDBHAASDABSJDGABSJDGBASBDJBASDHBKAHSBDHBASDBAKHSDBHASBHDKASBHDBHJASBHDASBHDABJHSDBHADASDAHGDAGVSDGHSADASGHDGHASDGHASSDASASGHDGHASDGHASSDASDASDASDASDHASHGDAGVS"
+if ERRORLEVEL 1 goto testFailed
+
 echo "4"
-lab1.exe "test\input.txt" "OUT\out4.txt" "peace" ""
+%program% "test\input.txt" "OUT\out4.txt" "peace" ""
+if ERRORLEVEL 1 goto testFailed
+
 echo "5"
-lab1.exe "test\input.txt" "OUT\out5.txt" "" "CAPS LOCK"
+%program% "test\input.txt" "OUT\out5.txt" "" "CAPS LOCK"
+if ERRORLEVEL 1 goto testFailed
+
 echo "6"
-lab1.exe "test\empty.txt" "OUT\out6.txt" "123" "321"
+%program% "test\empty.txt" "OUT\out6.txt" "123" "321"
+if NOT ERRORLEVEL 1 goto testFailed
+
 echo "7"
-lab1.exe "test\3gb.txt" "OUT\out7.txt" "пере" "после"
+%program% "test\3gb.txt" "OUT\out7.txt" "пере" "после"
+if NOT ERRORLEVEL 1 goto testFailed
+
 echo "8"
-lab1.exe "test\input" "OUT\out8.txt" "123" "211"
+%program% "test\input" "OUT\out8.txt" "123" "211"
+if NOT ERRORLEVEL 1 goto testFailed
+
 echo "9"
-lab1.exe "test\input.txt" "OUT\out9" "123" "321"
-pause
+%program% "test\input.txt" "OUT\out9" "123" "321"
+if ERRORLEVEL 1 goto testFailed
+
+echo OK
+exit /B
+
+:testFailed
+echo Testing failed
+exit /B
+
+:err
+echo Usage: test.bat <Path to program>

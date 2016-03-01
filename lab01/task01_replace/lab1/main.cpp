@@ -35,7 +35,7 @@ void FindAndReplaceString(std::string & string, const std::string & searchStr, c
 }
 
 
-void Application(char * argv[])
+int Application(char * argv[])
 {
 	std::string inputFileName = argv[1];
 	std::string outputFileName = argv[2];
@@ -46,12 +46,12 @@ void Application(char * argv[])
 	if (!inpFile.is_open()) 
 	{
 		std::cout<< "Error open file\n";
-		exit(1);
+		return 1;
 	}
 	else if (!CheckSizeFile(inputFileName))
 	{
-		std::cout << "Error! File very big size or 0";
-		exit(1);
+		std::cout << "Error! File very big size or 0\n";
+		return 1;
 	}
 
 	std::ofstream outFile(outputFileName);
@@ -66,6 +66,7 @@ void Application(char * argv[])
 		}
 		outFile << string << "\n";
 	}
+	return 0;
 }
 
 void PrintHelp()
@@ -88,8 +89,7 @@ int main(int argc, char * argv[])
 	}
 	else
 	{	
-		Application(argv);
-		return 0;
+		return Application(argv);
 	}
 	return 1;
 }
