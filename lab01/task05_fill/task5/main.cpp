@@ -44,7 +44,7 @@ bool FindStart(const string & mainStr, vector<pair<int, int>> & posStart, int y)
 		found = true;
 		posStart.push_back(make_pair(x, y));
 		border -= x;
-		localStr.substr(x);
+		localStr = localStr.substr(x); 
 		int x = localStr.find("0");
 	}
 	return found;
@@ -79,8 +79,9 @@ bool ReadFile(string inputFileName, string (&massString)[100], vector<pair<int, 
 	return foundPosition;
 }
 
-void FillContour(string(&stringLst)[100], vector<pair<int, int>> coordinateLst)
+void FillContour(string(&stringLst)[100], const vector<pair<int, int>> & posStart)
 {
+	vector<pair<int, int>> coordinateLst = posStart;
 	while (coordinateLst.size() > 0)
 	{
 		int x = coordinateLst[0].first;
@@ -90,19 +91,19 @@ void FillContour(string(&stringLst)[100], vector<pair<int, int>> coordinateLst)
 			stringLst[y][x] = '.';
 			if (x > 0)
 			{
-				coordinateLst.push_back(std::make_pair(x - 1, y));
+				coordinateLst.push_back(make_pair(x - 1, y));
 			}
 			if (x < 99)
 			{
-				coordinateLst.push_back(std::make_pair(x + 1, y));
+				coordinateLst.push_back(make_pair(x + 1, y));
 			}
 			if (y > 0)
 			{
-				coordinateLst.push_back(std::make_pair(x, y - 1));
+				coordinateLst.push_back(make_pair(x, y - 1));
 			}
 			if (y < 99)
 			{
-				coordinateLst.push_back(std::make_pair(x, y + 1));
+				coordinateLst.push_back(make_pair(x, y + 1));
 			}
 		}
 		coordinateLst.erase(coordinateLst.begin());
@@ -138,6 +139,7 @@ void PrintExample()
 
 int main(int argc, char * argv[])
 {
+	cout << "hi" << endl;
 	if (argc != 3)
 	{
 		PrintExample();
