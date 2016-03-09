@@ -3,16 +3,22 @@ SET program="%1"
 if %program% == "" goto err
 
 echo 1
-%program% "16" "10" "FF"
+%program% "16" "10" "FF" >> out1.txt
+if ERRORLEVEL 1 goto testFailed
+fc.exe "out1.txt" "standart\test1.txt"
 if ERRORLEVEL 1 goto testFailed
 
 echo 2
-%program% "36" "10" "ZZ"
+%program% "36" "10" "ZZ" >> out2.txt
+if ERRORLEVEL 1 goto testFailed
+fc.exe "out2.txt" "standart\test2.txt"
 if ERRORLEVEL 1 goto testFailed
 
 echo 3
-%program% "16" "10" "DDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+%program% "16" "10" "-DDDDDDDDDDDDDDDDDDDDDDDDDDDDD" >> out3.txt
 if ERRORLEVEL 1 goto testFailed
+fc.exe "out3.txt" "standart\longNumber.txt"
+if NOT ERRORLEVEL 1 goto testFailed
 
 echo 4
 %program% "37" "10" "FF"

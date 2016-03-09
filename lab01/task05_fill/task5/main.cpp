@@ -3,8 +3,9 @@
 #include <fstream>
 #include <vector>
 
+using namespace std;
 
-void CorrectionFile(std::string(&stringLst)[100], int count)
+void AddLines(string(&stringLst)[100], int count)
 {
 	for (count; count < 100; count++)
 	{
@@ -16,46 +17,69 @@ void CorrectionFile(std::string(&stringLst)[100], int count)
 	}
 }
 
-bool ReadFile(std::string inputFileName, std::string (&massString)[100], std::vector<std::pair<int, int>> & posStart)
+void CorectionLine(string & mainStr)
 {
-	std::ifstream inputFile(inputFileName);
+	if (mainStr[mainStr.length() - 1] == '\n')
+	{
+		mainStr[mainStr.length() - 1] = ' ';
+	}
+
+	if (mainStr.length() < 100)
+	{
+		for (int i = mainStr.length(); i < 100; i++)
+		{
+			mainStr += " ";
+		}
+	}
+}
+
+bool FindStart(const string & mainStr, vector<pair<int, int>> & posStart, int y)
+{
+	string localStr = mainStr;
+	int border = 100;
+	int x = localStr.find("0");
+	bool found = false;
+	while (x < border && x < localStr.size())
+	{
+		found = true;
+		posStart.push_back(make_pair(x, y));
+		border -= x;
+		localStr.substr(x);
+		int x = localStr.find("0");
+	}
+	return found;
+}
+
+bool ReadFile(string inputFileName, string (&massString)[100], vector<pair<int, int>> & posStart)
+{
+	ifstream inputFile(inputFileName);
 	if (!inputFile.is_open())
 	{
-		std::cout << "File not found!";
-		exit(1);
+		cout << "File not found!" << endl;
+		return false;
 	}
 
 	bool foundPosition = false;
 	int count = 0;
 	while (!inputFile.eof())
 	{
-		std::string string;
-		std::getline(inputFile, string);
-		if (string.find("0") < 100)
+		bool found = false;
+		string mainStr;
+		getline(inputFile, mainStr);
+		found = FindStart(mainStr, posStart, count);
+		CorectionLine(mainStr);
+		massString[count] = mainStr.substr(0, 100) + "\n";
+		count++;
+		if (found)
 		{
-			posStart.push_back(std::make_pair(string.find("0"), count));
 			foundPosition = true;
 		}
-		if (string[string.length() - 1] == '\n')
-		{
-			string[string.length() - 1] = (char)(32);
-		}
-
-		if (string.length() < 100)
-		{
-			for (int i = string.length(); i < 100; i++)
-			{
-				string += " ";
-			}
-		}
-		massString[count] = string.substr(0, 100) + "\n";
-		count++;
 	}
-	CorrectionFile(massString, count);
+	AddLines(massString, count);
 	return foundPosition;
 }
 
-void FillArea(std::string(&stringLst)[100], std::vector<std::pair<int, int>> coordinateLst)
+void FillContour(string(&stringLst)[100], vector<pair<int, int>> coordinateLst)
 {
 	while (coordinateLst.size() > 0)
 	{
@@ -85,50 +109,43 @@ void FillArea(std::string(&stringLst)[100], std::vector<std::pair<int, int>> coo
 	}
 }
 
-void Application(std::string inputFileName, std::string outputFileName)
+void FilingArea(const string & inputFileName, const string & outputFileName)
 {
-	std::string massString[100];
-	std::vector<std::pair<int, int>> posStart;
-	if (ReadFile(inputFileName, massString, posStart))
+	string stringsArray[100];
+	vector<pair<int, int>> posStart;
+	if (ReadFile(inputFileName, stringsArray, posStart))
 	{
-		FillArea(massString, posStart);
+		FillContour(stringsArray, posStart);
 		for (auto i : posStart)
 		{
-			massString[i.second][i.first] = '0';
+			stringsArray[i.second][i.first] = '0';
 		}
 	}
 
-	std::ofstream outFile(outputFileName);
+	ofstream outFile(outputFileName);
 
 	for (int i = 0; i < 100; i++)
 	{
-		outFile << massString[i];
+		outFile << stringsArray[i];
 	}
 }
 
 void PrintExample() 
 {
-	std::cout << "fill.exe <input file> <output file> <value> \n";
-	std::cout << "EXAMPLE: fill.exe \"test.txt\" \"out.txt\" \n";
+	cout << "fill.exe <input file> <output file> <value>" << endl;
+	cout << "EXAMPLE: fill.exe \"test.txt\" \"out.txt\"" << endl;
 }
 
 int main(int argc, char * argv[])
 {
-	if (argc > 3)
+	if (argc != 3)
 	{
-		std::cout << "you have many arguments\n";
-		PrintExample();
-	}
-	else if (argc < 3)
-	{
-		std::cout << "you have too few arguments\n";
 		PrintExample();
 	}
 	else
 	{
-		std::string inputFileName = argv[1];
-		std::string outputFileName = argv[2];
-		Application(inputFileName, outputFileName);
+		FilingArea(argv[1], argv[2]);
+		return 0;
 	}
-	return 0;
+	return 1;
 }
