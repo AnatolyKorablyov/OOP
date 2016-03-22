@@ -1,5 +1,5 @@
 #include "FindAndReplace.h"
-#include <iostream>
+
 string FindAndReplace(const string & subjectStr, const string & searchStr, const string & replaceStr)
 {
 	if (searchStr.empty())

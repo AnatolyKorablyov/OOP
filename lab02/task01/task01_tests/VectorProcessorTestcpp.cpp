@@ -1,13 +1,13 @@
-#include "stdafx.h"
+п»ї#include "stdafx.h"
 #include "..\task1\VectorProcessor.h"
 #include <boost/test/unit_test.hpp>
 
 using namespace std;
 
-// Функция ProcessVector
+// Р¤СѓРЅРєС†РёСЏ ProcessVector
 BOOST_AUTO_TEST_SUITE(ProcessVector_function)
 
-// Создает пустой вектор из пустого вектора
+// РЎРѕР·РґР°РµС‚ РїСѓСЃС‚РѕР№ РІРµРєС‚РѕСЂ РёР· РїСѓСЃС‚РѕРіРѕ РІРµРєС‚РѕСЂР°
 BOOST_AUTO_TEST_CASE(makes_empty_vector_from_empty_vector)
 {
 	vector<double> emptyVector;

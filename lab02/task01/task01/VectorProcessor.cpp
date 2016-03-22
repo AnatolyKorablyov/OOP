@@ -18,16 +18,15 @@ void ProcessVector(std::vector<double> & numbers)
 {
 	if (!numbers.empty())
 	{
-		double maxNum = numbers[0];
+		double minNum = numbers[0];
 		for (unsigned i = 0; i < numbers.size(); ++i)
 		{
-			if (maxNum > numbers[i])
+			if (minNum > numbers[i])
 			{
-				maxNum = numbers[i];
+				minNum = numbers[i];
 			}
 		}
-		double halfMaxNum = maxNum / 2;
-		boost::transform(numbers, numbers.begin(), arg1 / halfMaxNum);
+		boost::transform(numbers, numbers.begin(), arg1 * minNum);
 		sort(numbers.begin(), numbers.end());
 	}
 }
