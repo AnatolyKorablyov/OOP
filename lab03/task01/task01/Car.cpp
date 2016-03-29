@@ -46,52 +46,93 @@ bool CCar::CheckBound(const int & value, const Border & rangeValues)
 	return (value >= rangeValues.bottomBound && value <= rangeValues.upperBound);
 }
 
-bool CCar::TurnOnEngine()
+int CCar::TurnOnEngine()
 {
-	if (!m_engineLaunched)
-	{ 
-		m_engineLaunched = true;
-		return true;
+	int wasError = 0;
+	if (m_engineLaunched)
+	{
+		wasError = 1;
 	}
-	return false;
+	else if (m_gear != 0)
+	{
+		wasError = 2;
+	}
+	else
+	{
+		m_engineLaunched = true;
+	}
+
+	return wasError;
 }
 
-bool CCar::TurnOffEngine()
+int CCar::TurnOffEngine()
 {
-	if (m_engineLaunched && m_gear == 0 && m_direction == Direction::Stand)
+	int wasError = 0;
+	if (!m_engineLaunched)
+	{
+		wasError = 1;
+	}
+	else if (m_gear != 0)
+	{
+		wasError = 2;
+	}
+	else if (m_direction != Direction::Stand)
+	{
+		wasError = 3;
+	}
+	else
 	{
 		m_engineLaunched = false;
-		return true;
 	}
-	return false;
+	return wasError;
 }
 
-bool CCar::SetGear(const int & gear)
+int CCar::SetGear(const int & gear)
 {
-	if (((gear < 0 && m_gear >= 0) || (gear > 0 && m_gear < 0)) && m_speed > 0)
+	int wasError = 0;
+	if (gear < 0 && m_direction == Direction::Forward)
 	{
-		return false;
+		wasError = 1;
 	}
-	if (CheckBound(m_speed, SPEED_RANGE.find(gear)->second) && CheckBound(gear, GEAR_RANGE))
-	{		   
+	else if (gear < 0 && m_direction == Direction::Backward)
+	{
+		wasError = 2;
+	}
+	else if (!CheckBound(gear, GEAR_RANGE))
+	{
+		wasError = 3;
+	}
+	else if (!CheckBound(m_speed, SPEED_RANGE.find(gear)->second))
+	{
+		wasError = 4;
+	}
+	else
+	{
 		m_gear = gear;
-		return true;
 	}
-	return false;
+	return wasError;
 }
 
-bool CCar::SetSpeed(const int & speed)
+int CCar::SetSpeed(const int & speed)
 {
-	if (m_gear == 0 && speed > m_speed)
-	{
-		return false;
-	}
+	int wasError = 0;
 	auto it = SPEED_RANGE.find(m_gear);
-	if (CheckBound(speed, it->second))
+	if (!m_engineLaunched)
+	{
+		wasError = 1;
+	}
+	else if (m_gear == 0 && speed > m_speed)
+	{
+		wasError = 2;
+	}
+	else if (!CheckBound(speed, it->second))
+	{
+		wasError = 3;
+	}
+	else
 	{
 		m_speed = speed;
 		SetDirection();
-		return true;
 	}
-	return false;
+	return wasError;
 }

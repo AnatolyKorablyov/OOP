@@ -2,7 +2,91 @@
 #include "Driver.h"
 
 
-void Tazovod()
+void PrintInfoAboutCar(const InfoAboutCar & indicators)
+{
+	std::cout << "Двигатель: " << (indicators.conditionEngine ? "запущен" : "выключен") << std::endl;
+	std::cout << "Скорость: " << indicators.speed << std::endl;
+	std::cout << "Передача: " << indicators.gear << std::endl;
+	std::cout << "Направление: " << DIRECTION_NAME.find(indicators.dir)->second << std::endl;
+}
+
+void PrintResultEngineOnCommand(const int & value)
+{
+	switch (value)
+	{
+	case 0:
+		std::cout << "Двигатель включен" << std::endl;
+		break;
+	case 1:
+		std::cout << "Двигатель уже включен" << std::endl;
+		break;
+	case 2:
+		std::cout << "Двигатель не включен, т.к. включена передача" << std::endl;
+		break;
+	}
+}
+
+void PrintResultEngineOffCommand(const int & value)
+{
+	switch (value)
+	{
+	case 0:
+		std::cout << "Двигатель выключен" << std::endl;
+		break;
+	case 1:
+		std::cout << "Двигатель уже выключен" << std::endl;
+		break;
+	case 2:
+		std::cout << "Двигатель не выключен, т.к. включена передача" << std::endl;
+		break;
+	case 3:
+		std::cout << "Двигатель не выключен, т.к. скорость не нулевая" << std::endl;
+		break;
+	}
+}
+
+void PrintResultSetGearCommand(const int & value)
+{
+	switch (value)
+	{
+	case 0:
+		std::cout << "Передача переключена" << std::endl;
+		break;
+	case 1:
+		std::cout << "Передача не переключена на заднюю, т.к. машина едет вперед" << std::endl;
+		break;
+	case 2:
+		std::cout << "Передача не переключена на положительную, т.к. машина едет назад" << std::endl;
+		break;
+	case 3:
+		std::cout << "Передача не переключена, т.к. нет такой передачи" << std::endl;
+		break;
+	case 4:
+		std::cout << "Передача не переключена, т.к. скорость не соответсвует диапазону новой передачи" << std::endl;
+		break;
+	}
+}
+
+void PrintResultSetSpeedCommand(const int & value)
+{
+	switch (value)
+	{
+	case 0:
+		std::cout << "Скорость установлена" << std::endl;
+		break;
+	case 1:
+		std::cout << "Скорость не удалось изменить, т.к. двигатель выключен" << std::endl;
+		break;
+	case 2:
+		std::cout << "Скорость не удалось повысить, т.к. установлена нейтральная передача" << std::endl;
+		break;
+	case 3:
+		std::cout << "Скорость не удалось изменить, т.к. скорость не соответсвует диапазону установленной передачи" << std::endl;
+		break;
+	}
+}
+
+void CarDriver()
 {
 	CCar Taz;
 	std::string mainStr;
@@ -21,63 +105,31 @@ void Tazovod()
 		commandControl.append(mainStr, posLastEnd, posStart - posLastEnd);
 		posLastEnd = mainStr.find("<");
 		posStart = mainStr.find(">");
-
-		if (posStart != std::string::npos) 
+		strValue.clear();
+		if (posStart != std::string::npos && posLastEnd != std::string::npos) 
 		{
-			strValue.append(mainStr, posLastEnd, posStart - posLastEnd);
+			strValue.append(mainStr, posLastEnd + 1, posStart - posLastEnd);
 		}
 
 		if (commandControl == "Info")
 		{
-			InfoAboutCar indicators = Taz.GetInfo();
-			std::cout << "Двигатель: " << (indicators.conditionEngine ? "запущен" : "выключен") << std::endl;
-			std::cout << "Скорость: " << indicators.speed << std::endl;
-			std::cout << "Передача: " << indicators.gear << std::endl;
-			std::cout << "Направление: " << DIRECTION_NAME.find(indicators.dir)->second << std::endl;
+			PrintInfoAboutCar(Taz.GetInfo());
 		}
 		else if (commandControl == "EngineOn")
 		{
-			if (Taz.TurnOnEngine())
-			{
-				std::cout << "Двигатель включен" << std::endl;
-			}
-			else
-			{
-				std::cout << "Двигатель не удалось включить" << std::endl;
-			}
+			PrintResultEngineOnCommand(Taz.TurnOnEngine());
 		}
 		else if (commandControl == "EngineOff")
 		{
-			if (Taz.TurnOffEngine())
-			{
-				std::cout << "Двигатель выключен" << std::endl;
-			}
-			else
-			{
-				std::cout << "Двигатель не удалось выключить" << std::endl;
-			}
+			PrintResultEngineOffCommand(Taz.TurnOffEngine());
 		}
 		else if (commandControl == "SetGear")
 		{
-			if (Taz.SetGear(std::atoi(strValue.c_str())))
-			{
-				std::cout << "Передача включена" << std::endl;
-			}
-			else
-			{
-				std::cout << "Передача не удалось включить" << std::endl;
-			}
+			PrintResultSetGearCommand(Taz.SetGear(std::atoi(strValue.c_str())));
 		}
 		else if (commandControl == "SetSpeed")
 		{
-			if (Taz.SetSpeed(std::atoi(strValue.c_str())))
-			{
-				std::cout << "Скорость установлена" << std::endl;
-			}
-			else
-			{
-				std::cout << "Скорость не удалось установить" << std::endl;
-			}
+			PrintResultSetSpeedCommand(Taz.SetSpeed(std::atoi(strValue.c_str())));
 		}
 
 		std::cout << std::endl;

@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include "Definition.h"
 
 class CCar
 {
@@ -12,10 +13,10 @@ private:
 	bool CheckBound(const int & value, const Border & rangeValues);
 public:
 	InfoAboutCar GetInfo();
-	bool TurnOnEngine();
-	bool TurnOffEngine();
-	bool SetGear(const int & gear);
-	bool SetSpeed(const int & speed);
+	int TurnOnEngine();
+	int TurnOffEngine();
+	int SetGear(const int & gear);
+	int SetSpeed(const int & speed);
 	CCar();
 	~CCar();
 
