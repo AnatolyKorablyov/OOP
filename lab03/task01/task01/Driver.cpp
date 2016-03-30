@@ -88,7 +88,7 @@ void PrintResultSetSpeedCommand(const int & value)
 
 void CarDriver()
 {
-	CCar Taz;
+	CCar bmwX5;
 	std::string mainStr;
 	std::getline(std::cin, mainStr);
 
@@ -113,23 +113,23 @@ void CarDriver()
 
 		if (commandControl == "Info")
 		{
-			PrintInfoAboutCar(Taz.GetInfo());
+			PrintInfoAboutCar(bmwX5.GetInfo());
 		}
 		else if (commandControl == "EngineOn")
 		{
-			PrintResultEngineOnCommand(Taz.TurnOnEngine());
+			PrintResultEngineOnCommand(bmwX5.TurnOnEngine());
 		}
 		else if (commandControl == "EngineOff")
 		{
-			PrintResultEngineOffCommand(Taz.TurnOffEngine());
+			PrintResultEngineOffCommand(bmwX5.TurnOffEngine());
 		}
 		else if (commandControl == "SetGear")
 		{
-			PrintResultSetGearCommand(Taz.SetGear(std::atoi(strValue.c_str())));
+			PrintResultSetGearCommand(bmwX5.SetGear(std::atoi(strValue.c_str())));
 		}
 		else if (commandControl == "SetSpeed")
 		{
-			PrintResultSetSpeedCommand(Taz.SetSpeed(std::atoi(strValue.c_str())));
+			PrintResultSetSpeedCommand(bmwX5.SetSpeed(std::atoi(strValue.c_str())));
 		}
 
 		std::cout << std::endl;

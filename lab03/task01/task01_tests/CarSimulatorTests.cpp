@@ -5,80 +5,80 @@
 BOOST_AUTO_TEST_SUITE(Go_Ride)
 BOOST_AUTO_TEST_CASE(EngineOnFailed)
 {
-	CCar Taz;
-	Taz.SetGear(1);
-	BOOST_CHECK(Taz.TurnOnEngine() != 0);
+	CCar Lancer;
+	Lancer.SetGear(1);
+	BOOST_CHECK(Lancer.TurnOnEngine() != 0);
 }
 
 BOOST_AUTO_TEST_CASE(EngineOffFailed)
 {
-	CCar Taz;
-	Taz.TurnOnEngine();
-	Taz.SetGear(1);
-	BOOST_CHECK(Taz.TurnOffEngine() != 0);
+	CCar Lancer;
+	Lancer.TurnOnEngine();
+	Lancer.SetGear(1);
+	BOOST_CHECK(Lancer.TurnOffEngine() != 0);
 }
 
 BOOST_AUTO_TEST_CASE(SetGear_HigherSpeedRange_Failed)
 {
-	CCar Taz;
-	Taz.TurnOnEngine();
-	BOOST_CHECK(Taz.SetGear(2) != 0);
+	CCar Lancer;
+	Lancer.TurnOnEngine();
+	BOOST_CHECK(Lancer.SetGear(2) != 0);
 }
 
 BOOST_AUTO_TEST_CASE(SetGearComplete)
 {
-	CCar Taz;
-	Taz.TurnOnEngine();
-	Taz.SetGear(1);
-	Taz.SetSpeed(25);
-	BOOST_CHECK(Taz.SetGear(2) == 0);
+	CCar Lancer;
+	Lancer.TurnOnEngine();
+	Lancer.SetGear(1);
+	Lancer.SetSpeed(25);
+	BOOST_CHECK(Lancer.SetGear(2) == 0);
 }
 
 BOOST_AUTO_TEST_CASE(SetGear_ReverseGear_Failed)
 {
-	CCar Taz;
-	Taz.TurnOnEngine();
-	Taz.SetGear(1);
-	Taz.SetSpeed(10);
-	BOOST_CHECK(Taz.SetGear(-1) != 0);
+	CCar Lancer;
+	Lancer.TurnOnEngine();
+	Lancer.SetGear(1);
+	Lancer.SetSpeed(10);
+	BOOST_CHECK(Lancer.SetGear(-1) != 0);
 }
 
 BOOST_AUTO_TEST_CASE(EngineOff_Complete)
 {
-	CCar Taz;
-	Taz.TurnOnEngine();
-	Taz.SetGear(0);
-	Taz.SetSpeed(0);
+	CCar Lancer;
+	Lancer.TurnOnEngine();
+	Lancer.SetGear(0);
+	Lancer.SetSpeed(0);
 
-	BOOST_CHECK(Taz.TurnOffEngine() == 0);
+	BOOST_CHECK(Lancer.TurnOffEngine() == 0);
 }
 
 BOOST_AUTO_TEST_CASE(SetMaxSpeed)
 {
-	CCar Taz;
-	Taz.TurnOnEngine();
-	Taz.SetGear(1);
-	Taz.SetSpeed(30);
-	Taz.SetGear(3);
-	Taz.SetSpeed(50);
-	Taz.SetGear(5);
-	Taz.SetSpeed(150);
+	CCar Lancer;
+	Lancer.TurnOnEngine();
+	Lancer.SetGear(1);
+	Lancer.SetSpeed(30);
+	Lancer.SetGear(3);
+	Lancer.SetSpeed(50);
+	Lancer.SetGear(5);
+	Lancer.SetSpeed(150);
 
-	BOOST_CHECK(Taz.SetSpeed(151) != 0 && Taz.GetInfo().speed == 150);
+	BOOST_CHECK(Lancer.SetSpeed(151) != 0 && Lancer.GetInfo().speed == 150);
 }
 
 BOOST_AUTO_TEST_CASE(SetMaxGear)
 {
-	CCar Taz;
-	Taz.TurnOnEngine();
-	Taz.SetGear(1);
-	Taz.SetSpeed(30);
-	Taz.SetGear(3);
-	Taz.SetSpeed(50);
-	Taz.SetGear(5);
-	Taz.SetSpeed(150);
+	CCar Lancer;
+	Lancer.TurnOnEngine();
+	Lancer.SetGear(1);
+	Lancer.SetSpeed(30);
+	Lancer.SetGear(3);
+	Lancer.SetSpeed(50);
+	Lancer.SetGear(5);
+	Lancer.SetSpeed(150);
 
-	BOOST_CHECK(Taz.SetGear(6) != 0 && Taz.GetInfo().gear == 5);
+	BOOST_CHECK(Lancer.SetGear(6) != 0 && Lancer.GetInfo().gear == 5);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
