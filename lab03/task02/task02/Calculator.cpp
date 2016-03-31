@@ -53,7 +53,7 @@ bool CCalculator::SetVar(const std::string & varName)
 
 bool CCalculator::SetLetDouble(const std::string & varName, const double & value)
 {
-	if (GetVar(varName).wasError == GetError::noValue)
+	if (!CheckFn(varName))
 	{
 		m_vars[varName] = value;
 		return true;
@@ -73,7 +73,7 @@ bool CCalculator::SetLetVar(const std::string & varName, const std::string & val
 		}
 		return SetLetDouble(varName, value);
 	}
-	else if (GetVar(varName).wasError == GetError::noValue)
+	else if (!CheckFn(varName))
 	{
 		m_vars[varName] = valueInfo.value;
 		return true;
@@ -136,23 +136,13 @@ GetValInfo CCalculator::GetFn(const std::string & fnName)
 
 bool CCalculator::SetFnOperand(const std::string & fnName, const std::string & firstValue, OperandType operand, const std::string & secondValue)
 {
-	auto firstVarInfo = GetVar(firstValue);
-	if (firstVarInfo.wasError == GetError::noValue)
+	GetFnInfo info;
+	if ((CheckVar(firstValue) || CheckFn(firstValue)) && (CheckVar(secondValue) || CheckFn(secondValue)))
 	{
-		firstVarInfo = GetFn(firstValue);
-	}
-	if (firstVarInfo.wasError == GetError::noValue)
-	{
-		return false;
-	}
-
-	auto secondVarInfo = GetVar(secondValue);
-	if (secondVarInfo.wasError == GetError::noValue)
-	{
-		secondVarInfo = GetFn(secondValue);
-	}
-	if (secondVarInfo.wasError == GetError::noValue)
-	{
+		info.firstVal = firstValue;
+		info.operand = operand;
+		info.secondVal = secondValue;
+		m_functions.insert(std::pair<std::string, GetFnInfo>(fnName, info));
 		return false;
 	}
 	return true;

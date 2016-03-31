@@ -43,3 +43,14 @@ BOOST_AUTO_TEST_CASE(SetLetVarFailed)
 	BOOST_CHECK(!calc.SetLetVar("x", "y"));
 }
 BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_AUTO_TEST_SUITE(Go_Functions)
+BOOST_AUTO_TEST_CASE(SetFunctionComplete)
+{
+	CCalculator calc;
+	calc.SetLetVar("x", "13");
+	calc.SetLetVar("y", "23");
+	calc.SetFnOperand("function", "x", OperandType::Add, "y");
+	BOOST_CHECK(calc.GetFn("function").value == 36);
+}
+BOOST_AUTO_TEST_SUITE_END()
