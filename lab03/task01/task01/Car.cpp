@@ -3,19 +3,15 @@
 #include <iostream>
 
 CCar::CCar()
-{
-	m_engineLaunched = false;
-	m_direction = Direction::Stand;
-	m_gear = 0;
-	m_speed = 0;
-}
-
-
-CCar::~CCar()
+	: m_engineLaunched(false)
+	, m_direction(Direction::Stand)
+	, m_gear(0)
+	, m_speed(0)
 {
 }
 
-InfoAboutCar CCar::GetInfo()
+
+InfoAboutCar CCar::GetInfo() const
 {
 	InfoAboutCar indicators;
 	indicators.conditionEngine = m_engineLaunched;

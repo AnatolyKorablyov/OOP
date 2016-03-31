@@ -4,6 +4,16 @@
 
 class CCar
 {
+public:
+	CCar();
+
+	InfoAboutCar GetInfo() const;
+	int TurnOnEngine();
+	int TurnOffEngine();
+	int SetGear(const int & gear);
+	int SetSpeed(const int & speed);
+
+
 private:
 	int	m_speed;
 	int m_gear;
@@ -11,14 +21,5 @@ private:
 	Direction m_direction;
 	void SetDirection();
 	bool CheckBound(const int & value, const Border & rangeValues);
-public:
-	InfoAboutCar GetInfo();
-	int TurnOnEngine();
-	int TurnOffEngine();
-	int SetGear(const int & gear);
-	int SetSpeed(const int & speed);
-	CCar();
-	~CCar();
-
 };
 

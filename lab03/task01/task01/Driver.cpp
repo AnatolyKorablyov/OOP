@@ -1,6 +1,14 @@
 #include "stdafx.h"
 #include "Driver.h"
 
+void PrintHelp()
+{
+	std::cout << "Info - показать состояние машины" << std::endl;
+	std::cout << "EngineOn - включить двигатель" << std::endl;
+	std::cout << "EngineOff - выключить двигатель" << std::endl;
+	std::cout << "SetGear <value> - задать передачу value" << std::endl;
+	std::cout << "SetSpeed <value> - задать скорость value" << std::endl;
+}
 
 void PrintInfoAboutCar(const InfoAboutCar & indicators)
 {
@@ -86,6 +94,34 @@ void PrintResultSetSpeedCommand(const int & value)
 	}
 }
 
+void HandlerCommands(const std::string & commandControl, const std::string & strValue, CCar & car)
+{
+	if (commandControl == "Info")
+	{
+		PrintInfoAboutCar(car.GetInfo());
+	}
+	else if (commandControl == "EngineOn")
+	{
+		PrintResultEngineOnCommand(car.TurnOnEngine());
+	}
+	else if (commandControl == "EngineOff")
+	{
+		PrintResultEngineOffCommand(car.TurnOffEngine());
+	}
+	else if (commandControl == "SetGear")
+	{
+		PrintResultSetGearCommand(car.SetGear(std::atoi(strValue.c_str())));
+	}
+	else if (commandControl == "SetSpeed")
+	{
+		PrintResultSetSpeedCommand(car.SetSpeed(std::atoi(strValue.c_str())));
+	}
+	else
+	{
+		PrintHelp();
+	}
+}
+
 void CarDriver()
 {
 	CCar bmwX5;
@@ -111,26 +147,7 @@ void CarDriver()
 			strValue.append(mainStr, posLastEnd + 1, posStart - posLastEnd);
 		}
 
-		if (commandControl == "Info")
-		{
-			PrintInfoAboutCar(bmwX5.GetInfo());
-		}
-		else if (commandControl == "EngineOn")
-		{
-			PrintResultEngineOnCommand(bmwX5.TurnOnEngine());
-		}
-		else if (commandControl == "EngineOff")
-		{
-			PrintResultEngineOffCommand(bmwX5.TurnOffEngine());
-		}
-		else if (commandControl == "SetGear")
-		{
-			PrintResultSetGearCommand(bmwX5.SetGear(std::atoi(strValue.c_str())));
-		}
-		else if (commandControl == "SetSpeed")
-		{
-			PrintResultSetSpeedCommand(bmwX5.SetSpeed(std::atoi(strValue.c_str())));
-		}
+		HandlerCommands(commandControl, strValue, bmwX5);
 
 		std::cout << std::endl;
 		std::getline(std::cin, mainStr);
