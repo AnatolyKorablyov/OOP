@@ -23,6 +23,7 @@ struct GetValInfo
 struct GetFnInfo
 {
 	GetError wasError;
+	bool twoOperators;
 	std::string firstVal;
 	OperandType operand;
 	std::string secondVal;
