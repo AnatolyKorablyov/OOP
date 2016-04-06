@@ -9,10 +9,11 @@
 
 #include <stdio.h>
 #include <tchar.h>
+#include <ctype.h>
 
 #include <map>
 #include <string>
 #include <iostream>
-
+#include <windows.h>
 
 // TODO: reference additional headers your program requires here

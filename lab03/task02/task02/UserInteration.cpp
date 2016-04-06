@@ -3,103 +3,201 @@
 #include "Definition.h"
 
 
-
-bool HandlerCommands(CCalculator & calc, const string & mainRequest)
+void PrintAllError(const WasError & wasError) 
 {
-	std::cout << mainRequest << std::endl;
+	switch (wasError)
+	{
+	case WasError::AllOk:
+		break;
+	case WasError::idNameNotCorrect:
+		std::cout << "Имя переменной введено некорректно" << std::endl;
+		break;
+	case WasError::numberNotCorrect:
+		std::cout << "Число введено некорректно (пример: 12,34; -34,4)" << std::endl;
+		break;
+	case WasError::FnUsesIdName:
+		std::cout << "Найдена функция использующая имя этого первого идентификатора" << std::endl;
+		break;
+	case WasError::varUsesIdName:
+		std::cout << "Найдена переменная использующая имя этого первого идентификатора" << std::endl;
+		break;
+	case WasError::valueSecondIdNotFound:
+		std::cout << "Не найдено значение второго идентификатора" << std::endl;
+		break;
+	case WasError::valueThirdIdNotFound:
+		std::cout << "Не найдено значение третьего идентификатора" << std::endl;
+		break;
+	}
+}
+void CommandSetVar(CCalculator & calc, const string & mainRequest, size_t posStart)
+{
 	string identificator1;
+	size_t posEnd = posStart + LEN_VAR_COMMAND;
+	identificator1.append(mainRequest.begin() + posEnd, mainRequest.end());
+	WasError wasError = calc.SetVar(identificator1);
+	PrintAllError(wasError);
+}
 
-	GetValInfo answer;
-	size_t posStart = mainRequest.find("var ");
-	size_t posEnd = posStart + 4;
-	if (posStart < mainRequest.length())
+void CommandSetLet(CCalculator & calc, const string & mainRequest, size_t posStart)
+{
+	string identificator1;
+	size_t posEnd = posStart + LEN_LET_COMMAND;
+	posStart = mainRequest.find("=", posEnd);
+	identificator1.append(mainRequest, posEnd, posStart - posEnd);
+
+	string identificator2;
+
+	posEnd = posStart + 1;
+	identificator2.append(mainRequest.begin() + posEnd, mainRequest.end());
+	WasError wasError = calc.SetLetVar(identificator1, identificator2);
+	PrintAllError(wasError);
+}
+
+void CommandSetFn(CCalculator & calc, const string & mainRequest, size_t posStart)
+{
+	string identificator1;
+	size_t posEnd = posStart + LEN_FN_COMMAND;
+	WasError wasError;
+	OperandType operand;
+	string identificator2;
+
+	posStart = mainRequest.find("=", posEnd);
+	identificator1.append(mainRequest, posEnd, posStart - posEnd);
+	posEnd = posStart + 1;
+	bool operandNotFound = false;
+	if ((posStart = mainRequest.find("+", posEnd)) < mainRequest.length())
 	{
-		identificator1.append(mainRequest.begin() + posEnd, mainRequest.end());
-		std::cout << "|" << identificator1 << "|" << std::endl;
-		calc.SetVar(identificator1);
-		return true;
+		operand = OperandType::Add;
 	}
-	else if ((posStart = mainRequest.find("let ")) < mainRequest.length())
+	else if ((posStart = mainRequest.find("-", posEnd)) < mainRequest.length())
 	{
-		posEnd = posStart + 4;
-		posStart = mainRequest.find("=", posEnd);
-		identificator1.append(mainRequest, posEnd, posStart - posEnd);
-
-		string identificator2;
-
-		posEnd = posStart + 1;
+		operand = OperandType::Sub;
+	}
+	else if ((posStart = mainRequest.find("/", posEnd)) < mainRequest.length())
+	{
+		operand = OperandType::Div;
+	}
+	else if ((posStart = mainRequest.find("*", posEnd)) < mainRequest.length())
+	{
+		operand = OperandType::Mul;
+	}
+	else
+	{
+		operandNotFound = true;
 		identificator2.append(mainRequest.begin() + posEnd, mainRequest.end());
-		calc.SetLetVar(identificator1, identificator2);
-		std::cout << "|" << identificator1 << "|" << std::endl;
-		std::cout << "|" << identificator2 << "|" << std::endl;
-		return true;
+		wasError = calc.SetFnValue(identificator1, identificator2);
+		PrintAllError(wasError);
 	}
-	else if ((posStart = mainRequest.find("fn ")) < mainRequest.length())
+	if (!operandNotFound)
 	{
-		posEnd = posStart + 3;
-		posStart = mainRequest.find("=", posEnd);
-		identificator1.append(mainRequest, posEnd, posStart - posEnd);
-		posEnd = posStart + 1;
-
-		OperandType operand;
-		string identificator2;
-		if ((posStart = mainRequest.find("+", posEnd)) < mainRequest.length())
-		{
-			operand = OperandType::Add;
-		}
-		else if ((posStart = mainRequest.find("-", posEnd)) < mainRequest.length())
-		{
-			operand = OperandType::Sub;
-		}
-		else if ((posStart = mainRequest.find("/", posEnd)) < mainRequest.length())
-		{
-			operand = OperandType::Div;
-		}
-		else if ((posStart = mainRequest.find("*", posEnd)) < mainRequest.length())
-		{
-			operand = OperandType::Mul;
-		}
-		else
-		{
-			identificator2.append(mainRequest.begin() + posEnd, mainRequest.end());
-			calc.SetFnValue(identificator1, identificator2);
-			std::cout << "|" << identificator1 << "|" << std::endl;
-			std::cout << "|" << identificator2 << "|" << std::endl;
-			return true;
-		}
 		identificator2.append(mainRequest, posEnd, posStart - posEnd);
 		string identificator3;
 		posEnd = posStart + 1;
 		identificator3.append(mainRequest.begin() + posEnd, mainRequest.end());
-		calc.SetFnOperand(identificator1, identificator2, operand, identificator3);
+		wasError = calc.SetFnOperand(identificator1, identificator2, operand, identificator3);
+		PrintAllError(wasError);
+	}
+}
 
-		std::cout << "|" << identificator1 << "|" << std::endl;
-		std::cout << "|" << identificator2 << "|" << std::endl;
-		std::cout << "|" << identificator3 << "|" << std::endl;
-		return true;
+void CommandPrint(CCalculator & calc, const string & mainRequest, size_t posStart)
+{
+	string identificator1;
+	size_t posEnd = posStart + LEN_PRINT_COMMAND;
+	identificator1.append(mainRequest.begin() + posEnd, mainRequest.end());
+	GetValInfo answer = calc.GetVar(identificator1);
+	bool m_found = true;
+	if (answer.wasError == GetError::noValue)
+	{
+		answer = calc.GetFn(identificator1);
+		if (answer.wasError == GetError::noValue)
+		{
+			m_found = false;
+			std::cout << "такого идентификатора нет" << std::endl;
+		}
+	}
+
+	if (m_found)
+	{
+		if (answer.value != answer.value)
+		{
+			std::cout << "nan" << std::endl;
+		}
+		else
+		{
+			std::cout << answer.value << std::endl;
+		}
+	}
+}
+
+void CommandPrintvars(CCalculator & calc)
+{
+	std::map<std::string, double> mapVars;
+	mapVars = calc.GetMapVars();
+	for (auto i : mapVars)
+	{
+		std::cout << i.first << ":";
+		if (i.second != i.second)
+		{
+			std::cout << "nan" << std::endl;
+		}
+		else
+		{
+			std::cout << i.second << std::endl;
+		}
+	}
+}
+
+void CommandPrintfns(CCalculator & calc)
+{
+	double value;
+	std::map<std::string, GetFnInfo> mapFn;
+	mapFn = calc.GetMapFn();
+	for (auto i : mapFn)
+	{
+		value = calc.GetFn(i.first).value;
+		std::cout << i.first << ":";
+		if (value != value)
+		{
+			std::cout << "nan" << std::endl;
+		}																						
+		else
+		{
+			std::cout << value << std::endl;
+		}
+
+	}
+}
+
+void HandlerCommands(CCalculator & calc, const string & mainRequest)
+{
+	string identificator1;
+	GetValInfo answer;
+	size_t posStart;
+	size_t posEnd;
+	if ((posStart = mainRequest.find("var ")) < mainRequest.length())
+	{
+		CommandSetVar(calc, mainRequest, posStart);
+	}
+	else if ((posStart = mainRequest.find("let ")) < mainRequest.length())
+	{
+		CommandSetLet(calc, mainRequest, posStart);
+	}
+	else if ((posStart = mainRequest.find("fn ")) < mainRequest.length())
+	{
+		CommandSetFn(calc, mainRequest, posStart);
 	}
 	else if ((posStart = mainRequest.find("print ")) < mainRequest.length())
 	{
-		posEnd = posStart + 6;
-		identificator1.append(mainRequest.begin() + posEnd, mainRequest.end());
-		std::cout << "|" << identificator1 << "|" << std::endl;
-		answer = calc.GetVar(identificator1);
-		if (answer.wasError == GetError::noValue)
-		{
-			answer = calc.GetFn(identificator1);
-		}
-		std::cout << answer.value << std::endl;
-		return true;
+		CommandPrint(calc, mainRequest, posStart);
 	}
 	else if (mainRequest == "printvars")
 	{
-		
+		CommandPrintvars(calc);
 	}
 	else if (mainRequest == "printfns")
 	{
-
+		CommandPrintfns(calc);
 	}
-	return false;
 }
 
 void Mathematician()

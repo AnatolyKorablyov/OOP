@@ -1,15 +1,13 @@
 #include "stdafx.h"
 #include "Calculator.h"
-#include <iostream>
-
 
 CCalculator::CCalculator()
 {
 }
 
-bool CCalculator::CheckVarName(const std::string & identificator)
+bool CCalculator::CheckIdName(const std::string & identificator)
 {
-	if (identificator.length() != 0)
+	if (identificator.length() > 0)
 	{
 		size_t it = 0;
 		if ((identificator[it] >= '0' && identificator[it] <= '9'))
@@ -71,19 +69,32 @@ GetValInfo CCalculator::GetVar(const std::string & varName)	const
 	return info;
 }
 
-bool CCalculator::SetVar(const std::string & varName)
+WasError CCalculator::SetVar(const std::string & varName)
 {
-	if (!CheckVar(varName) && CheckVarName(varName))
+	WasError wasError = WasError::AllOk;
+	if (!CheckIdName(varName))
+	{
+		wasError = WasError::idNameNotCorrect;
+	}
+	else if (CheckFn(varName))
+	{
+		wasError = WasError::FnUsesIdName;
+	}
+	else if (CheckVar(varName))
+	{
+		wasError = WasError::varUsesIdName;
+	}
+	else 
 	{
 		m_vars.insert(std::pair<std::string, double>(varName, NAN));
-		return true;
 	}
-	return false;
+
+	return wasError;
 }
 
 bool CCalculator::SetLetDouble(const std::string & varName, const double & value)
 {
-	if (!CheckFn(varName) && CheckVarName(varName))
+	if (!CheckFn(varName))
 	{
 		m_vars[varName] = value;
 		return true;
@@ -91,28 +102,35 @@ bool CCalculator::SetLetDouble(const std::string & varName, const double & value
 	return false;
 }
 
-bool CCalculator::SetLetVar(const std::string & varName, const std::string & valueStr)
+WasError CCalculator::SetLetVar(const std::string & varName, const std::string & valueStr)
 {
-	if (!CheckVarName(varName))
-	{
-		return false;
-	}
+	WasError wasError = WasError::AllOk;
 	GetValInfo valueInfo = GetVar(valueStr);
-	if (valueInfo.wasError == GetError::noValue)
+	if (!CheckIdName(varName))
+	{
+		wasError = WasError::idNameNotCorrect;
+	}
+	else if (valueInfo.wasError == GetError::noValue)
 	{
 		double value = atof(valueStr.c_str());
 		if (valueStr != "0" && value == 0)
 		{
-			return false;
+			wasError = WasError::numberNotCorrect;
 		}
-		return SetLetDouble(varName, value);
+		else if (!SetLetDouble(varName, value))
+		{
+			wasError = WasError::FnUsesIdName;
+		}
 	}
-	else if (!CheckFn(varName))
+	else if (CheckFn(varName))
+	{
+		wasError = WasError::FnUsesIdName;
+	}
+	else
 	{
 		m_vars[varName] = valueInfo.value;
-		return true;
 	}
-	return false;
+	return wasError;
 }
 
 double CCalculator::CalcFunctions(const double & firstValue, const OperandType & operand, const double & secondValue) const
@@ -181,32 +199,76 @@ GetValInfo CCalculator::GetFn(const std::string & fnName) const
 	return infoResult;
 }
 
-bool CCalculator::SetFnValue(const std::string & fnName, const std::string & value)
+WasError CCalculator::SetFnValue(const std::string & fnName, const std::string & value)
 {
 	GetFnInfo info;
-	if (!CheckVar(fnName) && !CheckFn(fnName) && (CheckFn(value) || CheckVar(value)) )
+	WasError wasError = WasError::AllOk;
+	if (!CheckIdName(fnName))
+	{
+		wasError = WasError::idNameNotCorrect;
+	}
+	else if (CheckVar(fnName))
+	{
+		wasError = WasError::varUsesIdName;
+	}
+	else if (CheckFn(fnName))
+	{
+		wasError = WasError::FnUsesIdName;
+	}
+	else if (!CheckFn(value) && !CheckVar(value))
+	{
+		wasError = WasError::valueSecondIdNotFound;
+	}
+	else
 	{
 		info.firstVal = value;
 		info.twoOperators = false;
 		m_functions.insert(std::pair<std::string, GetFnInfo>(fnName, info));
-
-		return true;
 	}
-	return false;
+	return wasError;
 }
 
-bool CCalculator::SetFnOperand(const std::string & fnName, const std::string & firstValue, OperandType operand, const std::string & secondValue)
+WasError CCalculator::SetFnOperand(const std::string & fnName, const std::string & firstValue, OperandType operand, const std::string & secondValue)
 {
 	GetFnInfo info;
-	if ((CheckVar(firstValue) || CheckFn(firstValue)) && (CheckVar(secondValue) || CheckFn(secondValue)) 
-		&& !CheckVar(fnName) && !CheckFn(fnName))
+	WasError wasError = WasError::AllOk;
+	if (!CheckIdName(fnName))
+	{
+		wasError = WasError::idNameNotCorrect;
+	}
+	else if (CheckVar(fnName))
+	{
+		wasError = WasError::varUsesIdName;
+	}
+	else if (CheckFn(fnName))
+	{
+		wasError = WasError::FnUsesIdName;
+	}
+	else if (!CheckFn(firstValue) && !CheckVar(firstValue))
+	{
+		wasError = WasError::valueSecondIdNotFound;
+	}
+	else if (!CheckFn(secondValue) && !CheckVar(secondValue))
+	{
+		wasError = WasError::valueThirdIdNotFound;
+	}
+	else
 	{
 		info.firstVal = firstValue;
 		info.operand = operand;
 		info.secondVal = secondValue;
 		info.twoOperators = true;
 		m_functions.insert(std::pair<std::string, GetFnInfo>(fnName, info));
-		return false;
 	}
-	return true;
+	return wasError;
+}
+
+std::map<std::string, double> CCalculator::GetMapVars()
+{
+	return m_vars;
+}
+
+std::map<std::string, GetFnInfo> CCalculator::GetMapFn()
+{
+	return m_functions;
 }

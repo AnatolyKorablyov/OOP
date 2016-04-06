@@ -30,6 +30,9 @@
     <ClInclude Include="..\task02\Definition.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\task02\UserInteration.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\task02\Calculator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\task02\UserInteration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
