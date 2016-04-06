@@ -2,6 +2,8 @@
 #include <boost/test/unit_test.hpp>
 #include "..\task01\Car.h"
 
+
+BOOST_F
 BOOST_AUTO_TEST_SUITE(Go_Ride)
 BOOST_AUTO_TEST_CASE(EngineOnFailed)
 {

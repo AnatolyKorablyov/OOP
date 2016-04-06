@@ -19,6 +19,39 @@ enum class Direction
 	Stand		// стоим
 };
 
+enum class WasErrorEngineOn
+{
+	EngineOn,				// двигатель включен
+	EngineWasOn,			// двигатель уже включен
+	EngineNotOnWithGear,	// двигатель не может быть включен, т.к. включена передача
+};
+
+enum class WasErrorEngineOff
+{
+	EngineOff,				// двигатель выключен
+	EngineWasOff,			// двигатель уже выключен
+	EngineNotOffWithGear,	// двигатель не может быть выключен, т.к. включена передача 
+	EngineNotOffWithSpeed	// двигатель не может быть выключен, т.к. скорость не нулева€
+
+};
+
+enum class WasErrorSetGear
+{
+	GearOn,						// передача включена
+	GearNotOnReverse,			// задн€€ передача не включена
+	GearNotOnWithReverseSpeed,	// положительна€ передача не может быть включена
+	GearNot,					// нет такой передачи
+	GearNotOnWithSpeed			// скорость не соответсвует диапазону
+};
+
+enum class WasErrorSetSpeed
+{
+	SpeedOn,						// скорость установлена
+	SpeedNotWithEngine,				// скорость не установлена, из-за не включенного двигател€
+	SpeedNotAddWithNeutralGear,		// скорость не удалось повысить, т.к. установлена нейтральна€ передача
+	SpeedNotRange					// скорость не в диапазоне
+};
+
 struct Border
 {
 	int bottomBound;	// нижн€€ граница

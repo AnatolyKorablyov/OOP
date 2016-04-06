@@ -42,16 +42,16 @@ bool CCar::CheckBound(const int & value, const Border & rangeValues)
 	return (value >= rangeValues.bottomBound && value <= rangeValues.upperBound);
 }
 
-int CCar::TurnOnEngine()
+WasErrorEngineOn CCar::TurnOnEngine()
 {
-	int wasError = 0;
+	WasErrorEngineOn wasError = WasErrorEngineOn::EngineOn;
 	if (m_engineLaunched)
 	{
-		wasError = 1;
+		wasError = WasErrorEngineOn::EngineWasOn;
 	}
 	else if (m_gear != 0)
 	{
-		wasError = 2;
+		wasError = WasErrorEngineOn::EngineNotOnWithGear;
 	}
 	else
 	{
@@ -61,20 +61,20 @@ int CCar::TurnOnEngine()
 	return wasError;
 }
 
-int CCar::TurnOffEngine()
+WasErrorEngineOff CCar::TurnOffEngine()
 {
-	int wasError = 0;
+	WasErrorEngineOff wasError = WasErrorEngineOff::EngineOff;
 	if (!m_engineLaunched)
 	{
-		wasError = 1;
+		wasError = WasErrorEngineOff::EngineWasOff;
 	}
 	else if (m_gear != 0)
 	{
-		wasError = 2;
+		wasError = WasErrorEngineOff::EngineNotOffWithGear;
 	}
 	else if (m_direction != Direction::Stand)
 	{
-		wasError = 3;
+		wasError = WasErrorEngineOff::EngineNotOffWithSpeed;
 	}
 	else
 	{
@@ -83,24 +83,24 @@ int CCar::TurnOffEngine()
 	return wasError;
 }
 
-int CCar::SetGear(const int & gear)
+WasErrorSetGear CCar::SetGear(const int & gear)
 {
-	int wasError = 0;
+	WasErrorSetGear wasError = WasErrorSetGear::GearOn;
 	if (gear < 0 && m_direction == Direction::Forward)
 	{
-		wasError = 1;
+		wasError = WasErrorSetGear::GearNotOnReverse;
 	}
 	else if (gear < 0 && m_direction == Direction::Backward)
 	{
-		wasError = 2;
+		wasError = WasErrorSetGear::GearNotOnWithReverseSpeed;
 	}
 	else if (!CheckBound(gear, GEAR_RANGE))
 	{
-		wasError = 3;
+		wasError = WasErrorSetGear::GearNot;
 	}
 	else if (!CheckBound(m_speed, SPEED_RANGE.find(gear)->second))
 	{
-		wasError = 4;
+		wasError = WasErrorSetGear::GearNotOnWithSpeed;
 	}
 	else
 	{
@@ -109,21 +109,21 @@ int CCar::SetGear(const int & gear)
 	return wasError;
 }
 
-int CCar::SetSpeed(const int & speed)
+WasErrorSetSpeed CCar::SetSpeed(const int & speed)
 {
-	int wasError = 0;
+	WasErrorSetSpeed wasError = WasErrorSetSpeed::SpeedOn;
 	auto it = SPEED_RANGE.find(m_gear);
 	if (!m_engineLaunched)
 	{
-		wasError = 1;
+		wasError = WasErrorSetSpeed::SpeedNotWithEngine;
 	}
 	else if (m_gear == 0 && speed > m_speed)
 	{
-		wasError = 2;
+		wasError = WasErrorSetSpeed::SpeedNotAddWithNeutralGear;
 	}
 	else if (!CheckBound(speed, it->second))
 	{
-		wasError = 3;
+		wasError = WasErrorSetSpeed::SpeedNotRange;
 	}
 	else
 	{
