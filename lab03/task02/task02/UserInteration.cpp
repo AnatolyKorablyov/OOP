@@ -168,12 +168,19 @@ void CommandPrintfns(CCalculator & calc)
 	}
 }
 
+void PrintHelp()
+{
+	std::cout << "var <id> : Вводит переменную id с значением nan (Exampe: var x)" << std::endl;
+	std::cout << "let <id1>=<id2> или let <id1>=<num> : Вводит переменную id1 с значением id2 (Exampe: let x=12,9)" << std::endl;
+	std::cout << "fn <id1>=<id2><operand><id3> или fn <id1>=<id2> : Вводит функцию id1 с значением id2 (Exampe: fn f0=x+y)" << std::endl;
+	std::cout << "print <id> : Выводит значение id (Example: print x)" << std::endl;
+	std::cout << "printvars : Выводит все имеющиеся переменные на экран" << std::endl;
+	std::cout << "printfns : Выводит все имеющиеся функции на экран" << std::endl;
+}
 void HandlerCommands(CCalculator & calc, const string & mainRequest)
 {
 	string identificator1;
-	GetValInfo answer;
 	size_t posStart;
-	size_t posEnd;
 	if ((posStart = mainRequest.find("var ")) < mainRequest.length())
 	{
 		CommandSetVar(calc, mainRequest, posStart);
@@ -197,6 +204,10 @@ void HandlerCommands(CCalculator & calc, const string & mainRequest)
 	else if (mainRequest == "printfns")
 	{
 		CommandPrintfns(calc);
+	}
+	else
+	{
+		PrintHelp();
 	}
 }
 
