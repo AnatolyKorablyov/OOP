@@ -8,7 +8,8 @@ GetValInfo CCalculator::GetVar(const std::string & varName)	const
 	if (m_repository.CheckVar(varName))
 	{
 		info.valueInfo = FoundValueInfo::valueIsFound;
-		info.value = m_repository.m_vars.find(varName)->second;
+
+		info.value = m_repository.getVarValue(varName);
 	}
 	else
 	{
@@ -34,7 +35,7 @@ ReturnCode CCalculator::SetVar(const std::string & varName)
 	}
 	else 
 	{
-		m_repository.m_vars.emplace(varName, NAN);
+		m_repository.SetVarValue(varName, NAN);
 	}
 
 	return wasError;
@@ -44,7 +45,7 @@ bool CCalculator::SetLetDouble(const std::string & varName, const double & value
 {
 	if (!m_repository.CheckFn(varName))
 	{
-		m_repository.m_vars[varName] = value;
+		m_repository.SetVarValue(varName, value);
 		return true;
 	}
 	return false;
@@ -64,7 +65,7 @@ ReturnCode CCalculator::SetLetVar(const std::string & varName, const std::string
 		valueInfo = GetFn(valueStr);
 		if (valueInfo.valueInfo == FoundValueInfo::valueIsFound)
 		{
-			m_repository.m_vars[varName] = valueInfo.value;
+			m_repository.SetVarValue(varName, valueInfo.value);
 		}
 		else if (valueStr != "0" && value == 0)
 		{
@@ -81,7 +82,7 @@ ReturnCode CCalculator::SetLetVar(const std::string & varName, const std::string
 	}
 	else
 	{
-		m_repository.m_vars[varName] = valueInfo.value;
+		m_repository.SetVarValue(varName, valueInfo.value);
 	}
 	return wasError;
 }
@@ -114,14 +115,13 @@ GetValInfo CCalculator::GetFnValue(const std::string & fnName) const
 	if (m_repository.CheckLocalFn(fnName))
 	{
 		infoResult.valueInfo = FoundValueInfo::valueIsFound;
-		infoResult.value = m_repository.localMapFn[fnName];
+		infoResult.value = m_repository.getlocalFnValue(fnName);
 		return infoResult;
 	}
-	auto it = m_repository.m_functions.find(fnName);
-	if (it != m_repository.m_functions.end())
+	if (m_repository.CheckFn(fnName))
 	{
 		infoResult.valueInfo = FoundValueInfo::valueIsFound;
-		infoFn = it->second;
+		infoFn = m_repository.getFnValue(fnName);
 		if (infoFn.twoOperators) {
 			auto firstVal = GetVar(infoFn.firstVal);
 			auto operand = infoFn.operand;
@@ -148,7 +148,7 @@ GetValInfo CCalculator::GetFnValue(const std::string & fnName) const
 		}
 		if (infoResult.value == infoResult.value)
 		{
-			m_repository.localMapFn[fnName] = infoResult.value;
+			m_repository.SetlocalFnValue(fnName, infoResult.value);
 		}
 	}
 	else
@@ -162,9 +162,8 @@ GetValInfo CCalculator::GetFn(const std::string & fnName) const
 {
 	GetValInfo infoResult;
 	infoResult = GetFnValue(fnName);
-	m_repository.localMapFn.clear();
-	/*infoResult.value = round(infoResult.value * 100) / 100;
-	*/
+	m_repository.ClearLocalFn();
+
 	return infoResult;
 }
 
@@ -192,7 +191,7 @@ ReturnCode CCalculator::SetFnValue(const std::string & fnName, const std::string
 	{
 		info.firstVal = value;
 		info.twoOperators = false;
-		m_repository.m_functions.emplace(fnName, info);
+		m_repository.SetFnValue(fnName, info);
 	}
 	return wasError;
 }
@@ -227,17 +226,17 @@ ReturnCode CCalculator::SetFnOperand(const std::string & fnName, const std::stri
 		info.operand = operand;
 		info.secondVal = secondValue;
 		info.twoOperators = true;
-		m_repository.m_functions.insert(std::pair<std::string, GetFnInfo>(fnName, info));
+		m_repository.SetFnValue(fnName, info);
 	}
 	return wasError;
 }
 
-std::map<std::string, double> CCalculator::GetMapVars() const 
+std::map<std::string, double> CCalculator::GetMapVars() const
 {
-	return m_repository.m_vars;
+	return m_repository.GetMapVars();
 }
 
 std::map<std::string, GetFnInfo> CCalculator::GetMapFn() const
 {
-	return m_repository.m_functions;
+	return m_repository.GetMapFn();
 }

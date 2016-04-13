@@ -6,7 +6,6 @@
 class CCalculator
 {
 public:
-
 	GetValInfo GetVar(const std::string & varName) const;
 	GetValInfo GetFn(const std::string & fnName) const;
 	ReturnCode SetVar(const std::string & varName);
@@ -16,13 +15,9 @@ public:
 	std::map<std::string, double> GetMapVars() const;
 	std::map<std::string, GetFnInfo> GetMapFn() const;
 private:
-	CVariables m_repository;
+	mutable CVariables m_repository;
 	bool SetLetDouble(const std::string & varName, const double & value);
 	double CalcFunctions(const double & firstValue, const OperandType & operand, const double & secondValue) const;
-	
 	GetValInfo GetFnValue(const std::string & fnName) const;
-	//std::map<std::string, double> m_vars;
-	//std::map<std::string, GetFnInfo> m_functions;
-	//mutable std::map<std::string, double> localMapFn;
 };
 
