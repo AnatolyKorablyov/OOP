@@ -4,7 +4,8 @@ static const unsigned LEN_FN_COMMAND = 3;
 static const unsigned LEN_VAR_COMMAND = 4;
 static const unsigned LEN_LET_COMMAND = 4;
 static const unsigned LEN_PRINT_COMMAND = 6;
-enum class GetError
+
+enum class FoundValueInfo
 {
 	noValue,		// нет значения
 	valueIsFound	// значение найдено
@@ -31,13 +32,13 @@ enum class OperandType
 
 struct GetValInfo
 {
-	GetError wasError;
+	FoundValueInfo valueInfo;
 	double value;
 };
  
 struct GetFnInfo
 {
-	GetError wasError;
+	FoundValueInfo valueInfo;
 	bool twoOperators;
 	std::string firstVal;
 	OperandType operand;

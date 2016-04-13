@@ -50,12 +50,22 @@ bool CCalculator::CheckFn(const std::string & varName) const
 	return false;
 }
 
+bool CCalculator::CheckLocalFn(const std::string & fnName) const
+{
+	auto it = localMapFn.find(fnName);
+	if (it != localMapFn.end())
+	{
+		return true;
+	}
+	return false;
+}
+
 GetValInfo CCalculator::GetVar(const std::string & varName)	const
 {
 	GetValInfo info;
 	if (CheckVar(varName))
 	{
-		info.wasError = GetError::valueIsFound;
+		info.valueInfo = FoundValueInfo::valueIsFound;
 		info.value = m_vars.find(varName)->second;
 		if (info.value == info.value)
 		{
@@ -64,7 +74,7 @@ GetValInfo CCalculator::GetVar(const std::string & varName)	const
 	}
 	else
 	{
-		info.wasError = GetError::noValue;
+		info.valueInfo = FoundValueInfo::noValue;
 	}
 	return info;
 }
@@ -86,7 +96,7 @@ WasError CCalculator::SetVar(const std::string & varName)
 	}
 	else 
 	{
-		m_vars.insert(std::pair<std::string, double>(varName, NAN));
+		m_vars.emplace(varName, NAN);
 	}
 
 	return wasError;
@@ -110,7 +120,7 @@ WasError CCalculator::SetLetVar(const std::string & varName, const std::string &
 	{
 		wasError = WasError::idNameNotCorrect;
 	}
-	else if (valueInfo.wasError == GetError::noValue)
+	else if (valueInfo.valueInfo == FoundValueInfo::noValue)
 	{
 		double value = atof(valueStr.c_str());
 		if (valueStr != "0" && value == 0)
@@ -154,26 +164,32 @@ double CCalculator::CalcFunctions(const double & firstValue, const OperandType &
 	return 0;
 }
 
-GetValInfo CCalculator::GetFn(const std::string & fnName) const
+GetValInfo CCalculator::GetFnValue(const std::string & fnName)
 {
 	GetValInfo infoResult;
 	GetFnInfo infoFn;
+	if (CheckLocalFn(fnName))
+	{
+		infoResult.valueInfo = FoundValueInfo::valueIsFound;
+		infoResult.value = localMapFn[fnName];
+		return infoResult;
+	}
 	auto it = m_functions.find(fnName);
 	if (it != m_functions.end())
 	{
-		infoResult.wasError = GetError::valueIsFound;
+		infoResult.valueInfo = FoundValueInfo::valueIsFound;
 		infoFn = it->second;
 		if (infoFn.twoOperators) {
 			auto firstVal = GetVar(infoFn.firstVal);
 			auto operand = infoFn.operand;
 			auto secondVal = GetVar(infoFn.secondVal);
-			if (firstVal.wasError == GetError::noValue)
+			if (firstVal.valueInfo == FoundValueInfo::noValue)
 			{
-				firstVal = GetFn(infoFn.firstVal);
+				firstVal = GetFnValue(infoFn.firstVal);
 			}
-			if (secondVal.wasError == GetError::noValue)
+			if (secondVal.valueInfo == FoundValueInfo::noValue)
 			{
-				secondVal = GetFn(infoFn.secondVal);
+				secondVal = GetFnValue(infoFn.secondVal);
 			}
 
 			infoResult.value = CalcFunctions(firstVal.value, operand, secondVal.value);
@@ -181,21 +197,30 @@ GetValInfo CCalculator::GetFn(const std::string & fnName) const
 		else
 		{
 			auto mainValue = GetVar(infoFn.firstVal);
-			if (mainValue.wasError == GetError::noValue)
+			if (mainValue.valueInfo == FoundValueInfo::noValue)
 			{
-				mainValue = GetFn(infoFn.firstVal);
+				mainValue = GetFnValue(infoFn.firstVal);
 			}
 			infoResult.value = mainValue.value;
 		}
 		if (infoResult.value == infoResult.value)
 		{
-			infoResult.value = round(infoResult.value * 100) / 100;
+			localMapFn[fnName] = infoResult.value;
 		}
 	}
 	else
 	{
-		infoResult.wasError = GetError::noValue;
+		infoResult.valueInfo = FoundValueInfo::noValue;
 	}
+	return infoResult;
+}
+
+GetValInfo CCalculator::GetFn(const std::string & fnName)
+{
+	GetValInfo infoResult;
+	infoResult = GetFnValue(fnName);
+	localMapFn.clear();
+	infoResult.value = round(infoResult.value * 100) / 100;
 	return infoResult;
 }
 
@@ -223,7 +248,7 @@ WasError CCalculator::SetFnValue(const std::string & fnName, const std::string &
 	{
 		info.firstVal = value;
 		info.twoOperators = false;
-		m_functions.insert(std::pair<std::string, GetFnInfo>(fnName, info));
+		m_functions.emplace(fnName, info);
 	}
 	return wasError;
 }
@@ -263,12 +288,12 @@ WasError CCalculator::SetFnOperand(const std::string & fnName, const std::string
 	return wasError;
 }
 
-std::map<std::string, double> CCalculator::GetMapVars()
+std::map<std::string, double> CCalculator::GetMapVars() const 
 {
 	return m_vars;
 }
 
-std::map<std::string, GetFnInfo> CCalculator::GetMapFn()
+std::map<std::string, GetFnInfo> CCalculator::GetMapFn() const
 {
 	return m_functions;
 }

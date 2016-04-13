@@ -19,7 +19,7 @@ BOOST_FIXTURE_TEST_SUITE(Calculator, CalculatorFixture)
 
 	BOOST_AUTO_TEST_CASE(getVarFailed)
 	{
-		BOOST_CHECK(calc.GetVar("x").wasError == GetError::noValue);
+		BOOST_CHECK(calc.GetVar("x").valueInfo == FoundValueInfo::noValue);
 	}
 	BOOST_AUTO_TEST_CASE(setUncorrectNameVarFailed)
 	{
@@ -109,7 +109,7 @@ BOOST_FIXTURE_TEST_SUITE(Calculator, CalculatorFixture)
 
 	BOOST_AUTO_TEST_CASE(SetFunction_no_Function)
 	{
-		BOOST_CHECK(calc.GetFn("function").wasError == GetError::noValue);
+		BOOST_CHECK(calc.GetFn("function").valueInfo == FoundValueInfo::noValue);
 	}
 
 	struct SetNewVar_for_function : CalculatorFixture

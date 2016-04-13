@@ -106,10 +106,10 @@ void CommandPrint(CCalculator & calc, const string & mainRequest, size_t posStar
 	identificator1.append(mainRequest.begin() + posEnd, mainRequest.end());
 	GetValInfo answer = calc.GetVar(identificator1);
 	bool m_found = true;
-	if (answer.wasError == GetError::noValue)
+	if (answer.valueInfo == FoundValueInfo::noValue)
 	{
 		answer = calc.GetFn(identificator1);
-		if (answer.wasError == GetError::noValue)
+		if (answer.valueInfo == FoundValueInfo::noValue)
 		{
 			m_found = false;
 			std::cout << "такого идентификатора нет" << std::endl;
@@ -177,6 +177,7 @@ void PrintHelp()
 	std::cout << "printvars : Выводит все имеющиеся переменные на экран" << std::endl;
 	std::cout << "printfns : Выводит все имеющиеся функции на экран" << std::endl;
 }
+
 void HandlerCommands(CCalculator & calc, const string & mainRequest)
 {
 	string identificator1;
