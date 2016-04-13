@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <ctype.h>
+#include <fstream>
 
 #include <map>
 #include <string>

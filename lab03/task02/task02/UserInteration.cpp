@@ -29,6 +29,7 @@ void PrintAllError(const WasError & wasError)
 		break;
 	}
 }
+
 void CommandSetVar(CCalculator & calc, const string & mainRequest, size_t posStart)
 {
 	string identificator1;
@@ -124,6 +125,7 @@ void CommandPrint(CCalculator & calc, const string & mainRequest, size_t posStar
 		}
 		else
 		{
+			answer.value = round(answer.value * 100) / 100;
 			std::cout << answer.value << std::endl;
 		}
 	}
@@ -142,6 +144,7 @@ void CommandPrintvars(CCalculator & calc)
 		}
 		else
 		{
+			i.second = round(i.second * 100) / 100;
 			std::cout << i.second << std::endl;
 		}
 	}
@@ -162,6 +165,7 @@ void CommandPrintfns(CCalculator & calc)
 		}																						
 		else
 		{
+			value = round(value * 100) / 100;
 			std::cout << value << std::endl;
 		}
 

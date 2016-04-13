@@ -143,7 +143,8 @@ BOOST_FIXTURE_TEST_SUITE(Calculator, CalculatorFixture)
 		BOOST_AUTO_TEST_CASE(SetFunctionComplete_Div)
 		{
 			calc.SetFnOperand("function", "x", OperandType::Div, "y");
-			BOOST_CHECK_EQUAL(calc.GetFn("function").value, 15.67);
+			double value = round(calc.GetFn("function").value * 100) / 100;
+			BOOST_CHECK_EQUAL(value, 15.67);
 		}
 		BOOST_AUTO_TEST_CASE(SetFunctionComplete_Mul)
 		{

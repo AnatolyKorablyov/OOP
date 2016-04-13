@@ -1,0 +1,6 @@
+let v=42
+let variable=v
+fn function=v
+let v=43
+print variable
+print function

@@ -67,10 +67,6 @@ GetValInfo CCalculator::GetVar(const std::string & varName)	const
 	{
 		info.valueInfo = FoundValueInfo::valueIsFound;
 		info.value = m_vars.find(varName)->second;
-		if (info.value == info.value)
-		{
-			info.value = round(info.value * 100) / 100;
-		}
 	}
 	else
 	{
@@ -123,10 +119,15 @@ WasError CCalculator::SetLetVar(const std::string & varName, const std::string &
 	else if (valueInfo.valueInfo == FoundValueInfo::noValue)
 	{
 		double value = atof(valueStr.c_str());
-		if (valueStr != "0" && value == 0)
+		GetValInfo valueInfo = GetFn(valueStr);
+		if (valueInfo.valueInfo == FoundValueInfo::valueIsFound)
+		{
+			m_vars[varName] = valueInfo.value;
+		}
+		else if (valueStr != "0" && value == 0)
 		{
 			wasError = WasError::numberNotCorrect;
-		}
+		}											
 		else if (!SetLetDouble(varName, value))
 		{
 			wasError = WasError::FnUsesIdName;
@@ -220,7 +221,8 @@ GetValInfo CCalculator::GetFn(const std::string & fnName)
 	GetValInfo infoResult;
 	infoResult = GetFnValue(fnName);
 	localMapFn.clear();
-	infoResult.value = round(infoResult.value * 100) / 100;
+	/*infoResult.value = round(infoResult.value * 100) / 100;
+	*/
 	return infoResult;
 }
 
