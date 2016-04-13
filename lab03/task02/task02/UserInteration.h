@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void PrintAllError(const WasError & wasError);
+void PrintAllError(const ReturnCode & wasError);
 void CommandSetVar(CCalculator & calc, const string & mainRequest, size_t posStart);
 void CommandSetLet(CCalculator & calc, const string & mainRequest, size_t posStart);
 void CommandSetFn(CCalculator & calc, const string & mainRequest, size_t posStart);

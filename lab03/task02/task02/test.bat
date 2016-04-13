@@ -19,6 +19,10 @@ echo 4
 %program% "input4.txt" >> out4.txt
 if ERRORLEVEL 1 goto testFailed
 
+echo 5
+%program% "input5.txt" >> out5.txt
+if ERRORLEVEL 1 goto testFailed
+
 echo OK
 exit /B
 

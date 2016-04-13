@@ -23,15 +23,15 @@ BOOST_FIXTURE_TEST_SUITE(Calculator, CalculatorFixture)
 	}
 	BOOST_AUTO_TEST_CASE(setUncorrectNameVarFailed)
 	{
-		BOOST_CHECK(calc.SetVar("1xAZ") == WasError::idNameNotCorrect);
+		BOOST_CHECK(calc.SetVar("1xAZ") == ReturnCode::idNameNotCorrect);
 	}
 	BOOST_AUTO_TEST_CASE(setCorrectNameVarComplete)
 	{
-		BOOST_CHECK(calc.SetVar("_AZ19az") == WasError::AllOk);
+		BOOST_CHECK(calc.SetVar("_AZ19az") == ReturnCode::AllOk);
 	}
 	BOOST_AUTO_TEST_CASE(setIncorrectNameVarComplete)
 	{
-		BOOST_CHECK(calc.SetVar("&hello") == WasError::idNameNotCorrect);
+		BOOST_CHECK(calc.SetVar("&hello") == ReturnCode::idNameNotCorrect);
 	}
 	struct SetNewVar_x : CalculatorFixture
 	{
@@ -48,7 +48,7 @@ BOOST_FIXTURE_TEST_SUITE(Calculator, CalculatorFixture)
 		}
 		BOOST_AUTO_TEST_CASE(SetVarFailed)
 		{
-			BOOST_CHECK(calc.SetVar("x") == WasError::varUsesIdName);
+			BOOST_CHECK(calc.SetVar("x") == ReturnCode::varUsesIdName);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 
@@ -58,7 +58,7 @@ BOOST_FIXTURE_TEST_SUITE(Calculator, CalculatorFixture)
 
 	BOOST_AUTO_TEST_CASE(SetLetVarFailed_var_not_found)
 	{
-		BOOST_CHECK(calc.SetLetVar("x", "y") == WasError::numberNotCorrect);
+		BOOST_CHECK(calc.SetLetVar("x", "y") == ReturnCode::numberNotCorrect);
 	}
 	BOOST_AUTO_TEST_CASE(SetVar_MinusDouble)
 	{
@@ -87,7 +87,7 @@ BOOST_FIXTURE_TEST_SUITE(Calculator, CalculatorFixture)
 		}
 		BOOST_AUTO_TEST_CASE(SetLetVarFailed_identificator2_NOT_Found)
 		{
-			BOOST_CHECK(calc.SetLetVar("x", "notVar") == WasError::numberNotCorrect);
+			BOOST_CHECK(calc.SetLetVar("x", "notVar") == ReturnCode::numberNotCorrect);
 		}
 
 //////////////////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ BOOST_FIXTURE_TEST_SUITE(Calculator, CalculatorFixture)
 
 	BOOST_AUTO_TEST_CASE(SetFunctionValueFailed_no_var)
 	{
-		BOOST_CHECK(calc.SetFnValue("function", "noVar") == WasError::valueSecondIdNotFound);
+		BOOST_CHECK(calc.SetFnValue("function", "noVar") == ReturnCode::valueSecondIdNotFound);
 	}
 
 	BOOST_AUTO_TEST_CASE(SetFunction_no_Function)
@@ -159,11 +159,11 @@ BOOST_FIXTURE_TEST_SUITE(Calculator, CalculatorFixture)
 		}
 		BOOST_AUTO_TEST_CASE(SetFunctionFailed_varFound)
 		{
-			BOOST_CHECK(calc.SetFnValue("y", "x") == WasError::varUsesIdName);
+			BOOST_CHECK(calc.SetFnValue("y", "x") == ReturnCode::varUsesIdName);
 		}
 		BOOST_AUTO_TEST_CASE(SetFunctionFailed_fnFound)
 		{
-			BOOST_CHECK(calc.SetFnValue("f0", "x") == WasError::FnUsesIdName);
+			BOOST_CHECK(calc.SetFnValue("f0", "x") == ReturnCode::FnUsesIdName);
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 

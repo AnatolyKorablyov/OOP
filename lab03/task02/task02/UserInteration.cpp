@@ -3,28 +3,28 @@
 #include "Definition.h"
 
 
-void PrintAllError(const WasError & wasError) 
+void PrintAllError(const ReturnCode & wasError) 
 {
 	switch (wasError)
 	{
-	case WasError::AllOk:
+	case ReturnCode::AllOk:
 		break;
-	case WasError::idNameNotCorrect:
+	case ReturnCode::idNameNotCorrect:
 		std::cout << "Имя переменной введено некорректно" << std::endl;
 		break;
-	case WasError::numberNotCorrect:
+	case ReturnCode::numberNotCorrect:
 		std::cout << "Число введено некорректно (пример: 12,34; -34,4)" << std::endl;
 		break;
-	case WasError::FnUsesIdName:
+	case ReturnCode::FnUsesIdName:
 		std::cout << "Найдена функция использующая имя этого первого идентификатора" << std::endl;
 		break;
-	case WasError::varUsesIdName:
+	case ReturnCode::varUsesIdName:
 		std::cout << "Найдена переменная использующая имя этого первого идентификатора" << std::endl;
 		break;
-	case WasError::valueSecondIdNotFound:
+	case ReturnCode::valueSecondIdNotFound:
 		std::cout << "Не найдено значение второго идентификатора" << std::endl;
 		break;
-	case WasError::valueThirdIdNotFound:
+	case ReturnCode::valueThirdIdNotFound:
 		std::cout << "Не найдено значение третьего идентификатора" << std::endl;
 		break;
 	}
@@ -35,7 +35,7 @@ void CommandSetVar(CCalculator & calc, const string & mainRequest, size_t posSta
 	string identificator1;
 	size_t posEnd = posStart + LEN_VAR_COMMAND;
 	identificator1.append(mainRequest.begin() + posEnd, mainRequest.end());
-	WasError wasError = calc.SetVar(identificator1);
+	ReturnCode wasError = calc.SetVar(identificator1);
 	PrintAllError(wasError);
 }
 
@@ -50,7 +50,7 @@ void CommandSetLet(CCalculator & calc, const string & mainRequest, size_t posSta
 
 	posEnd = posStart + 1;
 	identificator2.append(mainRequest.begin() + posEnd, mainRequest.end());
-	WasError wasError = calc.SetLetVar(identificator1, identificator2);
+	ReturnCode wasError = calc.SetLetVar(identificator1, identificator2);
 	PrintAllError(wasError);
 }
 
@@ -58,8 +58,8 @@ void CommandSetFn(CCalculator & calc, const string & mainRequest, size_t posStar
 {
 	string identificator1;
 	size_t posEnd = posStart + LEN_FN_COMMAND;
-	WasError wasError;
-	OperandType operand;
+	ReturnCode wasError;
+	OperandType operand = OperandType::Add;
 	string identificator2;
 
 	posStart = mainRequest.find("=", posEnd);

@@ -11,7 +11,7 @@ enum class FoundValueInfo
 	valueIsFound	// значение найдено
 };
 
-enum class WasError
+enum class ReturnCode
 {
 	idNameNotCorrect,		// переменная введена некорректно
 	numberNotCorrect,		// число введено некорректно
@@ -44,7 +44,7 @@ struct GetFnInfo
 	OperandType operand;
 	std::string secondVal;
 };
-
+												
 
 static const std::map<std::string, OperandType> OPERAND_MAP
 {

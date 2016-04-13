@@ -1,72 +1,14 @@
 #include "stdafx.h"
 #include "Calculator.h"
 
-CCalculator::CCalculator()
-{
-}
-
-bool CCalculator::CheckIdName(const std::string & identificator)
-{
-	if (identificator.length() > 0)
-	{
-		size_t it = 0;
-		if ((identificator[it] >= '0' && identificator[it] <= '9'))
-		{
-			return false;
-		}
-		while (it < identificator.length())
-		{
-			if (!((identificator[it] >= 'a' && identificator[it] <= 'z') ||
-				(identificator[it] >= 'A' && identificator[it] <= 'Z') ||
-				(identificator[it] >= '0' && identificator[it] <= '9') ||
-				(identificator[it] >= '_')))
-			{
-				return false;
-			}
-			++it;
-		}
-		return true;
-	}
-	return false;
-}
-
-bool CCalculator::CheckVar(const std::string & varName) const
-{
-	auto it = m_vars.find(varName);
-	if (it != m_vars.end())
-	{
-		return true;
-	}
-	return false;
-}
-
-bool CCalculator::CheckFn(const std::string & varName) const 
-{
-	auto it = m_functions.find(varName);
-	if (it != m_functions.end())
-	{
-		return true;
-	}
-	return false;
-}
-
-bool CCalculator::CheckLocalFn(const std::string & fnName) const
-{
-	auto it = localMapFn.find(fnName);
-	if (it != localMapFn.end())
-	{
-		return true;
-	}
-	return false;
-}
 
 GetValInfo CCalculator::GetVar(const std::string & varName)	const
 {
 	GetValInfo info;
-	if (CheckVar(varName))
+	if (m_repository.CheckVar(varName))
 	{
 		info.valueInfo = FoundValueInfo::valueIsFound;
-		info.value = m_vars.find(varName)->second;
+		info.value = m_repository.m_vars.find(varName)->second;
 	}
 	else
 	{
@@ -75,24 +17,24 @@ GetValInfo CCalculator::GetVar(const std::string & varName)	const
 	return info;
 }
 
-WasError CCalculator::SetVar(const std::string & varName)
+ReturnCode CCalculator::SetVar(const std::string & varName)
 {
-	WasError wasError = WasError::AllOk;
-	if (!CheckIdName(varName))
+	ReturnCode wasError = ReturnCode::AllOk;
+	if (!m_repository.CheckIdName(varName))
 	{
-		wasError = WasError::idNameNotCorrect;
+		wasError = ReturnCode::idNameNotCorrect;
 	}
-	else if (CheckFn(varName))
+	else if (m_repository.CheckFn(varName))
 	{
-		wasError = WasError::FnUsesIdName;
+		wasError = ReturnCode::FnUsesIdName;
 	}
-	else if (CheckVar(varName))
+	else if (m_repository.CheckVar(varName))
 	{
-		wasError = WasError::varUsesIdName;
+		wasError = ReturnCode::varUsesIdName;
 	}
 	else 
 	{
-		m_vars.emplace(varName, NAN);
+		m_repository.m_vars.emplace(varName, NAN);
 	}
 
 	return wasError;
@@ -100,46 +42,46 @@ WasError CCalculator::SetVar(const std::string & varName)
 
 bool CCalculator::SetLetDouble(const std::string & varName, const double & value)
 {
-	if (!CheckFn(varName))
+	if (!m_repository.CheckFn(varName))
 	{
-		m_vars[varName] = value;
+		m_repository.m_vars[varName] = value;
 		return true;
 	}
 	return false;
 }
 
-WasError CCalculator::SetLetVar(const std::string & varName, const std::string & valueStr)
+ReturnCode CCalculator::SetLetVar(const std::string & varName, const std::string & valueStr)
 {
-	WasError wasError = WasError::AllOk;
+	ReturnCode wasError = ReturnCode::AllOk;
 	GetValInfo valueInfo = GetVar(valueStr);
-	if (!CheckIdName(varName))
+	if (!m_repository.CheckIdName(varName))
 	{
-		wasError = WasError::idNameNotCorrect;
+		wasError = ReturnCode::idNameNotCorrect;
 	}
 	else if (valueInfo.valueInfo == FoundValueInfo::noValue)
 	{
 		double value = atof(valueStr.c_str());
-		GetValInfo valueInfo = GetFn(valueStr);
+		valueInfo = GetFn(valueStr);
 		if (valueInfo.valueInfo == FoundValueInfo::valueIsFound)
 		{
-			m_vars[varName] = valueInfo.value;
+			m_repository.m_vars[varName] = valueInfo.value;
 		}
 		else if (valueStr != "0" && value == 0)
 		{
-			wasError = WasError::numberNotCorrect;
+			wasError = ReturnCode::numberNotCorrect;
 		}											
 		else if (!SetLetDouble(varName, value))
 		{
-			wasError = WasError::FnUsesIdName;
+			wasError = ReturnCode::FnUsesIdName;
 		}
 	}
-	else if (CheckFn(varName))
+	else if (m_repository.CheckFn(varName))
 	{
-		wasError = WasError::FnUsesIdName;
+		wasError = ReturnCode::FnUsesIdName;
 	}
 	else
 	{
-		m_vars[varName] = valueInfo.value;
+		m_repository.m_vars[varName] = valueInfo.value;
 	}
 	return wasError;
 }
@@ -165,18 +107,18 @@ double CCalculator::CalcFunctions(const double & firstValue, const OperandType &
 	return 0;
 }
 
-GetValInfo CCalculator::GetFnValue(const std::string & fnName)
+GetValInfo CCalculator::GetFnValue(const std::string & fnName) const
 {
 	GetValInfo infoResult;
 	GetFnInfo infoFn;
-	if (CheckLocalFn(fnName))
+	if (m_repository.CheckLocalFn(fnName))
 	{
 		infoResult.valueInfo = FoundValueInfo::valueIsFound;
-		infoResult.value = localMapFn[fnName];
+		infoResult.value = m_repository.localMapFn[fnName];
 		return infoResult;
 	}
-	auto it = m_functions.find(fnName);
-	if (it != m_functions.end())
+	auto it = m_repository.m_functions.find(fnName);
+	if (it != m_repository.m_functions.end())
 	{
 		infoResult.valueInfo = FoundValueInfo::valueIsFound;
 		infoFn = it->second;
@@ -206,7 +148,7 @@ GetValInfo CCalculator::GetFnValue(const std::string & fnName)
 		}
 		if (infoResult.value == infoResult.value)
 		{
-			localMapFn[fnName] = infoResult.value;
+			m_repository.localMapFn[fnName] = infoResult.value;
 		}
 	}
 	else
@@ -216,86 +158,86 @@ GetValInfo CCalculator::GetFnValue(const std::string & fnName)
 	return infoResult;
 }
 
-GetValInfo CCalculator::GetFn(const std::string & fnName)
+GetValInfo CCalculator::GetFn(const std::string & fnName) const
 {
 	GetValInfo infoResult;
 	infoResult = GetFnValue(fnName);
-	localMapFn.clear();
+	m_repository.localMapFn.clear();
 	/*infoResult.value = round(infoResult.value * 100) / 100;
 	*/
 	return infoResult;
 }
 
-WasError CCalculator::SetFnValue(const std::string & fnName, const std::string & value)
+ReturnCode CCalculator::SetFnValue(const std::string & fnName, const std::string & value)
 {
 	GetFnInfo info;
-	WasError wasError = WasError::AllOk;
-	if (!CheckIdName(fnName))
+	ReturnCode wasError = ReturnCode::AllOk;
+	if (!m_repository.CheckIdName(fnName))
 	{
-		wasError = WasError::idNameNotCorrect;
+		wasError = ReturnCode::idNameNotCorrect;
 	}
-	else if (CheckVar(fnName))
+	else if (m_repository.CheckVar(fnName))
 	{
-		wasError = WasError::varUsesIdName;
+		wasError = ReturnCode::varUsesIdName;
 	}
-	else if (CheckFn(fnName))
+	else if (m_repository.CheckFn(fnName))
 	{
-		wasError = WasError::FnUsesIdName;
+		wasError = ReturnCode::FnUsesIdName;
 	}
-	else if (!CheckFn(value) && !CheckVar(value))
+	else if (!m_repository.CheckFn(value) && !m_repository.CheckVar(value))
 	{
-		wasError = WasError::valueSecondIdNotFound;
+		wasError = ReturnCode::valueSecondIdNotFound;
 	}
 	else
 	{
 		info.firstVal = value;
 		info.twoOperators = false;
-		m_functions.emplace(fnName, info);
+		m_repository.m_functions.emplace(fnName, info);
 	}
 	return wasError;
 }
 
-WasError CCalculator::SetFnOperand(const std::string & fnName, const std::string & firstValue, OperandType operand, const std::string & secondValue)
+ReturnCode CCalculator::SetFnOperand(const std::string & fnName, const std::string & firstValue, OperandType operand, const std::string & secondValue)
 {
-	GetFnInfo info;
-	WasError wasError = WasError::AllOk;
-	if (!CheckIdName(fnName))
+	ReturnCode wasError = ReturnCode::AllOk;
+	if (!m_repository.CheckIdName(fnName))
 	{
-		wasError = WasError::idNameNotCorrect;
+		wasError = ReturnCode::idNameNotCorrect;
 	}
-	else if (CheckVar(fnName))
+	else if (m_repository.CheckVar(fnName))
 	{
-		wasError = WasError::varUsesIdName;
+		wasError = ReturnCode::varUsesIdName;
 	}
-	else if (CheckFn(fnName))
+	else if (m_repository.CheckFn(fnName))
 	{
-		wasError = WasError::FnUsesIdName;
+		wasError = ReturnCode::FnUsesIdName;
 	}
-	else if (!CheckFn(firstValue) && !CheckVar(firstValue))
+	else if (!m_repository.CheckFn(firstValue) && !m_repository.CheckVar(firstValue))
 	{
-		wasError = WasError::valueSecondIdNotFound;
+		wasError = ReturnCode::valueSecondIdNotFound;
 	}
-	else if (!CheckFn(secondValue) && !CheckVar(secondValue))
+	else if (!m_repository.CheckFn(secondValue) && !m_repository.CheckVar(secondValue))
 	{
-		wasError = WasError::valueThirdIdNotFound;
+		wasError = ReturnCode::valueThirdIdNotFound;
 	}
 	else
 	{
+		GetFnInfo info;
 		info.firstVal = firstValue;
 		info.operand = operand;
 		info.secondVal = secondValue;
 		info.twoOperators = true;
-		m_functions.insert(std::pair<std::string, GetFnInfo>(fnName, info));
+		m_repository.m_functions.insert(std::pair<std::string, GetFnInfo>(fnName, info));
 	}
 	return wasError;
 }
 
 std::map<std::string, double> CCalculator::GetMapVars() const 
 {
-	return m_vars;
+	return m_repository.m_vars;
 }
 
 std::map<std::string, GetFnInfo> CCalculator::GetMapFn() const
 {
-	return m_functions;
+	return m_repository.m_functions;
 }
