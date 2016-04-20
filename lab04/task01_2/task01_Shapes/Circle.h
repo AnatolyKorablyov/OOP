@@ -2,17 +2,14 @@
 #include "SolidShape.h"
 #include "Point.h"
 
-class CRectangle : public ISolidShape
+class CCircle : public ISolidShape
 {
-public:			 
-	unsigned m_width;
-	unsigned m_height;
-	CPoint m_point;
+public:
+	CPoint m_center;
+	unsigned m_radius;
 	virtual unsigned GetPerimetr() const override;
 	virtual unsigned GetArea() const override;
 	virtual std::string ToString() const override;
-	sf::ConvexShape shape;
-	CRectangle();
-	~CRectangle();
+	CCircle();
 };
 

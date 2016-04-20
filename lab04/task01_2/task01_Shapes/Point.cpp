@@ -7,11 +7,6 @@ CPoint::CPoint()
 	m_shapeName = "point";
 }
 
-
-CPoint::~CPoint()
-{
-}
-
 unsigned CPoint::GetPerimetr() const
 {
 	return 0;

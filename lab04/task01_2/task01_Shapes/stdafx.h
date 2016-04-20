@@ -9,11 +9,11 @@
 
 #include <stdio.h>
 #include <tchar.h>
+#include <iostream>
 #include <string>
 #include <vector>
+#include <math.h>
+#include <memory>
 
-#include <SFML/Graphics.hpp>
-
-
-
+#include <SFML\Graphics.hpp>
 // TODO: reference additional headers your program requires here

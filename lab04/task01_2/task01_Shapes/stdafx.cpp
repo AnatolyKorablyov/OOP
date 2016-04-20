@@ -1,5 +1,5 @@
 // stdafx.cpp : source file that includes just the standard includes
-// task01.pch will be the pre-compiled header
+// task01_Shapes.pch will be the pre-compiled header
 // stdafx.obj will contain the pre-compiled type information
 
 #include "stdafx.h"
