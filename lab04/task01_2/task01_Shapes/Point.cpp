@@ -1,23 +1,35 @@
 #include "stdafx.h"
 #include "Point.h"
 
-
-CPoint::CPoint()
+CPoint::CPoint(float x, float y)
+	: m_pos(x, y)
 {
-	m_shapeName = "point";
+
 }
 
-unsigned CPoint::GetPerimetr() const
+sf::Vector2f CPoint::GetCoord() const
 {
-	return 0;
+	return m_pos;
+}
+float CPoint::GetShapeArea() const
+{
+	return 0.f;
 }
 
-unsigned CPoint::GetArea() const
+float CPoint::GetShapePerimetr() const
 {
-	return 0;
+	return 0.f;
 }
 
 std::string CPoint::ToString() const
 {
-	return m_shapeName;
+	std::stringstream ss;
+	ss << "point <" << m_pos.x << ", " << m_pos.y << ">, S = " << GetShapeArea()
+		<< ", P = " << GetShapePerimetr();
+	return ss.str();
+}
+
+ColorInfo CPoint::GetColorLine() const
+{
+	return ColorInfo();
 }

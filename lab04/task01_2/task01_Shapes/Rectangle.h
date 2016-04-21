@@ -1,16 +1,22 @@
 #pragma once
 #include "SolidShape.h"
-#include "Point.h"
 
-class CRectangle : public ISolidShape
+class CRectangle final : public ISolidShape
 {
-public:			 
-	unsigned m_width = 0;
-	unsigned m_height = 0;
-	CPoint m_point;
-	virtual unsigned GetPerimetr() const override;
-	virtual unsigned GetArea() const override;
+public:
+	CRectangle(const sf::Vector2f & pos, const float & width, const float & height
+		, const ColorInfo & colorLine, const ColorInfo & colorFill);
+
+	sf::Vector2f GetTopLeftPoint() const;
+	float GetHeight() const;
+	float GetWidth() const;
+
+	virtual float GetShapeArea() const override;
+	virtual float GetShapePerimetr() const override;
 	virtual std::string ToString() const override;
-	CRectangle();
+private:
+	sf::Vector2f m_posTopLeft = { 0, 0 };
+	float m_height = 0.f;
+	float m_width = 0.f;
 };
 

@@ -1,0 +1,105 @@
+Sort by Square
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+triangle FirstVertex <1, 4>, SecondVertex <4, 5>, ThirdVertex <8, 1>, S = 7.99999, P = 16.4349
+triangle FirstVertex <1, 3>, SecondVertex <4, 5>, ThirdVertex <8, 1>, S = 10, P = 16.5425
+triangle FirstVertex <1, 1>, SecondVertex <9, 6>, ThirdVertex <18, 1>, S = 42.5, P = 36.7296
+triangle FirstVertex <1, 2>, SecondVertex <4, 6>, ThirdVertex <82, 1>, S = 163.5, P = 164.166
+circle <1, 2>, radius = 10, S = 314.159, P = 62.8319
+circle <111, 2>, radius = 10, S = 314.159, P = 62.8319
+rectangle <20456, 3.50012e+09>, height = 25, width = 17, S = 425, P = 84
+rectangle <20, 3.50234e+07>, height = 25, width = 17, S = 425, P = 84
+rectangle <20, 30>, height = 25, width = 17, S = 425, P = 84
+circle <31, 2>, radius = 20, S = 1256.64, P = 125.664
+circle <31, 2>, radius = 20, S = 1256.64, P = 125.664
+rectangle <2201, 340>, height = 245, width = 17, S = 4165, P = 524
+rectangle <20, 3012>, height = 25, width = 167, S = 4175, P = 384
+rectangle <20, 310>, height = 25, width = 167, S = 4175, P = 384
+rectangle <230, 3.03453e+06>, height = 255, width = 17, S = 4335, P = 544
+rectangle <230, 30>, height = 255, width = 17, S = 4335, P = 544
+circle <11, 2>, radius = 50, S = 7853.98, P = 314.159
+circle <1133, 2>, radius = 50, S = 7853.98, P = 314.159
+circle <100, 2>, radius = 70, S = 15393.8, P = 439.823
+circle <100, 2>, radius = 70, S = 15393.8, P = 439.823
+rectangle <20, 30456>, height = 254, width = 107, S = 27178, P = 722
+circle <1, 2>, radius = 102, S = 32685.1, P = 640.885
+circle <122, 2>, radius = 102, S = 32685.1, P = 640.885
+rectangle <220, 340>, height = 2456, width = 17, S = 41752, P = 4946
+rectangle <230, 30>, height = 2553, width = 17, S = 43401, P = 5140
+rectangle <20241, 350>, height = 2576, width = 17, S = 43792, P = 5186
+rectangle <20, 30>, height = 2577, width = 17, S = 43809, P = 5188
+rectangle <20, 313120>, height = 2599, width = 17, S = 44183, P = 5232
+rectangle <20, 30>, height = 2512, width = 167, S = 419504, P = 5358
+rectangle <2.02131e+07, 30>, height = 25231, width = 17, S = 428927, P = 50496
+rectangle <20, 30>, height = 2588, width = 167, S = 432196, P = 5510
+rectangle <20, 30>, height = 25, width = 167456, S = 4.1864e+06, P = 334962
+rectangle <20, 350>, height = 25, width = 173454, S = 4.33635e+06, P = 346958
+rectangle <20, 350>, height = 25, width = 174564, S = 4.3641e+06, P = 349178
+rectangle <230, 30>, height = 2.55465e+06, width = 17, S = 4.3429e+07, P = 5.10932e+06
+rectangle <230, 30>, height = 255, width = 1.72342e+07, S = 4.39473e+09, P = 3.4469e+07
+
+Sort by Perimetr
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+point <12, 13>, S = 0, P = 0
+point <14, 51>, S = 0, P = 0
+point <12, 51>, S = 0, P = 0
+triangle FirstVertex <1, 4>, SecondVertex <4, 5>, ThirdVertex <8, 1>, S = 7.99999, P = 16.4349
+triangle FirstVertex <1, 3>, SecondVertex <4, 5>, ThirdVertex <8, 1>, S = 10, P = 16.5425
+triangle FirstVertex <1, 1>, SecondVertex <9, 6>, ThirdVertex <18, 1>, S = 42.5, P = 36.7296
+circle <1, 2>, radius = 10, S = 314.159, P = 62.8319
+circle <111, 2>, radius = 10, S = 314.159, P = 62.8319
+rectangle <20, 30>, height = 25, width = 17, S = 425, P = 84
+rectangle <20456, 3.50012e+09>, height = 25, width = 17, S = 425, P = 84
+rectangle <20, 3.50234e+07>, height = 25, width = 17, S = 425, P = 84
+circle <31, 2>, radius = 20, S = 1256.64, P = 125.664
+circle <31, 2>, radius = 20, S = 1256.64, P = 125.664
+triangle FirstVertex <1, 2>, SecondVertex <4, 6>, ThirdVertex <82, 1>, S = 163.5, P = 164.166
+circle <11, 2>, radius = 50, S = 7853.98, P = 314.159
+circle <1133, 2>, radius = 50, S = 7853.98, P = 314.159
+rectangle <20, 3012>, height = 25, width = 167, S = 4175, P = 384
+rectangle <20, 310>, height = 25, width = 167, S = 4175, P = 384
+circle <100, 2>, radius = 70, S = 15393.8, P = 439.823
+circle <100, 2>, radius = 70, S = 15393.8, P = 439.823
+rectangle <2201, 340>, height = 245, width = 17, S = 4165, P = 524
+rectangle <230, 3.03453e+06>, height = 255, width = 17, S = 4335, P = 544
+rectangle <230, 30>, height = 255, width = 17, S = 4335, P = 544
+circle <1, 2>, radius = 102, S = 32685.1, P = 640.885
+circle <122, 2>, radius = 102, S = 32685.1, P = 640.885
+rectangle <20, 30456>, height = 254, width = 107, S = 27178, P = 722
+rectangle <220, 340>, height = 2456, width = 17, S = 41752, P = 4946
+rectangle <230, 30>, height = 2553, width = 17, S = 43401, P = 5140
+rectangle <20241, 350>, height = 2576, width = 17, S = 43792, P = 5186
+rectangle <20, 30>, height = 2577, width = 17, S = 43809, P = 5188
+rectangle <20, 313120>, height = 2599, width = 17, S = 44183, P = 5232
+rectangle <20, 30>, height = 2512, width = 167, S = 419504, P = 5358
+rectangle <20, 30>, height = 2588, width = 167, S = 432196, P = 5510
+rectangle <2.02131e+07, 30>, height = 25231, width = 17, S = 428927, P = 50496
+rectangle <20, 30>, height = 25, width = 167456, S = 4.1864e+06, P = 334962
+rectangle <20, 350>, height = 25, width = 173454, S = 4.33635e+06, P = 346958
+rectangle <20, 350>, height = 25, width = 174564, S = 4.3641e+06, P = 349178
+rectangle <230, 30>, height = 2.55465e+06, width = 17, S = 4.3429e+07, P = 5.10932e+06
+rectangle <230, 30>, height = 255, width = 1.72342e+07, S = 4.39473e+09, P = 3.4469e+07

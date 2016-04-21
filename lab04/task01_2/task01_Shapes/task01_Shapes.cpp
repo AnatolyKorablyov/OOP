@@ -1,44 +1,55 @@
-// task01_Shapes.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
-#include "Shape.h"
-#include "Rectangle.h"
-#include "Circle.h"
-#include "Triangle.h"
-#include "Point.h"
+#include "HandlerCommand.h"
 
-int main()
+void printBySort(std::vector<std::shared_ptr<IShape>> & vectorShapes, const std::string & outFileName)
 {
-	std::vector<std::shared_ptr<IShape>> shapesVector;
-	
-	shapesVector.push_back(std::make_shared<CRectangle>());
-	shapesVector.push_back(std::make_shared<CCircle>());
-	shapesVector.push_back(std::make_shared<CPoint>());
-	//shapesVector.push_back(std::make_shared<CTriangle>());
-
-	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
-	window.setFramerateLimit(30);
-
-	while (window.isOpen())
+	std::ofstream outFile(outFileName);
+	outFile << "Sort by Square" << std::endl;
+	std::sort(vectorShapes.begin(), vectorShapes.end(), [](const std::shared_ptr<IShape> & first, const std::shared_ptr<IShape> & second) 
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
-				window.close();
-			}
-		}
-		window.clear();
-									 
-		for (auto i : shapesVector)
-		{
-			std::cout << i->ToString() << std::endl;
-			window.draw(i->shape);
-		}
-		window.display();
+		return first->GetShapeArea() < second->GetShapeArea();
+	});
+	for (auto i : vectorShapes)
+	{
+		outFile << i->ToString() << std::endl;
 	}
-    return 0;
+
+	outFile << std::endl << "Sort by Perimetr" << std::endl;
+	std::sort(vectorShapes.begin(), vectorShapes.end(), [](const std::shared_ptr<IShape> & first, const std::shared_ptr<IShape> & second)
+	{
+		return first->GetShapePerimetr() < second->GetShapePerimetr();
+	});
+	for (auto i : vectorShapes)
+	{
+		outFile << i->ToString() << std::endl;
+	}
 }
 
+bool ReadFromFile(const std::string & inputFileName, const std::string & outFileName)
+{
+	std::ifstream inputFile(inputFileName);
+
+	std::string string;
+	std::vector<std::shared_ptr<IShape>> vectorShapes;
+	while (std::getline(inputFile, string))
+	{
+		if (!HandlerCommand(string, vectorShapes))
+		{
+			std::cout << "Unknown command: " << string << std::endl;
+			return false;
+		}
+	}
+	printBySort(vectorShapes, outFileName);
+	return true;
+}
+
+
+int main(int argc, char *argv[])
+{
+	if (argc == 3)
+	{
+		ReadFromFile(argv[1], argv[2]);
+	}
+	
+	return 0;	
+}

@@ -1,0 +1,10 @@
+circle 1 2 10 #ff0010 #ff0100
+circle 31 2 20 #ff0000 #ff0200
+circle 11 2 50 #ff0300 #ff0050
+circle 100 2 70 #ff0000 #ff0800
+circle 1 2 102 #ff0500 #ff1000
+circle 111 2 10 #ff0700 #ff0200
+circle 31 2 20 #ff0060 #ff0050
+circle 1133 2 50 #ff0100 #ff0040
+circle 100 2 70 #ff0040 #ff0010
+circle 122 2 102 #ff0070 #ff1200

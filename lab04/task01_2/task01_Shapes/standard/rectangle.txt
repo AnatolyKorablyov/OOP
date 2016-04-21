@@ -1,0 +1,47 @@
+Sort by Square
+rectangle <20, 30>, height = 25, width = 17, S = 425, P = 84
+rectangle <20, 3.50234e+07>, height = 25, width = 17, S = 425, P = 84
+rectangle <20456, 3.50012e+09>, height = 25, width = 17, S = 425, P = 84
+rectangle <2201, 340>, height = 245, width = 17, S = 4165, P = 524
+rectangle <20, 310>, height = 25, width = 167, S = 4175, P = 384
+rectangle <20, 3012>, height = 25, width = 167, S = 4175, P = 384
+rectangle <230, 3.03453e+06>, height = 255, width = 17, S = 4335, P = 544
+rectangle <230, 30>, height = 255, width = 17, S = 4335, P = 544
+rectangle <20, 30456>, height = 254, width = 107, S = 27178, P = 722
+rectangle <220, 340>, height = 2456, width = 17, S = 41752, P = 4946
+rectangle <230, 30>, height = 2553, width = 17, S = 43401, P = 5140
+rectangle <20241, 350>, height = 2576, width = 17, S = 43792, P = 5186
+rectangle <20, 30>, height = 2577, width = 17, S = 43809, P = 5188
+rectangle <20, 313120>, height = 2599, width = 17, S = 44183, P = 5232
+rectangle <20, 30>, height = 2512, width = 167, S = 419504, P = 5358
+rectangle <2.02131e+07, 30>, height = 25231, width = 17, S = 428927, P = 50496
+rectangle <20, 30>, height = 2588, width = 167, S = 432196, P = 5510
+rectangle <20, 30>, height = 25, width = 167456, S = 4.1864e+06, P = 334962
+rectangle <20, 350>, height = 25, width = 173454, S = 4.33635e+06, P = 346958
+rectangle <20, 350>, height = 25, width = 174564, S = 4.3641e+06, P = 349178
+rectangle <230, 30>, height = 2.55465e+06, width = 17, S = 4.3429e+07, P = 5.10932e+06
+rectangle <230, 30>, height = 255, width = 1.72342e+07, S = 4.39473e+09, P = 3.4469e+07
+
+Sort by Perimetr
+rectangle <20, 30>, height = 25, width = 17, S = 425, P = 84
+rectangle <20, 3.50234e+07>, height = 25, width = 17, S = 425, P = 84
+rectangle <20456, 3.50012e+09>, height = 25, width = 17, S = 425, P = 84
+rectangle <20, 310>, height = 25, width = 167, S = 4175, P = 384
+rectangle <20, 3012>, height = 25, width = 167, S = 4175, P = 384
+rectangle <2201, 340>, height = 245, width = 17, S = 4165, P = 524
+rectangle <230, 3.03453e+06>, height = 255, width = 17, S = 4335, P = 544
+rectangle <230, 30>, height = 255, width = 17, S = 4335, P = 544
+rectangle <20, 30456>, height = 254, width = 107, S = 27178, P = 722
+rectangle <220, 340>, height = 2456, width = 17, S = 41752, P = 4946
+rectangle <230, 30>, height = 2553, width = 17, S = 43401, P = 5140
+rectangle <20241, 350>, height = 2576, width = 17, S = 43792, P = 5186
+rectangle <20, 30>, height = 2577, width = 17, S = 43809, P = 5188
+rectangle <20, 313120>, height = 2599, width = 17, S = 44183, P = 5232
+rectangle <20, 30>, height = 2512, width = 167, S = 419504, P = 5358
+rectangle <20, 30>, height = 2588, width = 167, S = 432196, P = 5510
+rectangle <2.02131e+07, 30>, height = 25231, width = 17, S = 428927, P = 50496
+rectangle <20, 30>, height = 25, width = 167456, S = 4.1864e+06, P = 334962
+rectangle <20, 350>, height = 25, width = 173454, S = 4.33635e+06, P = 346958
+rectangle <20, 350>, height = 25, width = 174564, S = 4.3641e+06, P = 349178
+rectangle <230, 30>, height = 2.55465e+06, width = 17, S = 4.3429e+07, P = 5.10932e+06
+rectangle <230, 30>, height = 255, width = 1.72342e+07, S = 4.39473e+09, P = 3.4469e+07

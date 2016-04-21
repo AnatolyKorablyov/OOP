@@ -1,17 +1,23 @@
 #pragma once
+#include "stdafx.h"
 #include "SolidShape.h"
-#include "Point.h"
 
 class CTriangle : public ISolidShape
 {
 public:
-	CPoint m_firstVertex;
-	CPoint m_secondVertex;
-	CPoint m_thirdVertex;
-	virtual unsigned GetPerimetr() const override;
-	virtual unsigned GetArea() const override;
+	CTriangle(const sf::Vector2f & posTop, const sf::Vector2f & posLeft, const sf::Vector2f & posRight
+		, const ColorInfo & colorLine, const ColorInfo & colorFill);
+	std::map<std::string, sf::Vector2f> GetPoints() const;
+	std::map<std::string, float> GetSidesLenght() const;
+
+	virtual float GetShapeArea() const override;
+	virtual float GetShapePerimetr() const override;
 	virtual std::string ToString() const override;
-	CTriangle();
-	~CTriangle();
+private:
+
+
+	sf::Vector2f m_posFirstPoint = { 0, 0 };
+	sf::Vector2f m_posSecondPoint = { 0, 0 };
+	sf::Vector2f m_posThirdPoint = { 0, 0 };
 };
 

@@ -1,31 +1,46 @@
 #include "stdafx.h"
 #include "Rectangle.h"
 
-
-CRectangle::CRectangle()
+CRectangle::CRectangle(const sf::Vector2f & pos, const float & width, const float & height
+	, const ColorInfo & colorLine, const ColorInfo & colorFill)
+	: m_posTopLeft(pos)
+	, m_height(height)
+	, m_width(width)
 {
-	m_shapeName = "rectangle";	
-	m_colorLine = sf::Color(134, 134, 134, 255);
-	m_point.m_pos = { 40, 40 };
-	shape.setPointCount(4);
-	shape.setPoint(0, sf::Vector2f(m_point.m_pos.x, m_point.m_pos.y));
-	shape.setPoint(1, sf::Vector2f(m_point.m_pos.x + 10, m_point.m_pos.y));
-	shape.setPoint(2, sf::Vector2f(m_point.m_pos.x + 10, m_point.m_pos.y + 10));
-	shape.setPoint(3, sf::Vector2f(m_point.m_pos.x, m_point.m_pos.y + 10));
+	m_colorLine = colorLine;
+	m_colorFill = colorFill;
 }
 
-
-unsigned CRectangle::GetPerimetr() const
+sf::Vector2f CRectangle::GetTopLeftPoint() const
 {
-	return 0;
+	return m_posTopLeft;
 }
 
-unsigned CRectangle::GetArea() const
+float CRectangle::GetHeight() const
 {
-	return 0;
+	return m_height;
+}
+
+float CRectangle::GetWidth() const
+{
+	return m_width;
+}
+
+float CRectangle::GetShapeArea() const
+{
+	return (m_height * m_width);
+}
+
+float CRectangle::GetShapePerimetr() const
+{
+	return 	2 * (m_height + m_width);
 }
 
 std::string CRectangle::ToString() const
 {
-	return m_shapeName;
+	std::stringstream ss;
+	ss << "rectangle <" << m_posTopLeft.x << ", " << m_posTopLeft.y << ">, height = "
+		<< m_height << ", width = " << m_width << ", S = " << GetShapeArea() << ", P = "
+		<< GetShapePerimetr();
+	return ss.str();
 }

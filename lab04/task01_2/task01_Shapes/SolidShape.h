@@ -1,7 +1,12 @@
 #pragma once
 #include "Shape.h"
 
-struct ISolidShape  : public IShape
+class ISolidShape : public IShape
 {
-	sf::Color m_fillColor;
+public:
+	virtual ColorInfo GetColorLine() const override;
+	ColorInfo GetColorFill();
+protected:
+	ColorInfo m_colorFill;
+	ColorInfo m_colorLine;
 };

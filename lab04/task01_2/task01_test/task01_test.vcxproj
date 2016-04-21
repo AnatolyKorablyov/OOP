@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{032B67F7-2CA2-49E3-8A0F-BBB14877E289}</ProjectGuid>
+    <ProjectGuid>{82DB8781-3711-41D5-8D1A-27729186A322}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>task01_test</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -145,11 +145,26 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\task01_Shapes\Circle.h" />
+    <ClInclude Include="..\task01_Shapes\HandlerCommand.h" />
+    <ClInclude Include="..\task01_Shapes\LineSegment.h" />
+    <ClInclude Include="..\task01_Shapes\Point.h" />
+    <ClInclude Include="..\task01_Shapes\Rectangle.h" />
+    <ClInclude Include="..\task01_Shapes\Shape.h" />
+    <ClInclude Include="..\task01_Shapes\SolidShape.h" />
+    <ClInclude Include="..\task01_Shapes\Triangle.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ShapesTests.cpp" />
+    <ClCompile Include="..\task01_Shapes\Circle.cpp" />
+    <ClCompile Include="..\task01_Shapes\HandlerCommand.cpp" />
+    <ClCompile Include="..\task01_Shapes\LineSegment.cpp" />
+    <ClCompile Include="..\task01_Shapes\Point.cpp" />
+    <ClCompile Include="..\task01_Shapes\Rectangle.cpp" />
+    <ClCompile Include="..\task01_Shapes\SolidShape.cpp" />
+    <ClCompile Include="..\task01_Shapes\Triangle.cpp" />
+    <ClCompile Include="Shapes_tests.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
