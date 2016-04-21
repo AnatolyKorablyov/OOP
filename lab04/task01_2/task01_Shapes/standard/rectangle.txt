@@ -22,7 +22,7 @@ rectangle <20, 350>, height = 25, width = 174564, S = 4.3641e+06, P = 349178
 rectangle <230, 30>, height = 2.55465e+06, width = 17, S = 4.3429e+07, P = 5.10932e+06
 rectangle <230, 30>, height = 255, width = 1.72342e+07, S = 4.39473e+09, P = 3.4469e+07
 
-Sort by Perimetr
+Sort by Perimeter
 rectangle <20, 30>, height = 25, width = 17, S = 425, P = 84
 rectangle <20, 3.50234e+07>, height = 25, width = 17, S = 425, P = 84
 rectangle <20456, 3.50012e+09>, height = 25, width = 17, S = 425, P = 84

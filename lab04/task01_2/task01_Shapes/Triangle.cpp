@@ -2,45 +2,46 @@
 #include "Triangle.h"
 
 
-CTriangle::CTriangle(const sf::Vector2f & posTop, const sf::Vector2f & posLeft, const sf::Vector2f & posRight
-	, const ColorInfo & colorLine, const ColorInfo & colorFill)
-	: m_posFirstPoint(posTop)
-	, m_posSecondPoint(posLeft)
-	, m_posThirdPoint(posRight)
+CTriangle::CTriangle(const CPoint & posTop, const CPoint & posLeft
+	, const CPoint & posRight, const ColorInfo & colorLine
+	, const ColorInfo & colorFill)
+	: m_firstDot(posTop)
+	, m_secondDot(posLeft)
+	, m_thirdDot(posRight)
 {
 	m_colorLine = colorLine;
 	m_colorFill = colorFill;
 }
 
-std::map<std::string, sf::Vector2f> CTriangle::GetPoints() const
+std::map<std::string, CPoint > CTriangle::GetPoints() const
 {
-	return std::map<std::string, sf::Vector2f> { {"A", m_posFirstPoint}
-	, {"B", m_posSecondPoint }
-	, {"C", m_posThirdPoint } };
+	return std::map<std::string, CPoint > { {"A", m_firstDot}
+	, {"B", m_secondDot }
+	, {"C", m_thirdDot } };
 }
 
 std::map<std::string, float> CTriangle::GetSidesLenght() const
 {
-	std::map<std::string, sf::Vector2f> points = GetPoints();
+	std::map<std::string, CPoint> points = GetPoints();
 	std::map<std::string, float> lenghtSide;
-	lenghtSide.emplace("c", sqrtf(std::pow((points["B"].x - points["A"].x), 2) + std::pow((points["B"].y - points["A"].y), 2)));
-	lenghtSide.emplace("a", sqrtf(std::pow((points["C"].x - points["B"].x), 2) + std::pow((points["C"].y - points["B"].y), 2)));
-	lenghtSide.emplace("b", sqrtf(std::pow((points["A"].x - points["C"].x), 2) + std::pow((points["A"].y - points["C"].y), 2)));
+	lenghtSide.emplace("c", sqrtf(std::pow((points["B"].GetPos().x - points["A"].GetPos().x), 2) + std::pow((points["B"].GetPos().y - points["A"].GetPos().y), 2)));
+	lenghtSide.emplace("a", sqrtf(std::pow((points["C"].GetPos().x - points["B"].GetPos().x), 2) + std::pow((points["C"].GetPos().y - points["B"].GetPos().y), 2)));
+	lenghtSide.emplace("b", sqrtf(std::pow((points["A"].GetPos().x - points["C"].GetPos().x), 2) + std::pow((points["A"].GetPos().y - points["C"].GetPos().y), 2)));
 	return lenghtSide;
 }
 
 
 
-float CTriangle::GetShapeArea() const
+float CTriangle::GetArea() const
 {
-	float semiperimeter = GetShapePerimetr() / 2.f;
+	float semiperimeter = GetPerimeter() / 2.f;
 	std::map<std::string, float> lenghtSides = GetSidesLenght();
 	
 	return sqrtf(semiperimeter * (semiperimeter - lenghtSides["a"]) * (semiperimeter - lenghtSides["b"]) *
 		(semiperimeter - lenghtSides["c"]));
 }
 
-float CTriangle::GetShapePerimetr() const
+float CTriangle::GetPerimeter() const
 {
 	std::map<std::string, float> lenghtSides = GetSidesLenght();
 	return lenghtSides["a"] + lenghtSides["b"] + lenghtSides["c"];
@@ -49,9 +50,10 @@ float CTriangle::GetShapePerimetr() const
 std::string CTriangle::ToString() const
 {
 	std::stringstream ss;
-	ss << "triangle FirstVertex <" << m_posFirstPoint.x << ", " << m_posFirstPoint.y << ">, SecondVertex <"
-		<< m_posSecondPoint.x << ", " << m_posSecondPoint.y << ">, ThirdVertex <"
-		<< m_posThirdPoint.x << ", " << m_posThirdPoint.y << ">, S = " << GetShapeArea()
-		<< ", P = " << GetShapePerimetr();
+	ss << "triangle FirstVertex <" << m_firstDot.GetPos().x << ", " 
+		<< m_firstDot.GetPos().y << ">, SecondVertex <"
+		<< m_secondDot.GetPos().x << ", " << m_secondDot.GetPos().y 
+		<< ">, ThirdVertex <" << m_thirdDot.GetPos().x << ", " << m_thirdDot.GetPos().y
+		<< ">, S = " << GetArea() << ", P = " << GetPerimeter();
 	return ss.str();
 }

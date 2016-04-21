@@ -1,19 +1,20 @@
 #pragma once
 #include "SolidShape.h"
+#include "Point.h"
 
-class CCircle final : public ISolidShape
+class CCircle : public ISolidShape
 {
 public:
-	CCircle(const sf::Vector2f & posCenter, const float & radius, const ColorInfo & colorLine
+	CCircle(const CPoint & posCenter, const float & radius, const ColorInfo & colorLine
 		, const ColorInfo & colorFill);
-	sf::Vector2f GetPosCenter() const;
+	CPoint GetPosCenter() const;
 	float GetRadius() const;
 
-	virtual float GetShapeArea() const override;
-	virtual float GetShapePerimetr() const override;
+	virtual float GetArea() const override;
+	virtual float GetPerimeter() const override;
 	virtual std::string ToString() const override;
 private:
-	sf::Vector2f m_pos = { 0, 0 };
+	CPoint m_dotCenter;
 	float m_radius = 0.f;
 };
 

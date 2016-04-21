@@ -1,0 +1,11 @@
+nan
+42
+1.23
+x:99
+y:1.23
+var <id> : Вводит переменную id с значением nan (Exampe: var x)
+let <id1>=<id2> или let <id1>=<num> : Вводит переменную id1 с значением id2 (Exampe: let x=12,9)
+fn <id1>=<id2><operand><id3> или fn <id1>=<id2> : Вводит функцию id1 с значением id2 (Exampe: fn f0=x+y)
+print <id> : Выводит значение id (Example: print x)
+printvars : Выводит все имеющиеся переменные на экран
+printfns : Выводит все имеющиеся функции на экран

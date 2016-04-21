@@ -1,0 +1,15 @@
+rectangle <130, 200> 20, 150, #0000ff, #fcd8b6			
+rectangle <170, 295> 60, 15, #0000ff, #5e87b3			
+rectangle <210, 295> 60, 15, #0000ff, #5e87b3	
+triangle <200, 170>, <250, 300>, <150, 300>, #0000ff, #01b0f1
+circle <200, 160>, 25, #aaffaa, #fad6b6
+circle <190, 150>, 3, #ffffff, #0000ff
+circle <210, 150>, 3, #ffffff, #0000ff
+line <200, 155> <200, 165> #fffeff
+line <185, 170> <200, 180> #ff0000
+line <200, 180> <215, 170> #ff0000
+line <250, 100> <270, 200> #ffffff
+circle <250, 100> 40 #0000ff #01b0ef
+triangle <200, 135>, <180, 145>, <180, 125>, #0000ff, #0000ff
+triangle <200, 135>, <220, 145>, <220, 125>, #0000ff, #0000ff
+circle <450, 50> 50 #f3d43b #ffff00

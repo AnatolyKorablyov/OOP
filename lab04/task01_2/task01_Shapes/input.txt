@@ -1,0 +1,3 @@
+circle 11 2 50 #ff0300 #ff0050
+circle 11 67 50 #ffff00 #ff0050
+circle 11 2 50 #ffff00 #ff00ff

@@ -1,0 +1,33 @@
+Sort by Square
+line <200, 155 <200, 165>, S = 0, P = 10
+line <185, 170 <200, 180>, S = 0, P = 18.0278
+line <200, 180 <215, 170>, S = 0, P = 18.0278
+line <250, 100 <270, 200>, S = 0, P = 101.98
+circle <190, 150>, radius = 3, S = 28.2743, P = 18.8496
+circle <210, 150>, radius = 3, S = 28.2743, P = 18.8496
+triangle FirstVertex <200, 135>, SecondVertex <180, 145>, ThirdVertex <180, 125>, S = 200, P = 64.7214
+triangle FirstVertex <200, 135>, SecondVertex <220, 145>, ThirdVertex <220, 125>, S = 200, P = 64.7214
+rectangle <170, 295>, height = 15, width = 60, S = 900, P = 150
+rectangle <210, 295>, height = 15, width = 60, S = 900, P = 150
+circle <200, 160>, radius = 25, S = 1963.5, P = 157.08
+rectangle <130, 200>, height = 150, width = 20, S = 3000, P = 340
+circle <250, 100>, radius = 40, S = 5026.55, P = 251.327
+triangle FirstVertex <200, 170>, SecondVertex <250, 300>, ThirdVertex <150, 300>, S = 6500, P = 378.568
+circle <450, 50>, radius = 50, S = 7853.98, P = 314.159
+
+Sort by Perimeter
+line <200, 155 <200, 165>, S = 0, P = 10
+line <185, 170 <200, 180>, S = 0, P = 18.0278
+line <200, 180 <215, 170>, S = 0, P = 18.0278
+circle <190, 150>, radius = 3, S = 28.2743, P = 18.8496
+circle <210, 150>, radius = 3, S = 28.2743, P = 18.8496
+triangle FirstVertex <200, 135>, SecondVertex <180, 145>, ThirdVertex <180, 125>, S = 200, P = 64.7214
+triangle FirstVertex <200, 135>, SecondVertex <220, 145>, ThirdVertex <220, 125>, S = 200, P = 64.7214
+line <250, 100 <270, 200>, S = 0, P = 101.98
+rectangle <170, 295>, height = 15, width = 60, S = 900, P = 150
+rectangle <210, 295>, height = 15, width = 60, S = 900, P = 150
+circle <200, 160>, radius = 25, S = 1963.5, P = 157.08
+circle <250, 100>, radius = 40, S = 5026.55, P = 251.327
+circle <450, 50>, radius = 50, S = 7853.98, P = 314.159
+rectangle <130, 200>, height = 150, width = 20, S = 3000, P = 340
+triangle FirstVertex <200, 170>, SecondVertex <250, 300>, ThirdVertex <150, 300>, S = 6500, P = 378.568

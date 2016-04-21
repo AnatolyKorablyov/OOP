@@ -15,7 +15,7 @@ point <12, 13>, S = 0, P = 0
 point <14, 51>, S = 0, P = 0
 point <12, 51>, S = 0, P = 0
 
-Sort by Perimetr
+Sort by Perimeter
 point <12, 13>, S = 0, P = 0
 point <14, 51>, S = 0, P = 0
 point <12, 51>, S = 0, P = 0

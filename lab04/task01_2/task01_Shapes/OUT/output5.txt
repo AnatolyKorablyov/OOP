@@ -10,7 +10,7 @@ circle <100, 2>, radius = 70, S = 15393.8, P = 439.823
 circle <1, 2>, radius = 102, S = 32685.1, P = 640.885
 circle <122, 2>, radius = 102, S = 32685.1, P = 640.885
 
-Sort by Perimetr
+Sort by Perimeter
 circle <1, 2>, radius = 10, S = 314.159, P = 62.8319
 circle <111, 2>, radius = 10, S = 314.159, P = 62.8319
 circle <31, 2>, radius = 20, S = 1256.64, P = 125.664

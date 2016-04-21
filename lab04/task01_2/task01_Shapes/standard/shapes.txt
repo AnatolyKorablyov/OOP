@@ -6,7 +6,7 @@ circle <120, 120>, radius = 50, S = 7853.98, P = 314.159
 circle <280, 120>, radius = 50, S = 7853.98, P = 314.159
 rectangle <200, 200>, height = 300, width = 300, S = 90000, P = 1200
 
-Sort by Perimetr
+Sort by Perimeter
 line <400, 400 <450, 450>, S = 0, P = 70.7107
 rectangle <220, 200>, height = 20, width = 80, S = 1600, P = 200
 circle <120, 120>, radius = 50, S = 7853.98, P = 314.159

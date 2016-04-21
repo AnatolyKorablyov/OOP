@@ -1,19 +1,19 @@
 #pragma once
 #include "Shape.h"
+#include "Point.h"
 
-class CLineSegment final : public IShape
+class CLineSegment : public IShape
 {
 public:
-	CLineSegment(const sf::Vector2f & posStart, const sf::Vector2f & posEnd, const ColorInfo & colorLine);
-	sf::Vector2f GetCoordStartDot();
-	sf::Vector2f GetCoordEndDot();
-	float GetShapeArea() const override;
-	float GetShapePerimetr() const override;
+	CLineSegment(const CPoint & posStart, const CPoint & posEnd, const ColorInfo & colorLine);
+	CPoint  GetCoordStartDot() const;
+	CPoint GetCoordEndDot() const;
+	float GetArea() const override;
+	float GetPerimeter() const override;
 	std::string ToString() const override;
 	ColorInfo GetColorLine() const override;
 private:
-	sf::Vector2f m_posStart = { 0, 0 };
-	sf::Vector2f m_posEnd = { 0, 0 };
+	CPoint m_dotStart;
+	CPoint m_dotEnd;
 	ColorInfo m_colorLine;
 };
-

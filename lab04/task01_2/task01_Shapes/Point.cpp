@@ -1,22 +1,25 @@
 #include "stdafx.h"
 #include "Point.h"
 
+CPoint::CPoint()
+{
+}
+
 CPoint::CPoint(float x, float y)
 	: m_pos(x, y)
 {
-
 }
 
-sf::Vector2f CPoint::GetCoord() const
+sf::Vector2f CPoint::GetPos() const
 {
 	return m_pos;
 }
-float CPoint::GetShapeArea() const
+float CPoint::GetArea() const
 {
 	return 0.f;
 }
 
-float CPoint::GetShapePerimetr() const
+float CPoint::GetPerimeter() const
 {
 	return 0.f;
 }
@@ -24,8 +27,8 @@ float CPoint::GetShapePerimetr() const
 std::string CPoint::ToString() const
 {
 	std::stringstream ss;
-	ss << "point <" << m_pos.x << ", " << m_pos.y << ">, S = " << GetShapeArea()
-		<< ", P = " << GetShapePerimetr();
+	ss << "point <" << m_pos.x << ", " << m_pos.y << ">, S = " << GetArea()
+		<< ", P = " << GetPerimeter();
 	return ss.str();
 }
 
