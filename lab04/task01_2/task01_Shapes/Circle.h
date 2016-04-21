@@ -10,6 +10,8 @@ public:
 	virtual unsigned GetPerimetr() const override;
 	virtual unsigned GetArea() const override;
 	virtual std::string ToString() const override;
-	CCircle();
+	sf::CircleShape shape;
+	CCircle(const sf::Vector2f & pos, unsigned radius
+		, const sf::Color & lineColor, const sf::Color & fillColor);
 };
 

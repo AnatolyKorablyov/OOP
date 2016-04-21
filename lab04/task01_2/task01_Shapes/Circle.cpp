@@ -3,17 +3,37 @@
 #include <math.h>
 
 
-CCircle::CCircle()
+CCircle::CCircle(const sf::Vector2f & pos, unsigned radius
+	, const sf::Color & lineColor, const sf::Color & fillColor)
+	: m_radius(radius)
+	, m_colorLine(lineColor)
+	, 
 {
 	m_shapeName = "circle";
-	m_colorLine = sf::Color(134, 134, 134, 255);
+	m_colorLine = lineColor;
+	
 	m_center.m_pos = { 100, 100 };
-	shape.setPointCount(4);
-	shape.setPoint(0, sf::Vector2f(m_point.m_pos.x, m_point.m_pos.y));
-	shape.setPoint(1, sf::Vector2f(m_point.m_pos.x + 10, m_point.m_pos.y));
-	shape.setPoint(2, sf::Vector2f(m_point.m_pos.x + 10, m_point.m_pos.y + 10));
-	shape.setPoint(3, sf::Vector2f(m_point.m_pos.x, m_point.m_pos.y + 10));
+	shape.setRadius(radius);
+	shape.setPointCount(40);
+	for (unsigned i = 0; i < 10; ++i)
+	{
+		shape.setPoint(20 + i, sf::Vector2f(i - 10, 0 - i));
+	}
+	for (unsigned i = 0; i < 10; ++i)
+	{
+		shape.setPoint(30 + i, sf::Vector2f(i, i - 10));
+	}
+	for (unsigned i = 0; i < 10; ++i)
+	{
+		shape.setPoint( i, sf::Vector2f(100 - i, i));
+	}
+	for (unsigned i = 0; i < 10; ++i)
+	{
+		shape.setPoint(10 + i, sf::Vector2f(0-i, 10 - i));
+	}
+	
 
+	shape.setPosition(100, 100);
 }
 
 unsigned CCircle::GetPerimetr() const

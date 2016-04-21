@@ -5,6 +5,8 @@
 #include "Shape.h"
 #include "Rectangle.h"
 #include "Circle.h"
+#include "Triangle.h"
+#include "Point.h"
 
 int main()
 {
@@ -12,6 +14,8 @@ int main()
 	
 	shapesVector.push_back(std::make_shared<CRectangle>());
 	shapesVector.push_back(std::make_shared<CCircle>());
+	shapesVector.push_back(std::make_shared<CPoint>());
+	//shapesVector.push_back(std::make_shared<CTriangle>());
 
 	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
 	window.setFramerateLimit(30);
