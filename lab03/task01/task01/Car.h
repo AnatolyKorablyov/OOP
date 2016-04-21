@@ -7,7 +7,7 @@ class CCar
 public:
 	CCar();
 
-	InfoAboutCar GetInfo() const;
+	InfoAboutCar GetInfo() const;	    // TODO разбить на более мелкие
 	ReturnCodeEngineOn TurnOnEngine();
 	ReturnCodeEngineOff TurnOffEngine();
 	ReturnCodeSetGear SetGear(const int & gear);

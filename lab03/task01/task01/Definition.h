@@ -40,7 +40,7 @@ enum class ReturnCodeSetGear
 	GearOn,						// передача включена
 	GearNotOnReverse,			// задняя передача не включена
 	GearNotOnWithReverseSpeed,	// положительная передача не может быть включена
-	GearNot,					// нет такой передачи
+	NoGear,						// нет такой передачи
 	GearNotOnWithSpeed			// скорость не соответсвует диапазону
 };
 
@@ -60,7 +60,7 @@ struct Border
 
 struct InfoAboutCar
 {
-	bool conditionEngine;	// состояние двигателя
+	bool isEngineOn;		// состояние двигателя
 	Direction dir;			// направление
 	int speed;				// скорость
 	int gear;				// передача
@@ -69,7 +69,7 @@ struct InfoAboutCar
 
 // ДИАПАЗОН СКОРОСТЕЙ
 static const Border REVERSE_GEAR_SPEED = { 0, 20 };
-static const Border FIRST_GEAR_SPEED = { 0, 30 };
+static const Border FIRST_GEAR_SPEED = { 0, 35 };
 static const Border SECOND_GEAR_SPEED = { 20, 50 };
 static const Border THIRD_GEAR_SPEED = { 30, 60 };
 static const Border FOURTH_GEAR_SPEED = { 40, 90 };

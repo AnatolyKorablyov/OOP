@@ -14,7 +14,7 @@ BOOST_FIXTURE_TEST_SUITE(carInitialization, InitCar)
 	BOOST_AUTO_TEST_CASE(EngineOn_complite)
 	{
 		Lancer.TurnOnEngine();
-		BOOST_CHECK(Lancer.GetInfo().conditionEngine);
+		BOOST_CHECK(Lancer.GetInfo().isEngineOn);
 	}
 	BOOST_AUTO_TEST_CASE(EngineOn_failed_wasOn)
 	{
@@ -25,7 +25,7 @@ BOOST_FIXTURE_TEST_SUITE(carInitialization, InitCar)
 	{
 		Lancer.SetGear(1);
 		BOOST_CHECK(Lancer.TurnOnEngine() == ReturnCodeEngineOn::EngineNotOnWithGear);
-		BOOST_CHECK(!Lancer.GetInfo().conditionEngine);
+		BOOST_CHECK(!Lancer.GetInfo().isEngineOn);
 	}
 
 	BOOST_AUTO_TEST_CASE(SetGear_complite_with_EngineOff)
@@ -67,14 +67,14 @@ BOOST_FIXTURE_TEST_SUITE(carInitialization, InitCar)
 
 		BOOST_AUTO_TEST_CASE(EngineOff_Complete)
 		{
-			BOOST_CHECK(Lancer.GetInfo().conditionEngine);
+			BOOST_CHECK(Lancer.GetInfo().isEngineOn);
 			Lancer.TurnOffEngine();
-			BOOST_CHECK(!Lancer.GetInfo().conditionEngine);
+			BOOST_CHECK(!Lancer.GetInfo().isEngineOn);
 		}
 		BOOST_AUTO_TEST_CASE(EngineOff_withGearOn)
 		{
 			Lancer.SetGear(1);
-			BOOST_CHECK(Lancer.GetInfo().conditionEngine);
+			BOOST_CHECK(Lancer.GetInfo().isEngineOn);
 			BOOST_CHECK(Lancer.TurnOffEngine() == ReturnCodeEngineOff::EngineNotOffWithGear);
 		}
 
@@ -83,7 +83,7 @@ BOOST_FIXTURE_TEST_SUITE(carInitialization, InitCar)
 			Lancer.SetGear(1);
 			Lancer.SetSpeed(10);
 			Lancer.SetGear(0);
-			BOOST_CHECK(Lancer.GetInfo().conditionEngine);
+			BOOST_CHECK(Lancer.GetInfo().isEngineOn);
 			BOOST_CHECK(Lancer.GetInfo().gear == 0);
 			BOOST_CHECK(Lancer.GetInfo().speed == 10);
 			BOOST_CHECK(Lancer.TurnOffEngine() == ReturnCodeEngineOff::EngineNotOffWithSpeed);

@@ -66,7 +66,7 @@ void PrintResultSetGearCommand(const ReturnCodeSetGear & wasError)
 	case ReturnCodeSetGear::GearNotOnWithReverseSpeed:
 		std::cout << "Передача не переключена на положительную, т.к. машина едет назад" << std::endl;
 		break;
-	case ReturnCodeSetGear::GearNot:
+	case ReturnCodeSetGear::NoGear:
 		std::cout << "Передача не переключена, т.к. нет такой передачи" << std::endl;
 		break;
 	case ReturnCodeSetGear::GearNotOnWithSpeed:

@@ -14,7 +14,7 @@ CCar::CCar()
 InfoAboutCar CCar::GetInfo() const
 {
 	InfoAboutCar indicators;
-	indicators.conditionEngine = m_engineLaunched;
+	indicators.isEngineOn = m_engineLaunched;
 	indicators.dir = m_direction;
 	indicators.gear = m_gear;
 	indicators.speed = m_speed;
@@ -96,7 +96,7 @@ ReturnCodeSetGear CCar::SetGear(const int & gear)
 	}
 	else if (!CheckBound(gear, GEAR_RANGE))
 	{
-		wasError = ReturnCodeSetGear::GearNot;
+		wasError = ReturnCodeSetGear::NoGear;
 	}
 	else if (!CheckBound(m_speed, SPEED_RANGE.find(gear)->second))
 	{
