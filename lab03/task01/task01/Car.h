@@ -8,10 +8,10 @@ public:
 	CCar();
 
 	InfoAboutCar GetInfo() const;
-	WasErrorEngineOn TurnOnEngine();
-	WasErrorEngineOff TurnOffEngine();
-	WasErrorSetGear SetGear(const int & gear);
-	WasErrorSetSpeed SetSpeed(const int & speed);
+	ReturnCodeEngineOn TurnOnEngine();
+	ReturnCodeEngineOff TurnOffEngine();
+	ReturnCodeSetGear SetGear(const int & gear);
+	ReturnCodeSetSpeed SetSpeed(const int & speed);
 
 
 private:

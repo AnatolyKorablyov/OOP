@@ -18,77 +18,77 @@ void PrintInfoAboutCar(const InfoAboutCar & indicators)
 	std::cout << "Направление: " << DIRECTION_NAME.find(indicators.dir)->second << std::endl;
 }
 
-void PrintResultEngineOnCommand(const WasErrorEngineOn & wasError)
+void PrintResultEngineOnCommand(const ReturnCodeEngineOn & wasError)
 {
 	switch (wasError)
 	{
-	case WasErrorEngineOn::EngineOn:
+	case ReturnCodeEngineOn::EngineOn:
 		std::cout << "Двигатель включен" << std::endl;
 		break;
-	case WasErrorEngineOn::EngineWasOn:
+	case ReturnCodeEngineOn::EngineWasOn:
 		std::cout << "Двигатель уже включен" << std::endl;
 		break;
-	case WasErrorEngineOn::EngineNotOnWithGear:
+	case ReturnCodeEngineOn::EngineNotOnWithGear:
 		std::cout << "Двигатель не включен, т.к. включена передача" << std::endl;
 		break;
 	}
 }
 
-void PrintResultEngineOffCommand(const WasErrorEngineOff & wasError)
+void PrintResultEngineOffCommand(const ReturnCodeEngineOff & wasError)
 {
 	switch (wasError)
 	{
-	case WasErrorEngineOff::EngineOff:
+	case ReturnCodeEngineOff::EngineOff:
 		std::cout << "Двигатель выключен" << std::endl;
 		break;
-	case WasErrorEngineOff::EngineWasOff:
+	case ReturnCodeEngineOff::EngineWasOff:
 		std::cout << "Двигатель уже выключен" << std::endl;
 		break;
-	case WasErrorEngineOff::EngineNotOffWithGear:
+	case ReturnCodeEngineOff::EngineNotOffWithGear:
 		std::cout << "Двигатель не выключен, т.к. включена передача" << std::endl;
 		break;
-	case WasErrorEngineOff::EngineNotOffWithSpeed:
+	case ReturnCodeEngineOff::EngineNotOffWithSpeed:
 		std::cout << "Двигатель не выключен, т.к. скорость не нулевая" << std::endl;
 		break;
 	}
 }
 
-void PrintResultSetGearCommand(const WasErrorSetGear & wasError)
+void PrintResultSetGearCommand(const ReturnCodeSetGear & wasError)
 {
 	switch (wasError)
 	{
-	case WasErrorSetGear::GearOn:
+	case ReturnCodeSetGear::GearOn:
 		std::cout << "Передача переключена" << std::endl;
 		break;
-	case WasErrorSetGear::GearNotOnReverse:
+	case ReturnCodeSetGear::GearNotOnReverse:
 		std::cout << "Передача не переключена на заднюю, т.к. машина едет вперед" << std::endl;
 		break;
-	case WasErrorSetGear::GearNotOnWithReverseSpeed:
+	case ReturnCodeSetGear::GearNotOnWithReverseSpeed:
 		std::cout << "Передача не переключена на положительную, т.к. машина едет назад" << std::endl;
 		break;
-	case WasErrorSetGear::GearNot:
+	case ReturnCodeSetGear::GearNot:
 		std::cout << "Передача не переключена, т.к. нет такой передачи" << std::endl;
 		break;
-	case WasErrorSetGear::GearNotOnWithSpeed:
+	case ReturnCodeSetGear::GearNotOnWithSpeed:
 		std::cout << "Передача не переключена, т.к. скорость не соответсвует диапазону новой передачи" << std::endl;
 		break;
 	}
 }
 
-void PrintResultSetSpeedCommand(const WasErrorSetSpeed & wasError)
+void PrintResultSetSpeedCommand(const ReturnCodeSetSpeed & wasError)
 {
 	switch (wasError)
 	{
-	case WasErrorSetSpeed::SpeedOn:
+	case ReturnCodeSetSpeed::SpeedOn:
 		std::cout << "Скорость установлена" << std::endl;
 		break;
-	case WasErrorSetSpeed::SpeedNotWithEngine:
+	case ReturnCodeSetSpeed::SpeedNotWithEngine:
 		std::cout << "Скорость не удалось изменить, т.к. двигатель выключен" << std::endl;
 		break;
-	case WasErrorSetSpeed::SpeedNotAddWithNeutralGear:
+	case ReturnCodeSetSpeed::SpeedNotAddWithNeutralGear:
 		std::cout << "Скорость не удалось повысить, т.к. установлена нейтральная передача" << std::endl;
 		break;
-	case WasErrorSetSpeed::SpeedNotRange:
+	case ReturnCodeSetSpeed::SpeedNotRange:
 		std::cout << "Скорость не удалось изменить, т.к. скорость не соответсвует диапазону установленной передачи" << std::endl;
 		break;
 	}

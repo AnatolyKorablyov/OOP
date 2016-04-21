@@ -42,16 +42,16 @@ bool CCar::CheckBound(const int & value, const Border & rangeValues)
 	return (value >= rangeValues.bottomBound && value <= rangeValues.upperBound);
 }
 
-WasErrorEngineOn CCar::TurnOnEngine()
+ReturnCodeEngineOn CCar::TurnOnEngine()
 {
-	WasErrorEngineOn wasError = WasErrorEngineOn::EngineOn;
+	ReturnCodeEngineOn wasError = ReturnCodeEngineOn::EngineOn;
 	if (m_engineLaunched)
 	{
-		wasError = WasErrorEngineOn::EngineWasOn;
+		wasError = ReturnCodeEngineOn::EngineWasOn;
 	}
 	else if (m_gear != 0)
 	{
-		wasError = WasErrorEngineOn::EngineNotOnWithGear;
+		wasError = ReturnCodeEngineOn::EngineNotOnWithGear;
 	}
 	else
 	{
@@ -61,20 +61,20 @@ WasErrorEngineOn CCar::TurnOnEngine()
 	return wasError;
 }
 
-WasErrorEngineOff CCar::TurnOffEngine()
+ReturnCodeEngineOff CCar::TurnOffEngine()
 {
-	WasErrorEngineOff wasError = WasErrorEngineOff::EngineOff;
+	ReturnCodeEngineOff wasError = ReturnCodeEngineOff::EngineOff;
 	if (!m_engineLaunched)
 	{
-		wasError = WasErrorEngineOff::EngineWasOff;
+		wasError = ReturnCodeEngineOff::EngineWasOff;
 	}
 	else if (m_gear != 0)
 	{
-		wasError = WasErrorEngineOff::EngineNotOffWithGear;
+		wasError = ReturnCodeEngineOff::EngineNotOffWithGear;
 	}
 	else if (m_direction != Direction::Stand)
 	{
-		wasError = WasErrorEngineOff::EngineNotOffWithSpeed;
+		wasError = ReturnCodeEngineOff::EngineNotOffWithSpeed;
 	}
 	else
 	{
@@ -83,24 +83,24 @@ WasErrorEngineOff CCar::TurnOffEngine()
 	return wasError;
 }
 
-WasErrorSetGear CCar::SetGear(const int & gear)
+ReturnCodeSetGear CCar::SetGear(const int & gear)
 {
-	WasErrorSetGear wasError = WasErrorSetGear::GearOn;
+	ReturnCodeSetGear wasError = ReturnCodeSetGear::GearOn;
 	if (gear < 0 && m_direction == Direction::Forward)
 	{
-		wasError = WasErrorSetGear::GearNotOnReverse;
+		wasError = ReturnCodeSetGear::GearNotOnReverse;
 	}
 	else if (gear < 0 && m_direction == Direction::Backward)
 	{
-		wasError = WasErrorSetGear::GearNotOnWithReverseSpeed;
+		wasError = ReturnCodeSetGear::GearNotOnWithReverseSpeed;
 	}
 	else if (!CheckBound(gear, GEAR_RANGE))
 	{
-		wasError = WasErrorSetGear::GearNot;
+		wasError = ReturnCodeSetGear::GearNot;
 	}
 	else if (!CheckBound(m_speed, SPEED_RANGE.find(gear)->second))
 	{
-		wasError = WasErrorSetGear::GearNotOnWithSpeed;
+		wasError = ReturnCodeSetGear::GearNotOnWithSpeed;
 	}
 	else
 	{
@@ -109,21 +109,21 @@ WasErrorSetGear CCar::SetGear(const int & gear)
 	return wasError;
 }
 
-WasErrorSetSpeed CCar::SetSpeed(const int & speed)
+ReturnCodeSetSpeed CCar::SetSpeed(const int & speed)
 {
-	WasErrorSetSpeed wasError = WasErrorSetSpeed::SpeedOn;
+	ReturnCodeSetSpeed wasError = ReturnCodeSetSpeed::SpeedOn;
 	auto it = SPEED_RANGE.find(m_gear);
 	if (!m_engineLaunched)
 	{
-		wasError = WasErrorSetSpeed::SpeedNotWithEngine;
+		wasError = ReturnCodeSetSpeed::SpeedNotWithEngine;
 	}
 	else if (m_gear == 0 && speed > m_speed)
 	{
-		wasError = WasErrorSetSpeed::SpeedNotAddWithNeutralGear;
+		wasError = ReturnCodeSetSpeed::SpeedNotAddWithNeutralGear;
 	}
 	else if (!CheckBound(speed, it->second))
 	{
-		wasError = WasErrorSetSpeed::SpeedNotRange;
+		wasError = ReturnCodeSetSpeed::SpeedNotRange;
 	}
 	else
 	{

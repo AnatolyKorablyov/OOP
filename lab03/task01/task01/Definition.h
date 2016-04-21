@@ -19,14 +19,14 @@ enum class Direction
 	Stand		// стоим
 };
 
-enum class WasErrorEngineOn
+enum class ReturnCodeEngineOn
 {
 	EngineOn,				// двигатель включен
 	EngineWasOn,			// двигатель уже включен
 	EngineNotOnWithGear,	// двигатель не может быть включен, т.к. включена передача
 };
 
-enum class WasErrorEngineOff
+enum class ReturnCodeEngineOff
 {
 	EngineOff,				// двигатель выключен
 	EngineWasOff,			// двигатель уже выключен
@@ -35,7 +35,7 @@ enum class WasErrorEngineOff
 
 };
 
-enum class WasErrorSetGear
+enum class ReturnCodeSetGear
 {
 	GearOn,						// передача включена
 	GearNotOnReverse,			// задн€€ передача не включена
@@ -44,7 +44,7 @@ enum class WasErrorSetGear
 	GearNotOnWithSpeed			// скорость не соответсвует диапазону
 };
 
-enum class WasErrorSetSpeed
+enum class ReturnCodeSetSpeed
 {
 	SpeedOn,						// скорость установлена
 	SpeedNotWithEngine,				// скорость не установлена, из-за не включенного двигател€
