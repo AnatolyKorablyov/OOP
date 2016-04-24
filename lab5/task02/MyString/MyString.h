@@ -43,8 +43,25 @@ public:
 	// очистка строки (строка становится снова нулевой длины)
 	void Clear();
 
+	// operators
+	CMyString & operator =(const CMyString & str);
+	CMyString & operator +=(const CMyString & str);
+	const char & operator[](size_t index) const;
 private:
 	size_t m_length = 0;
 	char* m_string;
 };
 
+CMyString operator +(CMyString const &str1, CMyString const &str2);
+CMyString operator +(std::string const &str1, CMyString const &str2);
+CMyString operator +(const char* str1, CMyString const &str2);
+
+bool operator ==(const CMyString &str1, const CMyString &str2);
+bool operator !=(const CMyString &str1, const CMyString &str2);
+bool operator <(const CMyString &str1, const CMyString &str2);
+bool operator >(const CMyString &str1, const CMyString &str2);
+bool operator <=(const CMyString &str1, const CMyString &str2);
+bool operator >=(const CMyString &str1, const CMyString &str2);
+
+std::ostream & operator <<(std::ostream & strm, CMyString const & string);
+std::istream & operator >> (std::istream & strm, CMyString & string);
