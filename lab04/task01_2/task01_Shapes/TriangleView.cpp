@@ -12,8 +12,8 @@ CTriangleView::CTriangleView(const CTriangle & shapeModel)
 	ColorInfo m_fillColor = shapeModel.GetColorFill();
 	ColorInfo m_lineColor = shapeModel.GetColorLine();
 	
-	m_shape.setFillColor(sf::Color(m_fillColor.R, m_fillColor.G, m_fillColor.B, m_fillColor.Transparent));
-	m_shape.setOutlineColor(sf::Color(m_lineColor.R, m_lineColor.G, m_lineColor.B, m_lineColor.Transparent));
+	m_shape.setFillColor(sf::Color(m_fillColor.r, m_fillColor.g, m_fillColor.b, m_fillColor.Transparent));
+	m_shape.setOutlineColor(sf::Color(m_lineColor.r, m_lineColor.g, m_lineColor.b, m_lineColor.Transparent));
 	m_shape.setOutlineThickness(1.f);
 }
 

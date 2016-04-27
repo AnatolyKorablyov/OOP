@@ -6,8 +6,8 @@ CLineView::CLineView(const CLineSegment & shapeModel)
 	m_shape[1].position = sf::Vector2f(shapeModel.GetCoordEndDot().GetPos().x, shapeModel.GetCoordEndDot().GetPos().y);
 	
 	ColorInfo m_lineColor = shapeModel.GetColorLine();
-	m_shape[0].color = sf::Color(m_lineColor.R, m_lineColor.G, m_lineColor.B, m_lineColor.Transparent);
-	m_shape[1].color = sf::Color(m_lineColor.R, m_lineColor.G, m_lineColor.B, m_lineColor.Transparent);
+	m_shape[0].color = sf::Color(m_lineColor.r, m_lineColor.g, m_lineColor.b, m_lineColor.Transparent);
+	m_shape[1].color = sf::Color(m_lineColor.r, m_lineColor.g, m_lineColor.b, m_lineColor.Transparent);
 	
 }
 

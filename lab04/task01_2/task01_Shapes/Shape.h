@@ -4,19 +4,17 @@
 // uppercase
 struct ColorInfo
 {
-	unsigned R = 0;
-	unsigned G = 0;
-	unsigned B = 0;
+	unsigned r = 0;
+	unsigned g = 0;
+	unsigned b = 0;
 	unsigned Transparent = 255;
-
-	//ColorInfo(ColorInfo const& info) {}
 
 	ColorInfo()
 	{};
 	ColorInfo(unsigned red, unsigned green, unsigned blue, unsigned t)
-		: R(red)
-		, G(green)
-		, B(blue)
+		: r(red)
+		, g(green)
+		, b(blue)
 		, Transparent(t)
 	{};
 };

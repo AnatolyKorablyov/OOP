@@ -11,7 +11,7 @@ IF ERRORLEVEL 1 GOTO testFailed
 echo sort for lineSegment
 %program% "input\input2.txt" "OUT\output2.txt"
 IF ERRORLEVEL 1 GOTO testFailed
-fc /b OUT\output2.txt standard/shapes.txt
+fc /b OUT\output2.txt standard/lines.txt
 if ERRORLEVEL 1 goto testFailed
 
 echo sort for rectangle

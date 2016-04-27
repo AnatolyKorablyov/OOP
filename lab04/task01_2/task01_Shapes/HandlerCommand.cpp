@@ -1,24 +1,21 @@
 #include "stdafx.h"
 #include "HandlerCommand.h"
 
-
-// regexp
 ColorInfo ParseColor(std::string & colorStr)
 {
 	ColorInfo color;
 	if (colorStr.length() == 6)
 	{
-		colorStr.erase(0, 1);
-		std::stringstream(colorStr.substr(0, 2)) >> std::hex >> color.R;
-		std::stringstream(colorStr.substr(2, 2)) >> std::hex >> color.G;
-		std::stringstream(colorStr.substr(4, 2)) >> std::hex >> color.B;
+		
+		std::stringstream(colorStr.substr(0, 2)) >> std::hex >> color.r;
+		std::stringstream(colorStr.substr(2, 2)) >> std::hex >> color.g;
+		std::stringstream(colorStr.substr(4, 2)) >> std::hex >> color.b;
 	}
 	else if (colorStr.length() == 8)	
 	{
-		colorStr.erase(0, 1);
-		std::stringstream(colorStr.substr(0, 2)) >> std::hex >> color.R;
-		std::stringstream(colorStr.substr(2, 2)) >> std::hex >> color.G;
-		std::stringstream(colorStr.substr(4, 2)) >> std::hex >> color.B;
+		std::stringstream(colorStr.substr(0, 2)) >> std::hex >> color.r;
+		std::stringstream(colorStr.substr(2, 2)) >> std::hex >> color.g;
+		std::stringstream(colorStr.substr(4, 2)) >> std::hex >> color.b;
 		std::stringstream(colorStr.substr(6, 2)) >> std::hex >> color.Transparent;
 	}
 	return color;

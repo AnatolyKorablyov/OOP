@@ -33,7 +33,7 @@ float CLineSegment::GetPerimeter() const
 std::string CLineSegment::ToString() const
 {
 	std::stringstream ss;
-	ss << "line <" << m_dotStart.GetPos().x << ", " << m_dotStart.GetPos().y << " <" << m_dotEnd.GetPos().x << ", " << m_dotEnd.GetPos().y
+	ss << "line <" << m_dotStart.GetPos().x << ", " << m_dotStart.GetPos().y << ">, <" << m_dotEnd.GetPos().x << ", " << m_dotEnd.GetPos().y
 		<< ">, S = " << GetArea() << ", P = " << GetPerimeter();
 	return ss.str();
 }
