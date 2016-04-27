@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Rational.h"
+#include <map>
+
 
 
 CRational::CRational()
@@ -166,4 +168,27 @@ bool const operator >(const CRational & firstNumber, const CRational & secNumber
 bool const operator >=(const CRational & firstNumber, const CRational & secNumber)
 {
 	return ((firstNumber > secNumber) || (firstNumber == secNumber));
+}
+
+
+// task 12 output
+std::ostream & operator <<(std::ostream & strm, const CRational & rational)
+{
+	strm << rational.GetNumerator() << '/' << rational.GetDenominator();
+	return strm;
+}
+
+// task 13 input
+std::istream & operator >> (std::istream & strm, CRational & rational)
+{
+	std::streamoff startPos = strm.tellg();
+	int numerator;
+	int denominator;
+	if ((strm >> numerator) && (strm.get() == '/') && (strm >> denominator))
+	{
+		rational = CRational(numerator, denominator);
+		return strm;
+	}
+	strm.seekg(startPos);
+	return strm;
 }

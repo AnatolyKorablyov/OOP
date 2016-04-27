@@ -1,5 +1,12 @@
 #pragma once
+#include "stdafx.h"
 #include <map>
+#include <sstream>
+
+#include <stdexcept>
+#include <istream>
+#include <iosfwd>
+
 
 class CRational
 {
@@ -72,3 +79,9 @@ bool const operator <(const CRational & firstNumber, const CRational & secNumber
 bool const operator <=(const CRational & firstNumber, const CRational & secNumber);
 bool const operator >(const CRational & firstNumber, const CRational & secNumber);
 bool const operator >=(const CRational & firstNumber, const CRational & secNumber);
+
+// task 12 ostream
+std::ostream & operator <<(std::ostream & strm, const CRational & rational);
+
+// task 13 istream
+std::istream & operator >> (std::istream & strm, CRational & rational);

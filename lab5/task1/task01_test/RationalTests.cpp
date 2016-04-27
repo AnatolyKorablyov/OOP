@@ -574,7 +574,21 @@ struct ComparisonOperatorFixture
 //	например: 7/15
 //////////////////////////////////////////////////////////////////////////
 
+struct ostreamOperatorFixture
+	{
+		CRational rational = CRational(7, 15);
+	};
 
+	BOOST_FIXTURE_TEST_SUITE(ostream_operator, ostreamOperatorFixture)
+
+		BOOST_AUTO_TEST_CASE(rational_integer_to_ostream)
+	{
+		std::ostringstream strm;
+		strm << rational;
+		BOOST_CHECK_EQUAL(strm.str(), "7/15");
+	}
+
+	BOOST_AUTO_TEST_SUITE_END()
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -584,5 +598,26 @@ struct ComparisonOperatorFixture
 //////////////////////////////////////////////////////////////////////////
 
 
+struct istreamOperatorFixture
+	{
+		CRational rational;
+	};
+
+	BOOST_FIXTURE_TEST_SUITE(istream_operator, istreamOperatorFixture)
+
+		BOOST_AUTO_TEST_CASE(rational_integer_in_istream)
+	{
+		std::istringstream strm("1/2");
+		strm >> rational;
+		VerifyRational(rational, 1, 2);
+	}
+
+	BOOST_AUTO_TEST_CASE(negative_rational_integer_in_istream)
+	{
+		std::istringstream strm("-1/2");
+		strm >> rational;
+		VerifyRational(rational, -1, 2);
+	}
+	BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE_END()
