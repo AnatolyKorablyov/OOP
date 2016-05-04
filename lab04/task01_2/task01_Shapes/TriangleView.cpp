@@ -5,9 +5,9 @@ CTriangleView::CTriangleView(const CTriangle & shapeModel)
 {
 	m_shape.setPointCount(3);
 	auto points = shapeModel.GetPoints();
-	m_shape.setPoint(0, sf::Vector2f(points["A"].GetPos().x, points["A"].GetPos().y));
-	m_shape.setPoint(1, sf::Vector2f(points["B"].GetPos().x, points["B"].GetPos().y));
-	m_shape.setPoint(2, sf::Vector2f(points["C"].GetPos().x, points["C"].GetPos().y));
+	m_shape.setPoint(0, points["A"].GetPos());
+	m_shape.setPoint(1, points["B"].GetPos());
+	m_shape.setPoint(2, points["C"].GetPos());
 
 	ColorInfo m_fillColor = shapeModel.GetColorFill();
 	ColorInfo m_lineColor = shapeModel.GetColorLine();
