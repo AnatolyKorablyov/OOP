@@ -16,80 +16,65 @@
     <Filter Include="Header Files\View">
       <UniqueIdentifier>{42c500f2-425e-4adc-a0ba-eb7f4f5772b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shape">
+      <UniqueIdentifier>{ca6e6306-48d7-4659-a7e1-74ebd4bafa16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\View">
+      <UniqueIdentifier>{01760673-c39b-4664-9e59-473358932119}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shape">
+      <UniqueIdentifier>{1afba26e-ddd7-4678-845b-0c1301d344f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Circle.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="HandlerCommand.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LineSegment.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Point.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SolidShape.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="LineSegment.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="SolidShape.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Source Files\shape</Filter>
+    </ClCompile>
     <ClCompile Include="Triangle.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\shape</Filter>
     </ClCompile>
     <ClCompile Include="CircleView.cpp">
-      <Filter>Header Files\View</Filter>
-    </ClCompile>
-    <ClCompile Include="ShapesView.cpp">
-      <Filter>Header Files\View</Filter>
-    </ClCompile>
-    <ClCompile Include="RectangleView.cpp">
-      <Filter>Header Files\View</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleView.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\View</Filter>
     </ClCompile>
     <ClCompile Include="LineView.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleView.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleView.cpp">
+      <Filter>Source Files\View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Circle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HandlerCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LineSegment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SolidShape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShapesView.h">
@@ -102,9 +87,33 @@
       <Filter>Header Files\View</Filter>
     </ClInclude>
     <ClInclude Include="TriangleView.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\View</Filter>
     </ClInclude>
     <ClInclude Include="LineView.h">
+      <Filter>Header Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Header Files\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="LineSegment.h">
+      <Filter>Header Files\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Header Files\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>Header Files\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidShape.h">
+      <Filter>Header Files\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files\shape</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

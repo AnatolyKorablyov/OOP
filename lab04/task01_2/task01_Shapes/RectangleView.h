@@ -3,7 +3,7 @@
 #include "ShapesView.h"
 
 
-class CRectangleView : public CShapesView
+class CRectangleView : public IShapeView
 {
 public:
 	CRectangleView(const CRectangle & shapeModel);

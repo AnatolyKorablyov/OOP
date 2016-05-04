@@ -3,7 +3,7 @@
 #include "ShapesView.h"
 
 
-class CLineView : public CShapesView
+class CLineView : public IShapeView
 {
 public:
 	CLineView(const CLineSegment & shapeModel);

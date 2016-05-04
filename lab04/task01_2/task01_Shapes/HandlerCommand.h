@@ -1,5 +1,6 @@
 #pragma once
 #include "stdafx.h"
+#include "model.h"
 #include "Shape.h"
 #include "Point.h"
 #include "Circle.h"
@@ -13,13 +14,13 @@
 #include "TriangleView.h"
 
 typedef std::vector<std::shared_ptr<IShape>> VectorShapes;
-typedef std::vector<std::shared_ptr<CShapesView>> VectorShapesView;
+typedef std::vector<std::shared_ptr<IShapeView>> VectorShapesView;
 
-bool AddPoint(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView);
-bool AddLine(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView);
-bool AddCircle(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView);
-bool AddTriangle(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView);
-bool AddRectangle(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView);
+bool AddPoint(std::stringstream & params, CModel & model);
+bool AddLine(std::stringstream & params, CModel & model);
+bool AddCircle(std::stringstream & params, CModel & model);
+bool AddTriangle(std::stringstream & params, CModel & model);
+bool AddRectangle(std::stringstream & params, CModel & model);
 
 ColorInfo ParseColor(std::string & colorStr);
-bool HandleCommand(std::string & commandStr, VectorShapes & vectorShapes, VectorShapesView & vectorShapesView);
+bool HandleCommand(std::string & commandStr, CModel & model);

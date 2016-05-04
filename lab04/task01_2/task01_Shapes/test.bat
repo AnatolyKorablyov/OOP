@@ -38,6 +38,12 @@ IF ERRORLEVEL 1 GOTO testFailed
 fc /b OUT\output6.txt standard/allShapes.txt
 IF ERRORLEVEL 1 GOTO testFailed
 
+echo sort shapes girl
+%program% "input\a_girl.txt" "OUT\output7.txt"
+IF ERRORLEVEL 1 GOTO testFailed
+fc /b OUT\a_girl.txt standard/a_girl.txt
+IF ERRORLEVEL 1 GOTO testFailed
+
 echo OK
 pause 
 exit /B

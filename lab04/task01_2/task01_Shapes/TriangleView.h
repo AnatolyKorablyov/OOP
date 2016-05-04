@@ -3,7 +3,7 @@
 #include "ShapesView.h"
 
 
-class CTriangleView : public CShapesView
+class CTriangleView : public IShapeView
 {
 public:
 	CTriangleView(const CTriangle & shapeModel);

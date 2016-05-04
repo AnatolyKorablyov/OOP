@@ -21,15 +21,15 @@ ColorInfo ParseColor(std::string & colorStr)
 	return color;
 }
 
-bool AddPoint(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView)
+bool AddPoint(std::stringstream & params, CModel & model)
 {
 	float args[2];
 	params >> args[0] >> args[1];
-	vectorShapes.push_back(std::make_shared<CPoint>(args[0], args[1]));
+	model.m_vectorShapes.push_back(std::make_shared<CPoint>(args[0], args[1]));
 	return true;
 }
 
-bool AddLine(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView)
+bool AddLine(std::stringstream & params, CModel & model)
 {
 	sf::Vector2f args[2];
 	params >> args[0].x >> args[0].y;
@@ -40,12 +40,12 @@ bool AddLine(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & 
 	std::string colorStr;
 	params >> colorStr;
 	ColorInfo colorLine = ParseColor(colorStr);
-	vectorShapes.push_back(std::make_shared<CLineSegment>(startDot, endDot, colorLine));
-	vectorShapesView.push_back(std::make_shared<CLineView>(CLineSegment(startDot, endDot, colorLine)));
+	model.m_vectorShapes.push_back(std::make_shared<CLineSegment>(startDot, endDot, colorLine));
+	model.m_vectorShapesView.push_back(std::make_shared<CLineView>(CLineSegment(startDot, endDot, colorLine)));
 	return true;
 }
 
-bool AddCircle(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView)
+bool AddCircle(std::stringstream & params, CModel & model)
 {
 	sf::Vector2f posCenter;
 	params >> posCenter.x >> posCenter.y;
@@ -60,13 +60,13 @@ bool AddCircle(std::stringstream & params, std::vector<std::shared_ptr<IShape>> 
 	params >> colorStrFill;
 	ColorInfo colorFill = ParseColor(colorStrFill);
 
-	vectorShapes.push_back(std::make_shared<CCircle>(pointCenter, radius, colorLine, colorFill));
-	vectorShapesView.push_back(std::make_shared<CCircleView>(CCircle(pointCenter, radius, colorLine, colorFill)));
+	model.m_vectorShapes.push_back(std::make_shared<CCircle>(pointCenter, radius, colorLine, colorFill));
+	model.m_vectorShapesView.push_back(std::make_shared<CCircleView>(CCircle(pointCenter, radius, colorLine, colorFill)));
 	return true;
 }
 
 
-bool AddTriangle(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView)
+bool AddTriangle(std::stringstream & params, CModel & model)
 {
 	sf::Vector2f posFirstVertex;
 	params >> posFirstVertex.x >> posFirstVertex.y;
@@ -87,13 +87,13 @@ bool AddTriangle(std::stringstream & params, std::vector<std::shared_ptr<IShape>
 	params >> colorStrFill;
 	ColorInfo colorFill = ParseColor(colorStrFill);
 
-	vectorShapes.push_back(std::make_shared<CTriangle>(firstDot, secondDot, thirdDot, colorLine, colorFill));
-	vectorShapesView.push_back(std::make_shared<CTriangleView>(CTriangle(firstDot, secondDot, thirdDot, colorLine, colorFill)));
+	model.m_vectorShapes.push_back(std::make_shared<CTriangle>(firstDot, secondDot, thirdDot, colorLine, colorFill));
+	model.m_vectorShapesView.push_back(std::make_shared<CTriangleView>(CTriangle(firstDot, secondDot, thirdDot, colorLine, colorFill)));
 
 	return true;
 }
 
-bool AddRectangle(std::stringstream & params, std::vector<std::shared_ptr<IShape>> & vectorShapes, VectorShapesView & vectorShapesView)
+bool AddRectangle(std::stringstream & params, CModel & model)
 {
 	sf::Vector2f posTopLeftPoint;
 	params >> posTopLeftPoint.x >> posTopLeftPoint.y;
@@ -110,14 +110,14 @@ bool AddRectangle(std::stringstream & params, std::vector<std::shared_ptr<IShape
 	params >> colorStrFill;
 	ColorInfo colorFill = ParseColor(colorStrFill);
 
-	vectorShapes.push_back(std::make_shared<CRectangle>(dotTopLeft, width, height, colorLine, colorFill));
-	vectorShapesView.push_back(std::make_shared<CRectangleView>(CRectangle(dotTopLeft, width, height, colorLine, colorFill)));
+	model.m_vectorShapes.push_back(std::make_shared<CRectangle>(dotTopLeft, width, height, colorLine, colorFill));
+	model.m_vectorShapesView.push_back(std::make_shared<CRectangleView>(CRectangle(dotTopLeft, width, height, colorLine, colorFill)));
 
 	return true;
 }
 
 // extract funks from this
-bool HandleCommand(std::string & commandStr, VectorShapes & vectorShapes, VectorShapesView & vectorShapesView)
+bool HandleCommand(std::string & commandStr, CModel	& model)
 {
 	commandStr.erase(std::remove_if(commandStr.begin(), commandStr.end(), ispunct), commandStr.end());
 	std::stringstream ss(commandStr);
@@ -126,23 +126,23 @@ bool HandleCommand(std::string & commandStr, VectorShapes & vectorShapes, Vector
 
 	if (shapeName == "point")
 	{
-		AddPoint(ss, vectorShapes, vectorShapesView);
+		AddPoint(ss, model);
 	}
 	else if (shapeName == "line")
 	{
-		AddLine(ss, vectorShapes, vectorShapesView);
+		AddLine(ss, model);
 	}
 	else if (shapeName == "circle")
 	{
-		AddCircle(ss, vectorShapes, vectorShapesView);
+		AddCircle(ss, model);
 	}
 	else if (shapeName == "triangle")
 	{
-		AddTriangle(ss, vectorShapes, vectorShapesView);
+		AddTriangle(ss, model);
 	}
 	else if (shapeName == "rectangle")
 	{
-		AddRectangle(ss, vectorShapes, vectorShapesView);
+		AddRectangle(ss, model);
 	}
 	else
 	{

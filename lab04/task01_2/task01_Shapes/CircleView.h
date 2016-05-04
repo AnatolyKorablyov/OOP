@@ -3,7 +3,7 @@
 #include "ShapesView.h"
 
 
-class CCircleView : public CShapesView
+class CCircleView : public IShapeView
 {
 public:
 	CCircleView(const CCircle & circleModel);

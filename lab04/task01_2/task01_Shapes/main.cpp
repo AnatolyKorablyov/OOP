@@ -27,7 +27,7 @@ void printBySort(std::vector<std::shared_ptr<IShape>> & vectorShapes, const std:
 }
 
 
-void DrawShapes(const std::vector<std::shared_ptr<CShapesView>> & vectorShapesView)
+void DrawShapes(const std::vector<std::shared_ptr<IShapeView>> & vectorShapesView)
 {
 	sf::RenderWindow window(sf::VideoMode(600, 400), "ShapesView");
 
@@ -52,19 +52,17 @@ bool ReadFromFile(const std::string & inputFileName, const std::string & outFile
 	std::ifstream inputFile(inputFileName);
 
 	std::string string;
-	std::vector<std::shared_ptr<IShape>> vectorShapes;
-	std::vector<std::shared_ptr<CShapesView>> vectorShapesView;
-
+	CModel m_model;
 	while (std::getline(inputFile, string))
 	{
-		if (!HandleCommand(string, vectorShapes, vectorShapesView))
+		if (!HandleCommand(string, m_model))
 		{
 			std::cout << "Unknown command: " << string << std::endl;
 			return false;
 		}
 	}
-	DrawShapes(vectorShapesView);
-	printBySort(vectorShapes, outFileName);
+	DrawShapes(m_model.m_vectorShapesView);
+	printBySort(m_model.m_vectorShapes, outFileName);
 	return true;
 }
 
