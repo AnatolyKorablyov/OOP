@@ -33,6 +33,9 @@ public:
 	// Возвращает отношение числителя и знаменателя в виде числа double
 	double ToDouble() const;
 
+	// Возвращает представление рационального числа в виде смешанной дроби
+	std::pair<int, CRational> ToCompoundFraction()const;
+
 	CRational const operator-() const;
 	CRational const operator+() const;
 
@@ -80,8 +83,8 @@ bool const operator <=(const CRational & firstNumber, const CRational & secNumbe
 bool const operator >(const CRational & firstNumber, const CRational & secNumber);
 bool const operator >=(const CRational & firstNumber, const CRational & secNumber);
 
-// task 12 ostream
+// task 13 ostream
 std::ostream & operator <<(std::ostream & strm, const CRational & rational);
 
-// task 13 istream
+// task 14 istream
 std::istream & operator >> (std::istream & strm, CRational & rational);

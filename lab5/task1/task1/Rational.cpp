@@ -62,6 +62,14 @@ unsigned GCD(unsigned a, unsigned b)
 	return (a != 0) ? a : 1;
 }
 
+std::pair<int, CRational> CRational::ToCompoundFraction() const
+{
+	int wholeNumber = m_numerator / m_denominator;
+	int numerator = m_numerator - (wholeNumber * m_denominator);
+
+	return std::pair<int, CRational>(wholeNumber, CRational(numerator, m_denominator));
+}
+
 // task 1 unary + and -
 CRational const CRational::operator -()const
 {
@@ -171,19 +179,19 @@ bool const operator >=(const CRational & firstNumber, const CRational & secNumbe
 }
 
 
-// task 12 output
+// task 13 output
 std::ostream & operator <<(std::ostream & strm, const CRational & rational)
 {
 	strm << rational.GetNumerator() << '/' << rational.GetDenominator();
 	return strm;
 }
 
-// task 13 input
+// task 14 input
 std::istream & operator >> (std::istream & strm, CRational & rational)
 {
 	std::streamoff startPos = strm.tellg();
-	int numerator;
-	int denominator;
+	int numerator = 0;
+	int denominator = 0;
 	if ((strm >> numerator) && (strm.get() == '/') && (strm >> denominator))
 	{
 		rational = CRational(numerator, denominator);

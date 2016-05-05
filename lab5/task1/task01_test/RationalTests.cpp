@@ -620,4 +620,36 @@ struct istreamOperatorFixture
 	}
 	BOOST_AUTO_TEST_SUITE_END()
 
+
+
+	// Bonus
+
+	BOOST_AUTO_TEST_SUITE(compound_fraction)
+
+		BOOST_AUTO_TEST_CASE(toCompoundFraction_with_fourth_fifth)
+	{
+		BOOST_CHECK_EQUAL(CRational(4, 5).ToCompoundFraction().first, 0);
+		BOOST_CHECK_EQUAL(CRational(4, 5).ToCompoundFraction().second, CRational(4, 5));
+	}
+	BOOST_AUTO_TEST_CASE(toCompoundFraction_with_seven_fifth)
+	{
+		BOOST_CHECK_EQUAL(CRational(7, 5).ToCompoundFraction().first, 1);
+		BOOST_CHECK_EQUAL(CRational(7, 5).ToCompoundFraction().second, CRational(2, 5));
+	}
+	BOOST_AUTO_TEST_CASE(toCompoundFraction_with_fifth_fifth)
+	{
+		BOOST_CHECK_EQUAL(CRational(5, 5).ToCompoundFraction().first, 1);
+		BOOST_CHECK_EQUAL(CRational(5, 5).ToCompoundFraction().second, CRational(0, 1));
+	}
+	BOOST_AUTO_TEST_CASE(toCompoundFraction_with_negative_fifth_fifth)
+	{
+		BOOST_CHECK_EQUAL(CRational(-5, 5).ToCompoundFraction().first, -1);
+		BOOST_CHECK_EQUAL(CRational(-5, 5).ToCompoundFraction().second, CRational(0, 1));
+	}
+	BOOST_AUTO_TEST_CASE(toCompoundFraction_with_negative_seven_eigth)
+	{
+		BOOST_CHECK_EQUAL(CRational(-7, 8).ToCompoundFraction().first, 0);
+		BOOST_CHECK_EQUAL(CRational(-7, 8).ToCompoundFraction().second, CRational(-7, 8));
+	}
+	BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
