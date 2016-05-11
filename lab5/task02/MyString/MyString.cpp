@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MyString.h"
 
+//TODO: char empty = '\0';
+
 CMyString::CMyString()
 	: m_string(new char[1])
 {
@@ -110,8 +112,10 @@ const char & CMyString::operator[](size_t index) const
 
 CMyString operator+(CMyString const & str1, CMyString const & str2)
 {
-	char * localStr;
-	localStr = new char[str1.GetLength() + str2.GetLength() + 1];
+	//TODO: extract impl
+	char * localStr = new char[str1.GetLength() + str2.GetLength() + 1];
+
+	//TODO: std::copy
 	for (size_t i = 0; i < str1.GetLength(); i++)
 	{
 		localStr[i] = str1[i];
@@ -126,8 +130,8 @@ CMyString operator+(CMyString const & str1, CMyString const & str2)
 
 CMyString operator+(std::string const & str1, CMyString const & str2)
 {
-	char * localStr;
-	localStr = new char[str1.length() + str2.GetLength() + 2];
+	//TODO: extract impl
+	char * localStr = new char[str1.length() + str2.GetLength() + 2];
 	for (size_t i = 0; i < str1.length(); ++i)
 	{
 		localStr[i] = str1[i];
@@ -152,10 +156,13 @@ bool operator==(const CMyString & str1, const CMyString & str2)
 
 bool operator!=(const CMyString & str1, const CMyString & str2)
 {
+	// TODO: impl operator< operator> operator!=
 	if (str1.GetLength() == str2.GetLength())
 	{
 		return false;
 	}
+
+	//TODO: fmaxl -> std::max
 	return (memcmp(str1.GetStringData()
 		, str2.GetStringData()
 		, static_cast<size_t>(fmaxl(str1.GetLength(), str2.GetLength()))));

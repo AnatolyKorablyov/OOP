@@ -48,7 +48,12 @@ public:
 	CMyString & operator +=(const CMyString & str);
 	const char & operator[](size_t index) const;
 private:
+
+	//TODO: CMyString(...) // impl
+
 	size_t m_length = 0;
+
+	//TODO: unique_ptr
 	char* m_string;
 };
 
