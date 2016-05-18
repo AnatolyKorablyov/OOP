@@ -53,6 +53,9 @@ BOOST_AUTO_TEST_SUITE(url_parser)
 			BOOST_CHECK_EQUAL(url.GetDocument(), "/post/64226/");
 			BOOST_CHECK_EQUAL(url.GetURL(), "https://habrahabr.ru:443/post/64226/");
 		}
+		// TODO: http://yandex.ru and GetDocument() return "/", GetURL() prints with "/"
+		// TODO: http://yandex.ru:999999999
+		// TODO: http://localhost:/index.php
 		BOOST_AUTO_TEST_SUITE_END()
 
 	BOOST_AUTO_TEST_SUITE(url_parse_with_arguments)
@@ -66,10 +69,12 @@ BOOST_AUTO_TEST_SUITE(url_parser)
 		}
 		BOOST_AUTO_TEST_CASE(throw_with_yandex_document_and_space)
 		{
+			// TODO: throws invalid_argument.
 			BOOST_REQUIRE_THROW(CHttpUrl url("yandex.ru", "/po goda", Protocol::HTTP, 78), CUrlParsingError);
 		}
 		BOOST_AUTO_TEST_CASE(throw_with_yandex_empty_domain)
 		{
+			// TODO: throws invalid_argument.
 			BOOST_REQUIRE_THROW(CHttpUrl url("", "/pogoda", Protocol::HTTP, 78), CUrlParsingError);
 		}
 		BOOST_AUTO_TEST_CASE(no_throw_with_yandex_empty_document)

@@ -30,6 +30,7 @@ CHttpUrl::CHttpUrl(std::string const & domain, std::string const & document, Pro
 
 std::string CHttpUrl::GetURL() const
 {
+	// TODO: add test case for printing URL "http://localhost/index.php"
 	return (ProtocolToString() + "://" + m_domain + ':' + std::to_string(m_port) + m_document);
 }
 
@@ -59,8 +60,7 @@ void CHttpUrl::SetDomain(const std::string & domain)
 	{
 		throw CUrlParsingError("empty_domain");
 	}
-	else if (find_if(domain.begin(), domain.end(), [&](char ch)
-	{return (isspace(ch) || (ch == '/') || (ch == '\'')); })
+	if (find_if(domain.begin(), domain.end(), [](char ch) {return (isspace(ch) || (ch == '/') || (ch == '\'')); })
 		!= domain.end())
 	{
 		throw CUrlParsingError("contains spaces, tab characters in the domain name");
@@ -74,9 +74,7 @@ void CHttpUrl::SetDocument(const std::string & document)
 	{
 		m_document = '/' + document;
 	}
-	else if (find_if(document.begin(), document.end(), [&](char ch)
-	{return (isspace(ch)); })
-		!= document.end())
+	else if (find_if(document.begin(), document.end(), isspace) != document.end())
 	{
 		throw CUrlParsingError("contains spaces, tab characters in the document name");
 	}
@@ -104,9 +102,10 @@ void CHttpUrl::SetProtocol(const std::string & protocol)
 
 void CHttpUrl::SetPort(const std::string & port)
 {
+	// TODO: make better check
 	if (isdigit(*port.c_str()))
 	{
-		m_port = std::atoi(port.c_str());
+		m_port = (unsigned short)(std::atoi(port.c_str()));
 	}
 	else if (port == "")
 	{
@@ -135,4 +134,5 @@ std::string CHttpUrl::ProtocolToString() const
 	case Protocol::HTTPS:
 		return "https";
 	};
+	return std::string();
 }
