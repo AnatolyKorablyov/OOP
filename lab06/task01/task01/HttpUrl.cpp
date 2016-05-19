@@ -31,7 +31,7 @@ CHttpUrl::CHttpUrl(std::string const & domain, std::string const & document, Pro
 std::string CHttpUrl::GetURL() const
 {
 	// TODO: add test case for printing URL "http://localhost/index.php"
-	return (ProtocolToString() + "://" + m_domain + ':' + std::to_string(m_port) + m_document);
+	return (ProtocolToString() + "://" + m_domain + m_document);
 }
 
 std::string CHttpUrl::GetDomain() const
@@ -102,12 +102,7 @@ void CHttpUrl::SetProtocol(const std::string & protocol)
 
 void CHttpUrl::SetPort(const std::string & port)
 {
-	// TODO: make better check
-	if (isdigit(*port.c_str()))
-	{
-		m_port = (unsigned short)(std::atoi(port.c_str()));
-	}
-	else if (port == "")
+	if (port == "")
 	{
 		switch (m_protocol)
 		{
@@ -118,6 +113,10 @@ void CHttpUrl::SetPort(const std::string & port)
 			m_port = 443;
 			break;
 		}
+	}
+	else if (port < "65535")
+	{
+		m_port = (unsigned short)(std::stoi(port.c_str()));
 	}
 	else
 	{

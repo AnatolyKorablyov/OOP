@@ -51,11 +51,30 @@ BOOST_AUTO_TEST_SUITE(url_parser)
 			BOOST_CHECK_EQUAL(url.GetDomain(), "habrahabr.ru");
 			BOOST_CHECK_EQUAL(url.GetPort(), 443);
 			BOOST_CHECK_EQUAL(url.GetDocument(), "/post/64226/");
-			BOOST_CHECK_EQUAL(url.GetURL(), "https://habrahabr.ru:443/post/64226/");
+			BOOST_CHECK_EQUAL(url.GetURL(), "https://habrahabr.ru/post/64226/");
 		}
+		
 		// TODO: http://yandex.ru and GetDocument() return "/", GetURL() prints with "/"
 		// TODO: http://yandex.ru:999999999
 		// TODO: http://localhost:/index.php
+
+		BOOST_AUTO_TEST_CASE(output_yandex_with_add_slash)
+		{
+			CHttpUrl url("http://yandex.ru");
+			BOOST_CHECK_EQUAL(url.GetProtocol(), Protocol::HTTP);
+			BOOST_CHECK_EQUAL(url.GetDomain(), "yandex.ru");
+			BOOST_CHECK_EQUAL(url.GetPort(), 80);
+			BOOST_CHECK_EQUAL(url.GetDocument(), "/");
+			BOOST_CHECK_EQUAL(url.GetURL(), "http://yandex.ru/");
+		}
+		BOOST_AUTO_TEST_CASE(throw_max_size_port)
+		{
+			BOOST_REQUIRE_THROW(CHttpUrl url("http://yandex.ru:99999999"), CUrlParsingError);
+		}
+		BOOST_AUTO_TEST_CASE(throw_empty_port)
+		{
+			BOOST_REQUIRE_THROW(CHttpUrl url("http://localhost:/index.php"), CUrlParsingError);
+		}
 		BOOST_AUTO_TEST_SUITE_END()
 
 	BOOST_AUTO_TEST_SUITE(url_parse_with_arguments)
@@ -88,7 +107,7 @@ BOOST_AUTO_TEST_SUITE(url_parser)
 			BOOST_CHECK_EQUAL(url.GetDomain(), "habrahabr.ru");
 			BOOST_CHECK_EQUAL(url.GetPort(), 80);
 			BOOST_CHECK_EQUAL(url.GetDocument(), "/post/252533/");
-			BOOST_CHECK_EQUAL(url.GetURL(), "https://habrahabr.ru:80/post/252533/");
+			BOOST_CHECK_EQUAL(url.GetURL(), "https://habrahabr.ru/post/252533/");
 		}
 	BOOST_AUTO_TEST_SUITE_END()
 BOOST_AUTO_TEST_SUITE_END()
