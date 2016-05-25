@@ -35,6 +35,18 @@ BOOST_FIXTURE_TEST_SUITE(Find_max_in_numbers, NumbersStructure)
 		}));
 		BOOST_CHECK_EQUAL(maxNumber, -3);
 	}
+
+	BOOST_AUTO_TEST_CASE(first_element_is_max_number)
+	{
+		numbers.push_back(10);
+		numbers.push_back(5);
+		numbers.push_back(8);
+		BOOST_CHECK(FindMax(numbers, maxNumber, [](int left, int right)
+		{
+			return left < right;
+		}));
+		BOOST_CHECK_EQUAL(maxNumber, 10);
+	}
 	BOOST_AUTO_TEST_CASE(find_max_in_negative_and_zero_vector_number)
 	{
 		numbers.push_back(-3);
@@ -67,7 +79,7 @@ BOOST_AUTO_TEST_CASE(can_not_find_max_with_empty_vector_string)
 		return false;
 	}));
 }
-BOOST_AUTO_TEST_CASE(_with_one_element)
+BOOST_AUTO_TEST_CASE(with_one_element_string)
 {
 	strings.push_back("Vasya");
 	BOOST_CHECK(FindMax(strings, maxString, [](std::string left, std::string right)
@@ -80,7 +92,7 @@ BOOST_AUTO_TEST_CASE(_with_one_element)
 	}));
 	BOOST_CHECK_EQUAL(maxString, "Vasya");
 }
-BOOST_AUTO_TEST_CASE(throw_with_negative_element)
+BOOST_AUTO_TEST_CASE(compare_3_string)
 {
 	strings.push_back("Sasha");
 	strings.push_back("Masha");

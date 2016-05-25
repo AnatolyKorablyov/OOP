@@ -33,7 +33,7 @@ std::vector<CAthlete> InputAthletesData()
 		strm >> growth;
 		CAthlete athlete(firstName, secondName, weight, growth);
 		athletesVector.push_back(athlete);
-		std::cin >> parameters;
+		std::getline(std::cin, parameters);
 	}
 	return athletesVector;
 }
@@ -59,9 +59,9 @@ CAthlete FindMaxGrowthAthlete(const std::vector<CAthlete> & athletesVector)
 int main()
 {
 	std::vector<CAthlete> athletesVector = InputAthletesData();
-	std::cout << "Weight: " << std::endl;
+	std::cout << "max weight: " << std::endl;
 	FindMaxWeightAthlete(athletesVector).PrintInfo();
-	std::cout << std::endl << "Growth " << std::endl;
-	//FindMaxGrowthAthlete(athletesVector).PrintInfo();
+	std::cout << std::endl << "max growth: " << std::endl;
+	FindMaxGrowthAthlete(athletesVector).PrintInfo();
 	return 0;
 }

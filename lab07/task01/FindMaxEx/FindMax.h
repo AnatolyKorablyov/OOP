@@ -8,14 +8,14 @@ bool FindMax(std::vector<T>const & arr, T & maxValue, Less const & less)
 	{
 		return false;
 	}
-	maxValue = arr.front();
-	for (auto i = 1u; i < arr.size(); ++i)
+	T localMaxNumber = arr.front();
+	for (auto i: arr)
 	{
-		if (less(maxValue, arr[i]))
+		if (less(localMaxNumber, i))
 		{
-			maxValue = arr[i];
+			localMaxNumber = i;
 		}
 	}
-
+	maxValue = localMaxNumber;
 	return true;
 }
